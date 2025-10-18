@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve": "pnpm prisma generate && pnpm tsc -w & nodemon dist/server.js",
     "preserve": "pnpm build",
-    "start": "tsx watch src/index.ts",
+    "start-dev": "tsx watch src/index.ts",
+    "start": "node server",
     "build": "rimraf dist && pnpm exec tsc",
     "prestart": "pnpm build"
   },
