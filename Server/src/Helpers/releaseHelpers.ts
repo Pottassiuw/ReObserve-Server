@@ -2,7 +2,7 @@ import { NotaFiscal } from "../generated/prisma";
 import prisma from "../Database/prisma/prisma";
 
 export const criarNotaFiscal = async (
-  nota: Partial<NotaFiscal> & { empresaId: number }
+  nota: Partial<NotaFiscal> & { empresaId: number },
 ): Promise<NotaFiscal | null> => {
   try {
     const notaFiscal = await prisma.notaFiscal.create({

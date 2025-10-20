@@ -19,10 +19,10 @@ router.delete("/enterprises/groups/:groupId", deletarGrupoEmpresa);
 router.delete(
   "/enterprises/groups",
 
-  deletarTodosGruposEmpresa
+  deletarTodosGruposEmpresa,
 );
 router.delete(
   "/enterprises/users/:userId/groups/:groupId",
-  removerUsuarioGrupo
+  removerUsuarioGrupo,
 );
 export default router;

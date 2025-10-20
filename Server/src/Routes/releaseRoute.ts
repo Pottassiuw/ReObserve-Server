@@ -11,26 +11,26 @@ import { Permissoes } from "../generated/prisma";
 const router = Router();
 router.use(authSession);
 router.post(
-  "/enterprise/:empresaId/user/:usuarioId",
+  "/enterprise/user/",
   requirePermissions(Permissoes.lancamento),
-  criarLancamento
+  criarLancamento,
 );
 
 router.get(
   "/enterprise/:empresaId/releases/:id",
   requirePermissions(Permissoes.verLancamentos),
-  verLancamento
+  verLancamento,
 );
 
 router.get(
   "/enterprise/:empresaId/releases",
   requirePermissions(Permissoes.verLancamentos),
-  verTodosLancamentos
+  verTodosLancamentos,
 );
 
 router.delete(
   "/enterprise/:empresaId/release/:id",
   requirePermissions(Permissoes.deletarLancamentos),
-  deletarLancamento
+  deletarLancamento,
 );
 export default router;
