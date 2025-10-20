@@ -2,6 +2,7 @@ import { Router } from "express";
 import { criarEmpresa } from "../Controllers/auth/Enterprise";
 import {
   deletarTodosUsuariosEmpresa,
+  retornarUsuariosEmpresa,
   retornarEmpresas,
   retornarEmpresasId,
   deletarUsuario,
@@ -18,6 +19,7 @@ router.post("/auth/login", loginEmpresa);
 router.post("/auth/logout", authSession, logoutEmpresa);
 router.get("/", authSession, retornarEmpresas);
 router.get("/:id", authSession, retornarEmpresasId);
+router.get("/:empresaId/users", authSession, retornarUsuariosEmpresa);
 //Deletar todos os usuários da empresa
 router.delete("/:id/users/delete/", authSession, deletarTodosUsuariosEmpresa);
 //Deltar usuário específico da empresa

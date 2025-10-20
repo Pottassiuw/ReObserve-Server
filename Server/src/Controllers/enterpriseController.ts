@@ -3,7 +3,7 @@ import prisma from "../Database/prisma/prisma";
 
 export const retornarEmpresas = async (
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<Response | void> => {
   try {
     const enterprise = await prisma.empresa.findMany();
@@ -35,7 +35,7 @@ export const retornarEmpresas = async (
 
 export const retornarEmpresasId = async (
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<Response | void> => {
   try {
     console.log("=== DEBUG GET BY ID ===");
@@ -70,7 +70,7 @@ export const retornarEmpresasId = async (
 
     console.log(
       "Resultado da query:",
-      empresa ? "encontrada" : "não encontrada"
+      empresa ? "encontrada" : "não encontrada",
     );
 
     if (!empresa) {
@@ -98,10 +98,51 @@ export const retornarEmpresasId = async (
     });
   }
 };
-
+export const retornarUsuariosEmpresa = async (req: Request, res: Response) => {
+  try {
+    const empresaId = parseInt(req.params.empresaId);
+    console.log("=== DEBUG GET BY ID ===");
+    console.log("EmpresaId:", empresaId);
+    if (!empresaId) {
+      return res.status(400).json({
+        error: "ID da empresa não fornecido",
+        success: false,
+      });
+    }
+    const user = await prisma.usuario.findMany({
+      where: {
+        empresaId: empresaId,
+      },
+      include: {
+        grupo: true,
+        empresa: true,
+      },
+    });
+    if (!user) {
+      res.status(401).json({
+        error: "Usuário não existe",
+        success: false,
+        code: "NO_USERS",
+      });
+    }
+    return res.status(200).json({
+      message: "Usuários encontrados!",
+      success: true,
+      code: "ALL_USERS",
+      users: user,
+    });
+  } catch (error: any) {
+    console.error("Erro ao buscar lançamento:", error);
+    return res.status(500).json({
+      success: false,
+      error: "INTERNAL_ERROR",
+      message: error.message,
+    });
+  }
+};
 export const deletarTodosUsuariosEmpresa = async (
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<Response | void> => {
   try {
     const idParam = req.params.id;
@@ -149,7 +190,7 @@ export const deletarTodosUsuariosEmpresa = async (
 
 export const deletarUsuario = async (
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<Response | void> => {
   try {
     const idParam = req.params.id;
@@ -208,7 +249,7 @@ export const deletarUsuario = async (
 };
 export const deletarEmpresa = async (
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<Response | void> => {
   try {
     const idParam = req.params.id;
@@ -263,7 +304,7 @@ export const deletarEmpresa = async (
 
 export const deletarTodasEmpresas = async (
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<Response | void> => {
   try {
     const empresas = await prisma.empresa.findMany();
@@ -278,7 +319,7 @@ export const deletarTodasEmpresas = async (
 
     return res.status(200).json({
       success: false,
-      message: `${empresas.length} Empresas foram deletadas 🔥`
+      message: `${empresas.length} Empresas foram deletadas 🔥`,
     });
   } catch (error: any) {
     console.error("Tipo do erro:", error.constructor.name);
