@@ -85,8 +85,33 @@ export const criarLancamento = async (req: Request, res: Response) => {
 
 export const verTodosLancamentos = async (req: Request, res: Response) => {
   try {
-    const empresaId = req.auth!.user!.empresaId;
+    const empresaId = req.auth!.enterprise?.id;
+    if (!empresaId) {
+      const userId = req.auth!.user!.id;
+      const lancamentos = await prisma.lancamento.findMany({
+        where: { empresaId: userId },
+        include: {
+          imagens: true,
+          notaFiscal: true,
+          usuarios: {
+            select: {
+              id: true,
+              nome: true,
+              email: true,
+            },
+          },
+        },
+        orderBy: {
+          dataCriacao: "desc",
+        },
+      });
 
+      return res.status(200).json({
+        success: true,
+        message: `${lancamentos.length} lançamentos encontrados`,
+        data: lancamentos,
+      });
+    }
     const lancamentos = await prisma.lancamento.findMany({
       where: { empresaId },
       include: {
@@ -104,7 +129,6 @@ export const verTodosLancamentos = async (req: Request, res: Response) => {
         dataCriacao: "desc",
       },
     });
-
     return res.status(200).json({
       success: true,
       message: `${lancamentos.length} lançamentos encontrados`,
