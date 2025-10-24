@@ -86,7 +86,7 @@ const loginUsuario = async (req: Request, res: Response) => {
         code: "INVALID_CREDENTIALS",
       });
     }
-    const isPasswordValid = await AuthService.VerifyHash(user.senha, senha);
+    const isPasswordValid = await AuthService.verifyHash(user.senha, senha);
     console.log(isPasswordValid);
     if (!isPasswordValid) {
       return res.status(401).json({
@@ -97,15 +97,11 @@ const loginUsuario = async (req: Request, res: Response) => {
     }
     // Gerar token
     const token = AuthService.generateToken("user", user.id);
-    res.cookie("auth-token", token, {
-      maxAge: 1000 * 60 * 60 * 24 * 7, // 7 Dias
-      sameSite: "strict", // Proteção CSRF
-    });
 
     return res.json({
       success: true,
       message: "Login realizado com sucesso!",
-      token_debug: token, // Útil para debug e flexibilidade
+      token: token, // Útil para debug e flexibilidade
       user: {
         id: user.id,
         email: user.email,

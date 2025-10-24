@@ -11,11 +11,8 @@ import {
 
 const criarEmpresa = async (req: Request, res: Response) => {
   try {
-    // Validação dos dados de entrada
     const validatedData: CriarEmpresaInput = criarEmpresaSchema.parse(req.body);
-    // Hash da senha
     const hashedPassword = await bcrypt.hash(validatedData.senha, 12);
-    // Criação da empresa
     const empresa = await prisma.empresa.create({
       data: {
         cnpj: validatedData.cnpj,
@@ -90,7 +87,7 @@ const loginEmpresa = async (req: Request, res: Response): Promise<Response> => {
         code: "INVALID_CREDENTIALS",
       });
     }
-    const isPasswordValid = await AuthService.VerifyHash(empresa.senha, senha);
+    const isPasswordValid = await AuthService.verifyHash(empresa.senha, senha);
     console.log(isPasswordValid);
     if (!isPasswordValid) {
       return res.status(401).json({
@@ -100,15 +97,11 @@ const loginEmpresa = async (req: Request, res: Response): Promise<Response> => {
       });
     }
     const token = AuthService.generateToken("enterprise", empresa.id);
-    res.cookie("auth-token", token, {
-      maxAge: 1000 * 60 * 60 * 24 * 7, // 7 Dias
-      sameSite: "strict",
-    });
 
     return res.json({
       success: true,
       message: "Login realizado com sucesso!",
-      token_debug: token, // Útil para debug e flexibilidade
+      token: token, // Útil para debug e flexibilidade
       empresa: {
         id: empresa.id,
         nome: empresa.nomeFantasia,

@@ -22,6 +22,7 @@ declare global {
 interface JWTPayload {
   type: "user" | "enterprise";
   id: number;
+  sub: string;
 }
 
 export const authSession = async (
@@ -30,9 +31,9 @@ export const authSession = async (
   next: NextFunction,
 ) => {
   try {
-    const token = req.cookies["auth-token"];
+    const authHeader = req.headers.authorization;
 
-    if (!token) {
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
       return res.status(401).json({
         error: "Token não fornecido",
         success: false,
@@ -40,11 +41,13 @@ export const authSession = async (
       });
     }
 
+    const token = authHeader.substring(7);
+
     let decoded: JWTPayload;
     try {
       decoded = jwt.verify(
         token,
-        process.env.JWT_SECRET || "your-secret-key",
+        process.env.SUPABASE_JWT_SECRET || process.env.JWT_SECRET || "",
       ) as JWTPayload;
     } catch (jwtError: any) {
       if (jwtError.name === "TokenExpiredError") {
@@ -64,14 +67,17 @@ export const authSession = async (
       throw jwtError;
     }
 
+    // Extrai o ID do campo 'sub' (como está no authservice.ts)
+    const userId = parseInt(decoded.sub, 10);
+
     req.auth = {
       type: decoded.type,
-      id: decoded.id,
+      id: userId,
     };
 
     if (decoded.type === "user") {
       const usuario = await prisma.usuario.findUnique({
-        where: { id: decoded.id },
+        where: { id: userId },
         include: {
           empresa: true,
           grupo: true,
@@ -91,7 +97,7 @@ export const authSession = async (
       req.auth.permissoes = usuario.grupo?.permissoes || [];
     } else if (decoded.type === "enterprise") {
       const empresa = await prisma.empresa.findUnique({
-        where: { id: decoded.id },
+        where: { id: userId },
         include: {
           usuarios: true,
           grupo: true,

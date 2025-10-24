@@ -11,7 +11,7 @@ import { Permissoes } from "../generated/prisma";
 const router = Router();
 router.use(authSession);
 router.post(
-  "/enterprise/user/",
+  "/enterprise/",
   requirePermissions(Permissoes.lancamento),
   criarLancamento,
 );

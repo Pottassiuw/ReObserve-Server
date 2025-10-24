@@ -10,8 +10,10 @@ export const criarLancamento = async (req: Request, res: Response) => {
       latitude,
       longitude,
       notaFiscal,
-      imageUrls,
+      imagensUrls,
       periodoId,
+      usuarioId,
+      empresaId: empresaIdBody,
     } = req.body;
 
     if (
@@ -19,7 +21,7 @@ export const criarLancamento = async (req: Request, res: Response) => {
       !latitude ||
       !longitude ||
       !notaFiscal ||
-      !imageUrls
+      !imagensUrls
     ) {
       return res.status(400).json({
         success: false,
@@ -28,7 +30,7 @@ export const criarLancamento = async (req: Request, res: Response) => {
       });
     }
 
-    if (!Array.isArray(imageUrls) || imageUrls.length === 0) {
+    if (!Array.isArray(imagensUrls) || imagensUrls.length === 0) {
       return res.status(400).json({
         success: false,
         error: "NO_IMAGES",
@@ -36,9 +38,34 @@ export const criarLancamento = async (req: Request, res: Response) => {
       });
     }
 
+    let empresaId: number;
+    let finalUsuarioId: number;
+
+    if (req.auth?.enterprise?.id) {
+      empresaId = req.auth.enterprise.id;
+      finalUsuarioId = usuarioId || req.auth.enterprise.id;
+    } else if (req.auth?.user) {
+      empresaId = req.auth.user.empresaId;
+      finalUsuarioId = req.auth.user.id;
+    } else {
+      return res.status(401).json({
+        success: false,
+        error: "UNAUTHORIZED",
+        message: "Usuário não autenticado",
+      });
+    }
+
+    if (!empresaId || isNaN(empresaId)) {
+      return res.status(400).json({
+        success: false,
+        error: "INVALID_EMPRESA_ID",
+        message: "ID da empresa inválido",
+      });
+    }
+
     const notaFiscalCriada = await criarNotaFiscal({
       ...notaFiscal,
-      empresaId: req.auth!.user!.empresaId,
+      empresaId,
     });
 
     if (!notaFiscalCriada) {
@@ -55,11 +82,11 @@ export const criarLancamento = async (req: Request, res: Response) => {
         latitude: parseFloat(latitude),
         longitude: parseFloat(longitude),
         notaFiscalId: notaFiscalCriada.id,
-        usuarioId: req.auth!.user!.id,
-        empresaId: req.auth!.user!.empresaId,
+        usuarioId: finalUsuarioId,
+        empresaId,
         periodoId: periodoId ? parseInt(periodoId) : null,
         imagens: {
-          create: imageUrls.map((url: string) => ({ url })),
+          create: imagensUrls.map((url: string) => ({ url })),
         },
       },
       include: {
@@ -82,36 +109,26 @@ export const criarLancamento = async (req: Request, res: Response) => {
     });
   }
 };
-
 export const verTodosLancamentos = async (req: Request, res: Response) => {
   try {
-    const empresaId = req.auth!.enterprise?.id;
-    if (!empresaId) {
-      const userId = req.auth!.user!.id;
-      const lancamentos = await prisma.lancamento.findMany({
-        where: { empresaId: userId },
-        include: {
-          imagens: true,
-          notaFiscal: true,
-          usuarios: {
-            select: {
-              id: true,
-              nome: true,
-              email: true,
-            },
-          },
-        },
-        orderBy: {
-          dataCriacao: "desc",
-        },
-      });
+    let empresaId: number | undefined;
 
-      return res.status(200).json({
-        success: true,
-        message: `${lancamentos.length} lançamentos encontrados`,
-        data: lancamentos,
+    if (req.auth?.enterprise?.id) {
+      empresaId = req.auth.enterprise.id;
+    } else if (req.auth?.user?.empresaId) {
+      empresaId = req.auth.user.empresaId;
+    } else if (req.params.empresaId) {
+      empresaId = parseInt(req.params.empresaId);
+    }
+
+    if (!empresaId || isNaN(empresaId)) {
+      return res.status(400).json({
+        success: false,
+        error: "BAD_REQUEST",
+        message: "ID da empresa não fornecido ou inválido",
       });
     }
+
     const lancamentos = await prisma.lancamento.findMany({
       where: { empresaId },
       include: {
@@ -129,6 +146,7 @@ export const verTodosLancamentos = async (req: Request, res: Response) => {
         dataCriacao: "desc",
       },
     });
+
     return res.status(200).json({
       success: true,
       message: `${lancamentos.length} lançamentos encontrados`,
