@@ -5,7 +5,7 @@ import groupRoutes from "./Routes/groupRoutes";
 import releaseRoutes from "./Routes/releaseRoute";
 import cors from "cors";
 import adminRoutes from "./Routes/adminRoutes";
-
+import periodRoutes from "./Routes/periodRoutes";
 const app = express();
 const corsOptions = {
   origin: process.env.FRONTEND_URL,
@@ -19,7 +19,7 @@ app.use("/users", userAuth);
 app.use("/enterprises", enterpriseRoute);
 app.use("/groups", groupRoutes);
 app.use("/releases", releaseRoutes);
-
+app.use("/periods", periodRoutes);
 //ROTAS DO ADMIN
 app.use("/admins", adminRoutes);
 export default app;

@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import prisma from "../Database/prisma/prisma";
 import { criarNotaFiscal } from "../Helpers/releaseHelpers";
 
-// Create lancamento with images
 export const criarLancamento = async (req: Request, res: Response) => {
   try {
     const {
@@ -161,7 +160,6 @@ export const verTodosLancamentos = async (req: Request, res: Response) => {
     });
   }
 };
-
 export const verLancamento = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
@@ -206,7 +204,6 @@ export const verLancamento = async (req: Request, res: Response) => {
     });
   }
 };
-
 export const deletarLancamento = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
@@ -216,6 +213,10 @@ export const deletarLancamento = async (req: Request, res: Response) => {
       where: {
         id: parseInt(id),
         empresaId: empresaId,
+      },
+      include: {
+        imagens: true,
+        notaFiscal: true,
       },
     });
 
@@ -227,10 +228,25 @@ export const deletarLancamento = async (req: Request, res: Response) => {
       });
     }
 
-    await prisma.lancamento.delete({
-      where: { id: parseInt(id) },
+    await prisma.$transaction(async (tx) => {
+      await tx.imagem.deleteMany({
+        where: {
+          lancamentoId: lancamento.id,
+        },
+      });
+      await tx.lancamento.delete({
+        where: {
+          id: lancamento.id,
+        },
+      });
+      if (lancamento.notaFiscalId) {
+        await tx.notaFiscal.delete({
+          where: {
+            id: lancamento.notaFiscalId,
+          },
+        });
+      }
     });
-
     return res.status(200).json({
       success: true,
       message: "Lançamento deletado com sucesso",

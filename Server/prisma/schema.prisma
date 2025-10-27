@@ -41,6 +41,7 @@ model Empresa {
   grupo       Grupo[]
   NotaFiscal  NotaFiscal[]
   Lancamentos Lancamento[]
+  Periodos    Periodo[] // Nova relação
 }
 
 enum Permissoes {
@@ -76,12 +77,9 @@ model Lancamento {
   usuarioId       Int
   empresaId       Int
 
-  /**
-   * Relações
-   */
   empresa    Empresa    @relation(fields: [empresaId], references: [id])
-  periodo    Periodo?   @relation(fields: [periodoId], references: [id])
-  notaFiscal NotaFiscal @relation(fields: [notaFiscalId], references: [id])
+  periodo    Periodo?   @relation(fields: [periodoId], references: [id], onDelete: SetNull)
+  notaFiscal NotaFiscal @relation(fields: [notaFiscalId], references: [id], onDelete: Cascade)
   imagens    Imagem[]
   usuarios   Usuario    @relation(fields: [usuarioId], references: [id])
 }
@@ -100,23 +98,29 @@ model NotaFiscal {
 }
 
 model Imagem {
-  id              Int        @id @default(autoincrement())
+  id              Int      @id @default(autoincrement())
   url             String
-  dataCriacao     DateTime   @default(now())
-  dataAtualizacao DateTime   @updatedAt
-  /**
-   * Relação de 1-n entre Lancamentos e Imagens
-   */
-  lancamento      Lancamento @relation(fields: [lancamentoId], references: [id])
-  lancamentoId    Int
+  dataCriacao     DateTime @default(now())
+  dataAtualizacao DateTime @updatedAt
+
+  lancamento   Lancamento @relation(fields: [lancamentoId], references: [id], onDelete: Cascade)
+  lancamentoId Int
 }
 
 model Periodo {
-  id         Int      @id @default(autoincrement())
-  dataInicio DateTime @default(now())
-  dataFim    DateTime
-  fechado    Boolean  @default(false)
-  valorTotal Float?
+  id              Int       @id @default(autoincrement())
+  dataInicio      DateTime  @default(now())
+  dataFim         DateTime
+  fechado         Boolean   @default(false)
+  valorTotal      Float?
+  observacoes     String?
+  dataFechamento  DateTime?
+  dataCriacao     DateTime  @default(now())
+  dataAtualizacao DateTime  @updatedAt
 
+  // Relação com empresa
+  empresa     Empresa      @relation(fields: [empresaId], references: [id])
+  empresaId   Int
+  // Lançamentos incluídos neste período
   lancamentos Lancamento[]
 }
