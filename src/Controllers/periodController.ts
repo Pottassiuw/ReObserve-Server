@@ -216,11 +216,13 @@ export const fecharPeriodo = async (req: Request, res: Response) => {
         message: "Nenhum lançamento encontrado",
       });
     }
-
     // Calcular valor total
-    const valorTotal = lancamentos.reduce((total, lanc) => {
-      return total + (lanc.notaFiscal?.valor || 0);
-    }, 0);
+    const valorTotal = lancamentos.reduce(
+      (total: number, lanc: (typeof lancamentos)[0]) => {
+        return total + (lanc.notaFiscal?.valor || 0);
+      },
+      0,
+    );
 
     // Atualizar período e associar lançamentos
     const periodoAtualizado = await prisma.periodo.update({

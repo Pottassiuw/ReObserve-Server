@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.removerUsuarioGrupo = exports.colocarUsuarioGrupo = exports.deletarTodosGruposEmpresa = exports.deletarGrupoEmpresa = exports.verGruposEmpresa = exports.CriarGrupo = void 0;
 const prisma_1 = __importDefault(require("../Database/prisma/prisma"));
-const prisma_2 = require("../generated/prisma");
+const client_1 = require("@prisma/client");
 const CriarGrupo = async (req, res) => {
     try {
         const enterpriseId = req.auth.enterprise.id;
@@ -24,7 +24,7 @@ const CriarGrupo = async (req, res) => {
                 message: "Permissões devem ser fornecidas como array",
             });
         }
-        const permissoesValidas = Object.values(prisma_2.Permissoes);
+        const permissoesValidas = Object.values(client_1.Permissoes);
         const permissoesInvalidas = permissoes.filter((p) => !permissoesValidas.includes(p));
         if (permissoesInvalidas.length > 0) {
             return res.status(400).json({

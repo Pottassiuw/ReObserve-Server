@@ -228,7 +228,7 @@ export const deletarLancamento = async (req: Request, res: Response) => {
       });
     }
 
-    await prisma.$transaction(async (tx) => {
+    await prisma.$transaction(async (tx: any) => {
       await tx.imagem.deleteMany({
         where: {
           lancamentoId: lancamento.id,

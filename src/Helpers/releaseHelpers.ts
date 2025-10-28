@@ -1,4 +1,4 @@
-import { NotaFiscal } from "../generated/prisma";
+import { NotaFiscal } from "@prisma/client";
 import prisma from "../Database/prisma/prisma";
 
 export const criarNotaFiscal = async (

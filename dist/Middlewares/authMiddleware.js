@@ -7,7 +7,7 @@ exports.requireSuperAdmin = exports.requirePermissions = exports.authSession = v
 // authMiddleware.ts
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const prisma_1 = __importDefault(require("../Database/prisma/prisma"));
-const prisma_2 = require("../generated/prisma");
+const client_1 = require("@prisma/client");
 const authSession = async (req, res, next) => {
     try {
         const authHeader = req.headers.authorization;
@@ -82,7 +82,7 @@ const authSession = async (req, res, next) => {
             }
             req.auth.enterprise = empresa;
             req.auth.isSuperAdmin = false;
-            req.auth.permissoes = Object.values(prisma_2.Permissoes);
+            req.auth.permissoes = Object.values(client_1.Permissoes);
         }
         next();
     }
@@ -107,7 +107,7 @@ const requirePermissions = (...permissoes) => {
             });
         }
         const userPermissoes = req.auth.permissoes || [];
-        if (userPermissoes.includes(prisma_2.Permissoes.admin)) {
+        if (userPermissoes.includes(client_1.Permissoes.admin)) {
             return next();
         }
         const hasAll = permissoes.every((p) => userPermissoes.includes(p));

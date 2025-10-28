@@ -6,7 +6,7 @@ import {
   verTodosLancamentos,
 } from "../Controllers/releaseController";
 import { authSession, requirePermissions } from "../Middlewares/authMiddleware";
-import { Permissoes } from "../generated/prisma";
+import { Permissoes } from "@prisma/client";
 
 const router = Router();
 router.use(authSession);

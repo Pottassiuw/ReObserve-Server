@@ -2,7 +2,7 @@
 import jwt from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
 import prisma from "../Database/prisma/prisma";
-import { Empresa, Permissoes, Usuario, Grupo } from "../generated/prisma";
+import { Empresa, Permissoes, Usuario, Grupo } from "@prisma/client";
 
 declare global {
   namespace Express {
