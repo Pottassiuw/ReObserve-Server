@@ -1,0 +1,126 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Usuario {
+  id          Int      @id @default(autoincrement())
+  email       String   @unique
+  senha       String
+  cpf         String   @unique
+  nome        String
+  admin       Boolean  @default(false)
+  dataCriacao DateTime @default(now())
+  empresa     Empresa  @relation(fields: [empresaId], references: [id])
+  empresaId   Int
+
+  grupo      Grupo?       @relation(fields: [grupoId], references: [id])
+  grupoId    Int?
+  lancamento Lancamento[]
+}
+
+model Empresa {
+  id                Int      @id @default(autoincrement())
+  cnpj              String   @unique
+  nomeFantasia      String?
+  senha             String
+  razaoSocial       String
+  endereco          String
+  situacaoCadastral String
+  naturezaJuridica  String
+  CNAES             String
+  dataCriacao       DateTime @default(now())
+
+  usuarios    Usuario[]
+  grupo       Grupo[]
+  NotaFiscal  NotaFiscal[]
+  Lancamentos Lancamento[]
+  Periodos    Periodo[] // Nova relação
+}
+
+enum Permissoes {
+  admin
+  lancamento
+  periodo
+  verLancamentos
+  editarLancamentos
+  verPeriodos
+  editarPeriodos
+  deletarLancamentos
+  deletarPeriodos
+}
+
+model Grupo {
+  id         Int          @id @default(autoincrement())
+  nome       String
+  permissoes Permissoes[]
+  usuarios   Usuario[]
+  empresas   Empresa      @relation(fields: [empresaId], references: [id])
+  empresaId  Int
+}
+
+model Lancamento {
+  id              Int      @id @default(autoincrement())
+  data_lancamento DateTime
+  latitude        Float
+  longitude       Float
+  dataCriacao     DateTime @default(now())
+  dataAtualizacao DateTime @updatedAt
+  periodoId       Int?
+  notaFiscalId    Int      @unique
+  usuarioId       Int
+  empresaId       Int
+
+  empresa    Empresa    @relation(fields: [empresaId], references: [id])
+  periodo    Periodo?   @relation(fields: [periodoId], references: [id], onDelete: SetNull)
+  notaFiscal NotaFiscal @relation(fields: [notaFiscalId], references: [id], onDelete: Cascade)
+  imagens    Imagem[]
+  usuarios   Usuario    @relation(fields: [usuarioId], references: [id])
+}
+
+model NotaFiscal {
+  id          Int      @id @default(autoincrement())
+  numero      String   @unique
+  valor       Float?
+  xmlPath     String?
+  dataEmissao DateTime
+  dataCriacao DateTime @default(now())
+
+  lancamento Lancamento?
+  empresa    Empresa     @relation(fields: [empresaId], references: [id])
+  empresaId  Int
+}
+
+model Imagem {
+  id              Int      @id @default(autoincrement())
+  url             String
+  dataCriacao     DateTime @default(now())
+  dataAtualizacao DateTime @updatedAt
+
+  lancamento   Lancamento @relation(fields: [lancamentoId], references: [id], onDelete: Cascade)
+  lancamentoId Int
+}
+
+model Periodo {
+  id              Int       @id @default(autoincrement())
+  dataInicio      DateTime  @default(now())
+  dataFim         DateTime
+  fechado         Boolean   @default(false)
+  valorTotal      Float?
+  observacoes     String?
+  dataFechamento  DateTime?
+  dataCriacao     DateTime  @default(now())
+  dataAtualizacao DateTime  @updatedAt
+
+  // Relação com empresa
+  empresa     Empresa      @relation(fields: [empresaId], references: [id])
+  empresaId   Int
+  // Lançamentos incluídos neste período
+  lancamentos Lancamento[]
+}

@@ -1,0 +1,14380 @@
+
+/**
+ * Client
+**/
+
+import * as runtime from './runtime/library.js';
+import $Types = runtime.Types // general types
+import $Public = runtime.Types.Public
+import $Utils = runtime.Types.Utils
+import $Extensions = runtime.Types.Extensions
+import $Result = runtime.Types.Result
+
+export type PrismaPromise<T> = $Public.PrismaPromise<T>
+
+
+/**
+ * Model Usuario
+ * 
+ */
+export type Usuario = $Result.DefaultSelection<Prisma.$UsuarioPayload>
+/**
+ * Model Empresa
+ * 
+ */
+export type Empresa = $Result.DefaultSelection<Prisma.$EmpresaPayload>
+/**
+ * Model Grupo
+ * 
+ */
+export type Grupo = $Result.DefaultSelection<Prisma.$GrupoPayload>
+/**
+ * Model Lancamento
+ * 
+ */
+export type Lancamento = $Result.DefaultSelection<Prisma.$LancamentoPayload>
+/**
+ * Model NotaFiscal
+ * 
+ */
+export type NotaFiscal = $Result.DefaultSelection<Prisma.$NotaFiscalPayload>
+/**
+ * Model Imagem
+ * 
+ */
+export type Imagem = $Result.DefaultSelection<Prisma.$ImagemPayload>
+/**
+ * Model Periodo
+ * 
+ */
+export type Periodo = $Result.DefaultSelection<Prisma.$PeriodoPayload>
+
+/**
+ * Enums
+ */
+export namespace $Enums {
+  export const Permissoes: {
+  admin: 'admin',
+  lancamento: 'lancamento',
+  periodo: 'periodo',
+  verLancamentos: 'verLancamentos',
+  editarLancamentos: 'editarLancamentos',
+  verPeriodos: 'verPeriodos',
+  editarPeriodos: 'editarPeriodos',
+  deletarLancamentos: 'deletarLancamentos',
+  deletarPeriodos: 'deletarPeriodos'
+};
+
+export type Permissoes = (typeof Permissoes)[keyof typeof Permissoes]
+
+}
+
+export type Permissoes = $Enums.Permissoes
+
+export const Permissoes: typeof $Enums.Permissoes
+
+/**
+ * ##  Prisma Client ʲˢ
+ *
+ * Type-safe database client for TypeScript & Node.js
+ * @example
+ * ```
+ * const prisma = new PrismaClient()
+ * // Fetch zero or more Usuarios
+ * const usuarios = await prisma.usuario.findMany()
+ * ```
+ *
+ *
+ * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client).
+ */
+export class PrismaClient<
+  ClientOptions extends Prisma.PrismaClientOptions = Prisma.PrismaClientOptions,
+  const U = 'log' extends keyof ClientOptions ? ClientOptions['log'] extends Array<Prisma.LogLevel | Prisma.LogDefinition> ? Prisma.GetEvents<ClientOptions['log']> : never : never,
+  ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs
+> {
+  [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['other'] }
+
+    /**
+   * ##  Prisma Client ʲˢ
+   *
+   * Type-safe database client for TypeScript & Node.js
+   * @example
+   * ```
+   * const prisma = new PrismaClient()
+   * // Fetch zero or more Usuarios
+   * const usuarios = await prisma.usuario.findMany()
+   * ```
+   *
+   *
+   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client).
+   */
+
+  constructor(optionsArg ?: Prisma.Subset<ClientOptions, Prisma.PrismaClientOptions>);
+  $on<V extends U>(eventType: V, callback: (event: V extends 'query' ? Prisma.QueryEvent : Prisma.LogEvent) => void): PrismaClient;
+
+  /**
+   * Connect with the database
+   */
+  $connect(): $Utils.JsPromise<void>;
+
+  /**
+   * Disconnect from the database
+   */
+  $disconnect(): $Utils.JsPromise<void>;
+
+/**
+   * Executes a prepared raw query and returns the number of affected rows.
+   * @example
+   * ```
+   * const result = await prisma.$executeRaw`UPDATE User SET cool = ${true} WHERE email = ${'user@email.com'};`
+   * ```
+   *
+   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
+   */
+  $executeRaw<T = unknown>(query: TemplateStringsArray | Prisma.Sql, ...values: any[]): Prisma.PrismaPromise<number>;
+
+  /**
+   * Executes a raw query and returns the number of affected rows.
+   * Susceptible to SQL injections, see documentation.
+   * @example
+   * ```
+   * const result = await prisma.$executeRawUnsafe('UPDATE User SET cool = $1 WHERE email = $2 ;', true, 'user@email.com')
+   * ```
+   *
+   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
+   */
+  $executeRawUnsafe<T = unknown>(query: string, ...values: any[]): Prisma.PrismaPromise<number>;
+
+  /**
+   * Performs a prepared raw query and returns the `SELECT` data.
+   * @example
+   * ```
+   * const result = await prisma.$queryRaw`SELECT * FROM User WHERE id = ${1} OR email = ${'user@email.com'};`
+   * ```
+   *
+   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
+   */
+  $queryRaw<T = unknown>(query: TemplateStringsArray | Prisma.Sql, ...values: any[]): Prisma.PrismaPromise<T>;
+
+  /**
+   * Performs a raw query and returns the `SELECT` data.
+   * Susceptible to SQL injections, see documentation.
+   * @example
+   * ```
+   * const result = await prisma.$queryRawUnsafe('SELECT * FROM User WHERE id = $1 OR email = $2;', 1, 'user@email.com')
+   * ```
+   *
+   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
+   */
+  $queryRawUnsafe<T = unknown>(query: string, ...values: any[]): Prisma.PrismaPromise<T>;
+
+
+  /**
+   * Allows the running of a sequence of read/write operations that are guaranteed to either succeed or fail as a whole.
+   * @example
+   * ```
+   * const [george, bob, alice] = await prisma.$transaction([
+   *   prisma.user.create({ data: { name: 'George' } }),
+   *   prisma.user.create({ data: { name: 'Bob' } }),
+   *   prisma.user.create({ data: { name: 'Alice' } }),
+   * ])
+   * ```
+   * 
+   * Read more in our [docs](https://www.prisma.io/docs/concepts/components/prisma-client/transactions).
+   */
+  $transaction<P extends Prisma.PrismaPromise<any>[]>(arg: [...P], options?: { isolationLevel?: Prisma.TransactionIsolationLevel }): $Utils.JsPromise<runtime.Types.Utils.UnwrapTuple<P>>
+
+  $transaction<R>(fn: (prisma: Omit<PrismaClient, runtime.ITXClientDenyList>) => $Utils.JsPromise<R>, options?: { maxWait?: number, timeout?: number, isolationLevel?: Prisma.TransactionIsolationLevel }): $Utils.JsPromise<R>
+
+
+  $extends: $Extensions.ExtendsHook<"extends", Prisma.TypeMapCb<ClientOptions>, ExtArgs, $Utils.Call<Prisma.TypeMapCb<ClientOptions>, {
+    extArgs: ExtArgs
+  }>>
+
+      /**
+   * `prisma.usuario`: Exposes CRUD operations for the **Usuario** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Usuarios
+    * const usuarios = await prisma.usuario.findMany()
+    * ```
+    */
+  get usuario(): Prisma.UsuarioDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.empresa`: Exposes CRUD operations for the **Empresa** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Empresas
+    * const empresas = await prisma.empresa.findMany()
+    * ```
+    */
+  get empresa(): Prisma.EmpresaDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.grupo`: Exposes CRUD operations for the **Grupo** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Grupos
+    * const grupos = await prisma.grupo.findMany()
+    * ```
+    */
+  get grupo(): Prisma.GrupoDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.lancamento`: Exposes CRUD operations for the **Lancamento** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Lancamentos
+    * const lancamentos = await prisma.lancamento.findMany()
+    * ```
+    */
+  get lancamento(): Prisma.LancamentoDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.notaFiscal`: Exposes CRUD operations for the **NotaFiscal** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more NotaFiscals
+    * const notaFiscals = await prisma.notaFiscal.findMany()
+    * ```
+    */
+  get notaFiscal(): Prisma.NotaFiscalDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.imagem`: Exposes CRUD operations for the **Imagem** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Imagems
+    * const imagems = await prisma.imagem.findMany()
+    * ```
+    */
+  get imagem(): Prisma.ImagemDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.periodo`: Exposes CRUD operations for the **Periodo** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Periodos
+    * const periodos = await prisma.periodo.findMany()
+    * ```
+    */
+  get periodo(): Prisma.PeriodoDelegate<ExtArgs, ClientOptions>;
+}
+
+export namespace Prisma {
+  export import DMMF = runtime.DMMF
+
+  export type PrismaPromise<T> = $Public.PrismaPromise<T>
+
+  /**
+   * Validator
+   */
+  export import validator = runtime.Public.validator
+
+  /**
+   * Prisma Errors
+   */
+  export import PrismaClientKnownRequestError = runtime.PrismaClientKnownRequestError
+  export import PrismaClientUnknownRequestError = runtime.PrismaClientUnknownRequestError
+  export import PrismaClientRustPanicError = runtime.PrismaClientRustPanicError
+  export import PrismaClientInitializationError = runtime.PrismaClientInitializationError
+  export import PrismaClientValidationError = runtime.PrismaClientValidationError
+
+  /**
+   * Re-export of sql-template-tag
+   */
+  export import sql = runtime.sqltag
+  export import empty = runtime.empty
+  export import join = runtime.join
+  export import raw = runtime.raw
+  export import Sql = runtime.Sql
+
+
+
+  /**
+   * Decimal.js
+   */
+  export import Decimal = runtime.Decimal
+
+  export type DecimalJsLike = runtime.DecimalJsLike
+
+  /**
+   * Metrics
+   */
+  export type Metrics = runtime.Metrics
+  export type Metric<T> = runtime.Metric<T>
+  export type MetricHistogram = runtime.MetricHistogram
+  export type MetricHistogramBucket = runtime.MetricHistogramBucket
+
+  /**
+  * Extensions
+  */
+  export import Extension = $Extensions.UserArgs
+  export import getExtensionContext = runtime.Extensions.getExtensionContext
+  export import Args = $Public.Args
+  export import Payload = $Public.Payload
+  export import Result = $Public.Result
+  export import Exact = $Public.Exact
+
+  /**
+   * Prisma Client JS version: 6.18.0
+   * Query Engine version: 34b5a692b7bd79939a9a2c3ef97d816e749cda2f
+   */
+  export type PrismaVersion = {
+    client: string
+  }
+
+  export const prismaVersion: PrismaVersion
+
+  /**
+   * Utility Types
+   */
+
+
+  export import Bytes = runtime.Bytes
+  export import JsonObject = runtime.JsonObject
+  export import JsonArray = runtime.JsonArray
+  export import JsonValue = runtime.JsonValue
+  export import InputJsonObject = runtime.InputJsonObject
+  export import InputJsonArray = runtime.InputJsonArray
+  export import InputJsonValue = runtime.InputJsonValue
+
+  /**
+   * Types of the values used to represent different kinds of `null` values when working with JSON fields.
+   *
+   * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
+   */
+  namespace NullTypes {
+    /**
+    * Type of `Prisma.DbNull`.
+    *
+    * You cannot use other instances of this class. Please use the `Prisma.DbNull` value.
+    *
+    * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
+    */
+    class DbNull {
+      private DbNull: never
+      private constructor()
+    }
+
+    /**
+    * Type of `Prisma.JsonNull`.
+    *
+    * You cannot use other instances of this class. Please use the `Prisma.JsonNull` value.
+    *
+    * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
+    */
+    class JsonNull {
+      private JsonNull: never
+      private constructor()
+    }
+
+    /**
+    * Type of `Prisma.AnyNull`.
+    *
+    * You cannot use other instances of this class. Please use the `Prisma.AnyNull` value.
+    *
+    * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
+    */
+    class AnyNull {
+      private AnyNull: never
+      private constructor()
+    }
+  }
+
+  /**
+   * Helper for filtering JSON entries that have `null` on the database (empty on the db)
+   *
+   * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
+   */
+  export const DbNull: NullTypes.DbNull
+
+  /**
+   * Helper for filtering JSON entries that have JSON `null` values (not empty on the db)
+   *
+   * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
+   */
+  export const JsonNull: NullTypes.JsonNull
+
+  /**
+   * Helper for filtering JSON entries that are `Prisma.DbNull` or `Prisma.JsonNull`
+   *
+   * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
+   */
+  export const AnyNull: NullTypes.AnyNull
+
+  type SelectAndInclude = {
+    select: any
+    include: any
+  }
+
+  type SelectAndOmit = {
+    select: any
+    omit: any
+  }
+
+  /**
+   * Get the type of the value, that the Promise holds.
+   */
+  export type PromiseType<T extends PromiseLike<any>> = T extends PromiseLike<infer U> ? U : T;
+
+  /**
+   * Get the return type of a function which returns a Promise.
+   */
+  export type PromiseReturnType<T extends (...args: any) => $Utils.JsPromise<any>> = PromiseType<ReturnType<T>>
+
+  /**
+   * From T, pick a set of properties whose keys are in the union K
+   */
+  type Prisma__Pick<T, K extends keyof T> = {
+      [P in K]: T[P];
+  };
+
+
+  export type Enumerable<T> = T | Array<T>;
+
+  export type RequiredKeys<T> = {
+    [K in keyof T]-?: {} extends Prisma__Pick<T, K> ? never : K
+  }[keyof T]
+
+  export type TruthyKeys<T> = keyof {
+    [K in keyof T as T[K] extends false | undefined | null ? never : K]: K
+  }
+
+  export type TrueKeys<T> = TruthyKeys<Prisma__Pick<T, RequiredKeys<T>>>
+
+  /**
+   * Subset
+   * @desc From `T` pick properties that exist in `U`. Simple version of Intersection
+   */
+  export type Subset<T, U> = {
+    [key in keyof T]: key extends keyof U ? T[key] : never;
+  };
+
+  /**
+   * SelectSubset
+   * @desc From `T` pick properties that exist in `U`. Simple version of Intersection.
+   * Additionally, it validates, if both select and include are present. If the case, it errors.
+   */
+  export type SelectSubset<T, U> = {
+    [key in keyof T]: key extends keyof U ? T[key] : never
+  } &
+    (T extends SelectAndInclude
+      ? 'Please either choose `select` or `include`.'
+      : T extends SelectAndOmit
+        ? 'Please either choose `select` or `omit`.'
+        : {})
+
+  /**
+   * Subset + Intersection
+   * @desc From `T` pick properties that exist in `U` and intersect `K`
+   */
+  export type SubsetIntersection<T, U, K> = {
+    [key in keyof T]: key extends keyof U ? T[key] : never
+  } &
+    K
+
+  type Without<T, U> = { [P in Exclude<keyof T, keyof U>]?: never };
+
+  /**
+   * XOR is needed to have a real mutually exclusive union type
+   * https://stackoverflow.com/questions/42123407/does-typescript-support-mutually-exclusive-types
+   */
+  type XOR<T, U> =
+    T extends object ?
+    U extends object ?
+      (Without<T, U> & U) | (Without<U, T> & T)
+    : U : T
+
+
+  /**
+   * Is T a Record?
+   */
+  type IsObject<T extends any> = T extends Array<any>
+  ? False
+  : T extends Date
+  ? False
+  : T extends Uint8Array
+  ? False
+  : T extends BigInt
+  ? False
+  : T extends object
+  ? True
+  : False
+
+
+  /**
+   * If it's T[], return T
+   */
+  export type UnEnumerate<T extends unknown> = T extends Array<infer U> ? U : T
+
+  /**
+   * From ts-toolbelt
+   */
+
+  type __Either<O extends object, K extends Key> = Omit<O, K> &
+    {
+      // Merge all but K
+      [P in K]: Prisma__Pick<O, P & keyof O> // With K possibilities
+    }[K]
+
+  type EitherStrict<O extends object, K extends Key> = Strict<__Either<O, K>>
+
+  type EitherLoose<O extends object, K extends Key> = ComputeRaw<__Either<O, K>>
+
+  type _Either<
+    O extends object,
+    K extends Key,
+    strict extends Boolean
+  > = {
+    1: EitherStrict<O, K>
+    0: EitherLoose<O, K>
+  }[strict]
+
+  type Either<
+    O extends object,
+    K extends Key,
+    strict extends Boolean = 1
+  > = O extends unknown ? _Either<O, K, strict> : never
+
+  export type Union = any
+
+  type PatchUndefined<O extends object, O1 extends object> = {
+    [K in keyof O]: O[K] extends undefined ? At<O1, K> : O[K]
+  } & {}
+
+  /** Helper Types for "Merge" **/
+  export type IntersectOf<U extends Union> = (
+    U extends unknown ? (k: U) => void : never
+  ) extends (k: infer I) => void
+    ? I
+    : never
+
+  export type Overwrite<O extends object, O1 extends object> = {
+      [K in keyof O]: K extends keyof O1 ? O1[K] : O[K];
+  } & {};
+
+  type _Merge<U extends object> = IntersectOf<Overwrite<U, {
+      [K in keyof U]-?: At<U, K>;
+  }>>;
+
+  type Key = string | number | symbol;
+  type AtBasic<O extends object, K extends Key> = K extends keyof O ? O[K] : never;
+  type AtStrict<O extends object, K extends Key> = O[K & keyof O];
+  type AtLoose<O extends object, K extends Key> = O extends unknown ? AtStrict<O, K> : never;
+  export type At<O extends object, K extends Key, strict extends Boolean = 1> = {
+      1: AtStrict<O, K>;
+      0: AtLoose<O, K>;
+  }[strict];
+
+  export type ComputeRaw<A extends any> = A extends Function ? A : {
+    [K in keyof A]: A[K];
+  } & {};
+
+  export type OptionalFlat<O> = {
+    [K in keyof O]?: O[K];
+  } & {};
+
+  type _Record<K extends keyof any, T> = {
+    [P in K]: T;
+  };
+
+  // cause typescript not to expand types and preserve names
+  type NoExpand<T> = T extends unknown ? T : never;
+
+  // this type assumes the passed object is entirely optional
+  type AtLeast<O extends object, K extends string> = NoExpand<
+    O extends unknown
+    ? | (K extends keyof O ? { [P in K]: O[P] } & O : O)
+      | {[P in keyof O as P extends K ? P : never]-?: O[P]} & O
+    : never>;
+
+  type _Strict<U, _U = U> = U extends unknown ? U & OptionalFlat<_Record<Exclude<Keys<_U>, keyof U>, never>> : never;
+
+  export type Strict<U extends object> = ComputeRaw<_Strict<U>>;
+  /** End Helper Types for "Merge" **/
+
+  export type Merge<U extends object> = ComputeRaw<_Merge<Strict<U>>>;
+
+  /**
+  A [[Boolean]]
+  */
+  export type Boolean = True | False
+
+  // /**
+  // 1
+  // */
+  export type True = 1
+
+  /**
+  0
+  */
+  export type False = 0
+
+  export type Not<B extends Boolean> = {
+    0: 1
+    1: 0
+  }[B]
+
+  export type Extends<A1 extends any, A2 extends any> = [A1] extends [never]
+    ? 0 // anything `never` is false
+    : A1 extends A2
+    ? 1
+    : 0
+
+  export type Has<U extends Union, U1 extends Union> = Not<
+    Extends<Exclude<U1, U>, U1>
+  >
+
+  export type Or<B1 extends Boolean, B2 extends Boolean> = {
+    0: {
+      0: 0
+      1: 1
+    }
+    1: {
+      0: 1
+      1: 1
+    }
+  }[B1][B2]
+
+  export type Keys<U extends Union> = U extends unknown ? keyof U : never
+
+  type Cast<A, B> = A extends B ? A : B;
+
+  export const type: unique symbol;
+
+
+
+  /**
+   * Used by group by
+   */
+
+  export type GetScalarType<T, O> = O extends object ? {
+    [P in keyof T]: P extends keyof O
+      ? O[P]
+      : never
+  } : never
+
+  type FieldPaths<
+    T,
+    U = Omit<T, '_avg' | '_sum' | '_count' | '_min' | '_max'>
+  > = IsObject<T> extends True ? U : T
+
+  type GetHavingFields<T> = {
+    [K in keyof T]: Or<
+      Or<Extends<'OR', K>, Extends<'AND', K>>,
+      Extends<'NOT', K>
+    > extends True
+      ? // infer is only needed to not hit TS limit
+        // based on the brilliant idea of Pierre-Antoine Mills
+        // https://github.com/microsoft/TypeScript/issues/30188#issuecomment-478938437
+        T[K] extends infer TK
+        ? GetHavingFields<UnEnumerate<TK> extends object ? Merge<UnEnumerate<TK>> : never>
+        : never
+      : {} extends FieldPaths<T[K]>
+      ? never
+      : K
+  }[keyof T]
+
+  /**
+   * Convert tuple to union
+   */
+  type _TupleToUnion<T> = T extends (infer E)[] ? E : never
+  type TupleToUnion<K extends readonly any[]> = _TupleToUnion<K>
+  type MaybeTupleToUnion<T> = T extends any[] ? TupleToUnion<T> : T
+
+  /**
+   * Like `Pick`, but additionally can also accept an array of keys
+   */
+  type PickEnumerable<T, K extends Enumerable<keyof T> | keyof T> = Prisma__Pick<T, MaybeTupleToUnion<K>>
+
+  /**
+   * Exclude all keys with underscores
+   */
+  type ExcludeUnderscoreKeys<T extends string> = T extends `_${string}` ? never : T
+
+
+  export type FieldRef<Model, FieldType> = runtime.FieldRef<Model, FieldType>
+
+  type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRef<Model, FieldType>
+
+
+  export const ModelName: {
+    Usuario: 'Usuario',
+    Empresa: 'Empresa',
+    Grupo: 'Grupo',
+    Lancamento: 'Lancamento',
+    NotaFiscal: 'NotaFiscal',
+    Imagem: 'Imagem',
+    Periodo: 'Periodo'
+  };
+
+  export type ModelName = (typeof ModelName)[keyof typeof ModelName]
+
+
+  export type Datasources = {
+    db?: Datasource
+  }
+
+  interface TypeMapCb<ClientOptions = {}> extends $Utils.Fn<{extArgs: $Extensions.InternalArgs }, $Utils.Record<string, any>> {
+    returns: Prisma.TypeMap<this['params']['extArgs'], ClientOptions extends { omit: infer OmitOptions } ? OmitOptions : {}>
+  }
+
+  export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> = {
+    globalOmitOptions: {
+      omit: GlobalOmitOptions
+    }
+    meta: {
+      modelProps: "usuario" | "empresa" | "grupo" | "lancamento" | "notaFiscal" | "imagem" | "periodo"
+      txIsolationLevel: Prisma.TransactionIsolationLevel
+    }
+    model: {
+      Usuario: {
+        payload: Prisma.$UsuarioPayload<ExtArgs>
+        fields: Prisma.UsuarioFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UsuarioFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UsuarioPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UsuarioFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UsuarioPayload>
+          }
+          findFirst: {
+            args: Prisma.UsuarioFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UsuarioPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UsuarioFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UsuarioPayload>
+          }
+          findMany: {
+            args: Prisma.UsuarioFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UsuarioPayload>[]
+          }
+          create: {
+            args: Prisma.UsuarioCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UsuarioPayload>
+          }
+          createMany: {
+            args: Prisma.UsuarioCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UsuarioCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UsuarioPayload>[]
+          }
+          delete: {
+            args: Prisma.UsuarioDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UsuarioPayload>
+          }
+          update: {
+            args: Prisma.UsuarioUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UsuarioPayload>
+          }
+          deleteMany: {
+            args: Prisma.UsuarioDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UsuarioUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.UsuarioUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UsuarioPayload>[]
+          }
+          upsert: {
+            args: Prisma.UsuarioUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UsuarioPayload>
+          }
+          aggregate: {
+            args: Prisma.UsuarioAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUsuario>
+          }
+          groupBy: {
+            args: Prisma.UsuarioGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UsuarioGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UsuarioCountArgs<ExtArgs>
+            result: $Utils.Optional<UsuarioCountAggregateOutputType> | number
+          }
+        }
+      }
+      Empresa: {
+        payload: Prisma.$EmpresaPayload<ExtArgs>
+        fields: Prisma.EmpresaFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.EmpresaFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmpresaPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.EmpresaFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmpresaPayload>
+          }
+          findFirst: {
+            args: Prisma.EmpresaFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmpresaPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.EmpresaFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmpresaPayload>
+          }
+          findMany: {
+            args: Prisma.EmpresaFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmpresaPayload>[]
+          }
+          create: {
+            args: Prisma.EmpresaCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmpresaPayload>
+          }
+          createMany: {
+            args: Prisma.EmpresaCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.EmpresaCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmpresaPayload>[]
+          }
+          delete: {
+            args: Prisma.EmpresaDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmpresaPayload>
+          }
+          update: {
+            args: Prisma.EmpresaUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmpresaPayload>
+          }
+          deleteMany: {
+            args: Prisma.EmpresaDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.EmpresaUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.EmpresaUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmpresaPayload>[]
+          }
+          upsert: {
+            args: Prisma.EmpresaUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmpresaPayload>
+          }
+          aggregate: {
+            args: Prisma.EmpresaAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateEmpresa>
+          }
+          groupBy: {
+            args: Prisma.EmpresaGroupByArgs<ExtArgs>
+            result: $Utils.Optional<EmpresaGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.EmpresaCountArgs<ExtArgs>
+            result: $Utils.Optional<EmpresaCountAggregateOutputType> | number
+          }
+        }
+      }
+      Grupo: {
+        payload: Prisma.$GrupoPayload<ExtArgs>
+        fields: Prisma.GrupoFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.GrupoFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GrupoPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.GrupoFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GrupoPayload>
+          }
+          findFirst: {
+            args: Prisma.GrupoFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GrupoPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.GrupoFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GrupoPayload>
+          }
+          findMany: {
+            args: Prisma.GrupoFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GrupoPayload>[]
+          }
+          create: {
+            args: Prisma.GrupoCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GrupoPayload>
+          }
+          createMany: {
+            args: Prisma.GrupoCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.GrupoCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GrupoPayload>[]
+          }
+          delete: {
+            args: Prisma.GrupoDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GrupoPayload>
+          }
+          update: {
+            args: Prisma.GrupoUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GrupoPayload>
+          }
+          deleteMany: {
+            args: Prisma.GrupoDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.GrupoUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.GrupoUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GrupoPayload>[]
+          }
+          upsert: {
+            args: Prisma.GrupoUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GrupoPayload>
+          }
+          aggregate: {
+            args: Prisma.GrupoAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateGrupo>
+          }
+          groupBy: {
+            args: Prisma.GrupoGroupByArgs<ExtArgs>
+            result: $Utils.Optional<GrupoGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.GrupoCountArgs<ExtArgs>
+            result: $Utils.Optional<GrupoCountAggregateOutputType> | number
+          }
+        }
+      }
+      Lancamento: {
+        payload: Prisma.$LancamentoPayload<ExtArgs>
+        fields: Prisma.LancamentoFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.LancamentoFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LancamentoPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.LancamentoFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LancamentoPayload>
+          }
+          findFirst: {
+            args: Prisma.LancamentoFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LancamentoPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.LancamentoFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LancamentoPayload>
+          }
+          findMany: {
+            args: Prisma.LancamentoFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LancamentoPayload>[]
+          }
+          create: {
+            args: Prisma.LancamentoCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LancamentoPayload>
+          }
+          createMany: {
+            args: Prisma.LancamentoCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.LancamentoCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LancamentoPayload>[]
+          }
+          delete: {
+            args: Prisma.LancamentoDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LancamentoPayload>
+          }
+          update: {
+            args: Prisma.LancamentoUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LancamentoPayload>
+          }
+          deleteMany: {
+            args: Prisma.LancamentoDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.LancamentoUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.LancamentoUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LancamentoPayload>[]
+          }
+          upsert: {
+            args: Prisma.LancamentoUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LancamentoPayload>
+          }
+          aggregate: {
+            args: Prisma.LancamentoAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateLancamento>
+          }
+          groupBy: {
+            args: Prisma.LancamentoGroupByArgs<ExtArgs>
+            result: $Utils.Optional<LancamentoGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.LancamentoCountArgs<ExtArgs>
+            result: $Utils.Optional<LancamentoCountAggregateOutputType> | number
+          }
+        }
+      }
+      NotaFiscal: {
+        payload: Prisma.$NotaFiscalPayload<ExtArgs>
+        fields: Prisma.NotaFiscalFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.NotaFiscalFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotaFiscalPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.NotaFiscalFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotaFiscalPayload>
+          }
+          findFirst: {
+            args: Prisma.NotaFiscalFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotaFiscalPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.NotaFiscalFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotaFiscalPayload>
+          }
+          findMany: {
+            args: Prisma.NotaFiscalFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotaFiscalPayload>[]
+          }
+          create: {
+            args: Prisma.NotaFiscalCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotaFiscalPayload>
+          }
+          createMany: {
+            args: Prisma.NotaFiscalCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.NotaFiscalCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotaFiscalPayload>[]
+          }
+          delete: {
+            args: Prisma.NotaFiscalDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotaFiscalPayload>
+          }
+          update: {
+            args: Prisma.NotaFiscalUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotaFiscalPayload>
+          }
+          deleteMany: {
+            args: Prisma.NotaFiscalDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.NotaFiscalUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.NotaFiscalUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotaFiscalPayload>[]
+          }
+          upsert: {
+            args: Prisma.NotaFiscalUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotaFiscalPayload>
+          }
+          aggregate: {
+            args: Prisma.NotaFiscalAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateNotaFiscal>
+          }
+          groupBy: {
+            args: Prisma.NotaFiscalGroupByArgs<ExtArgs>
+            result: $Utils.Optional<NotaFiscalGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.NotaFiscalCountArgs<ExtArgs>
+            result: $Utils.Optional<NotaFiscalCountAggregateOutputType> | number
+          }
+        }
+      }
+      Imagem: {
+        payload: Prisma.$ImagemPayload<ExtArgs>
+        fields: Prisma.ImagemFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ImagemFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagemPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ImagemFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagemPayload>
+          }
+          findFirst: {
+            args: Prisma.ImagemFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagemPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ImagemFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagemPayload>
+          }
+          findMany: {
+            args: Prisma.ImagemFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagemPayload>[]
+          }
+          create: {
+            args: Prisma.ImagemCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagemPayload>
+          }
+          createMany: {
+            args: Prisma.ImagemCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ImagemCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagemPayload>[]
+          }
+          delete: {
+            args: Prisma.ImagemDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagemPayload>
+          }
+          update: {
+            args: Prisma.ImagemUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagemPayload>
+          }
+          deleteMany: {
+            args: Prisma.ImagemDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ImagemUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ImagemUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagemPayload>[]
+          }
+          upsert: {
+            args: Prisma.ImagemUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagemPayload>
+          }
+          aggregate: {
+            args: Prisma.ImagemAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateImagem>
+          }
+          groupBy: {
+            args: Prisma.ImagemGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ImagemGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ImagemCountArgs<ExtArgs>
+            result: $Utils.Optional<ImagemCountAggregateOutputType> | number
+          }
+        }
+      }
+      Periodo: {
+        payload: Prisma.$PeriodoPayload<ExtArgs>
+        fields: Prisma.PeriodoFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PeriodoFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PeriodoPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PeriodoFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PeriodoPayload>
+          }
+          findFirst: {
+            args: Prisma.PeriodoFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PeriodoPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PeriodoFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PeriodoPayload>
+          }
+          findMany: {
+            args: Prisma.PeriodoFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PeriodoPayload>[]
+          }
+          create: {
+            args: Prisma.PeriodoCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PeriodoPayload>
+          }
+          createMany: {
+            args: Prisma.PeriodoCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PeriodoCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PeriodoPayload>[]
+          }
+          delete: {
+            args: Prisma.PeriodoDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PeriodoPayload>
+          }
+          update: {
+            args: Prisma.PeriodoUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PeriodoPayload>
+          }
+          deleteMany: {
+            args: Prisma.PeriodoDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PeriodoUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PeriodoUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PeriodoPayload>[]
+          }
+          upsert: {
+            args: Prisma.PeriodoUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PeriodoPayload>
+          }
+          aggregate: {
+            args: Prisma.PeriodoAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePeriodo>
+          }
+          groupBy: {
+            args: Prisma.PeriodoGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PeriodoGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PeriodoCountArgs<ExtArgs>
+            result: $Utils.Optional<PeriodoCountAggregateOutputType> | number
+          }
+        }
+      }
+    }
+  } & {
+    other: {
+      payload: any
+      operations: {
+        $executeRaw: {
+          args: [query: TemplateStringsArray | Prisma.Sql, ...values: any[]],
+          result: any
+        }
+        $executeRawUnsafe: {
+          args: [query: string, ...values: any[]],
+          result: any
+        }
+        $queryRaw: {
+          args: [query: TemplateStringsArray | Prisma.Sql, ...values: any[]],
+          result: any
+        }
+        $queryRawUnsafe: {
+          args: [query: string, ...values: any[]],
+          result: any
+        }
+      }
+    }
+  }
+  export const defineExtension: $Extensions.ExtendsHook<"define", Prisma.TypeMapCb, $Extensions.DefaultArgs>
+  export type DefaultPrismaClient = PrismaClient
+  export type ErrorFormat = 'pretty' | 'colorless' | 'minimal'
+  export interface PrismaClientOptions {
+    /**
+     * Overwrites the datasource url from your schema.prisma file
+     */
+    datasources?: Datasources
+    /**
+     * Overwrites the datasource url from your schema.prisma file
+     */
+    datasourceUrl?: string
+    /**
+     * @default "colorless"
+     */
+    errorFormat?: ErrorFormat
+    /**
+     * @example
+     * ```
+     * // Shorthand for `emit: 'stdout'`
+     * log: ['query', 'info', 'warn', 'error']
+     * 
+     * // Emit as events only
+     * log: [
+     *   { emit: 'event', level: 'query' },
+     *   { emit: 'event', level: 'info' },
+     *   { emit: 'event', level: 'warn' }
+     *   { emit: 'event', level: 'error' }
+     * ]
+     * 
+     * / Emit as events and log to stdout
+     * og: [
+     *  { emit: 'stdout', level: 'query' },
+     *  { emit: 'stdout', level: 'info' },
+     *  { emit: 'stdout', level: 'warn' }
+     *  { emit: 'stdout', level: 'error' }
+     * 
+     * ```
+     * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/logging#the-log-option).
+     */
+    log?: (LogLevel | LogDefinition)[]
+    /**
+     * The default values for transactionOptions
+     * maxWait ?= 2000
+     * timeout ?= 5000
+     */
+    transactionOptions?: {
+      maxWait?: number
+      timeout?: number
+      isolationLevel?: Prisma.TransactionIsolationLevel
+    }
+    /**
+     * Instance of a Driver Adapter, e.g., like one provided by `@prisma/adapter-planetscale`
+     */
+    adapter?: runtime.SqlDriverAdapterFactory | null
+    /**
+     * Global configuration for omitting model fields by default.
+     * 
+     * @example
+     * ```
+     * const prisma = new PrismaClient({
+     *   omit: {
+     *     user: {
+     *       password: true
+     *     }
+     *   }
+     * })
+     * ```
+     */
+    omit?: Prisma.GlobalOmitConfig
+  }
+  export type GlobalOmitConfig = {
+    usuario?: UsuarioOmit
+    empresa?: EmpresaOmit
+    grupo?: GrupoOmit
+    lancamento?: LancamentoOmit
+    notaFiscal?: NotaFiscalOmit
+    imagem?: ImagemOmit
+    periodo?: PeriodoOmit
+  }
+
+  /* Types for Logging */
+  export type LogLevel = 'info' | 'query' | 'warn' | 'error'
+  export type LogDefinition = {
+    level: LogLevel
+    emit: 'stdout' | 'event'
+  }
+
+  export type CheckIsLogLevel<T> = T extends LogLevel ? T : never;
+
+  export type GetLogType<T> = CheckIsLogLevel<
+    T extends LogDefinition ? T['level'] : T
+  >;
+
+  export type GetEvents<T extends any[]> = T extends Array<LogLevel | LogDefinition>
+    ? GetLogType<T[number]>
+    : never;
+
+  export type QueryEvent = {
+    timestamp: Date
+    query: string
+    params: string
+    duration: number
+    target: string
+  }
+
+  export type LogEvent = {
+    timestamp: Date
+    message: string
+    target: string
+  }
+  /* End Types for Logging */
+
+
+  export type PrismaAction =
+    | 'findUnique'
+    | 'findUniqueOrThrow'
+    | 'findMany'
+    | 'findFirst'
+    | 'findFirstOrThrow'
+    | 'create'
+    | 'createMany'
+    | 'createManyAndReturn'
+    | 'update'
+    | 'updateMany'
+    | 'updateManyAndReturn'
+    | 'upsert'
+    | 'delete'
+    | 'deleteMany'
+    | 'executeRaw'
+    | 'queryRaw'
+    | 'aggregate'
+    | 'count'
+    | 'runCommandRaw'
+    | 'findRaw'
+    | 'groupBy'
+
+  // tested in getLogLevel.test.ts
+  export function getLogLevel(log: Array<LogLevel | LogDefinition>): LogLevel | undefined;
+
+  /**
+   * `PrismaClient` proxy available in interactive transactions.
+   */
+  export type TransactionClient = Omit<Prisma.DefaultPrismaClient, runtime.ITXClientDenyList>
+
+  export type Datasource = {
+    url?: string
+  }
+
+  /**
+   * Count Types
+   */
+
+
+  /**
+   * Count Type UsuarioCountOutputType
+   */
+
+  export type UsuarioCountOutputType = {
+    lancamento: number
+  }
+
+  export type UsuarioCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lancamento?: boolean | UsuarioCountOutputTypeCountLancamentoArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * UsuarioCountOutputType without action
+   */
+  export type UsuarioCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UsuarioCountOutputType
+     */
+    select?: UsuarioCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * UsuarioCountOutputType without action
+   */
+  export type UsuarioCountOutputTypeCountLancamentoArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LancamentoWhereInput
+  }
+
+
+  /**
+   * Count Type EmpresaCountOutputType
+   */
+
+  export type EmpresaCountOutputType = {
+    usuarios: number
+    grupo: number
+    NotaFiscal: number
+    Lancamentos: number
+    Periodos: number
+  }
+
+  export type EmpresaCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    usuarios?: boolean | EmpresaCountOutputTypeCountUsuariosArgs
+    grupo?: boolean | EmpresaCountOutputTypeCountGrupoArgs
+    NotaFiscal?: boolean | EmpresaCountOutputTypeCountNotaFiscalArgs
+    Lancamentos?: boolean | EmpresaCountOutputTypeCountLancamentosArgs
+    Periodos?: boolean | EmpresaCountOutputTypeCountPeriodosArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * EmpresaCountOutputType without action
+   */
+  export type EmpresaCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmpresaCountOutputType
+     */
+    select?: EmpresaCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * EmpresaCountOutputType without action
+   */
+  export type EmpresaCountOutputTypeCountUsuariosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UsuarioWhereInput
+  }
+
+  /**
+   * EmpresaCountOutputType without action
+   */
+  export type EmpresaCountOutputTypeCountGrupoArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GrupoWhereInput
+  }
+
+  /**
+   * EmpresaCountOutputType without action
+   */
+  export type EmpresaCountOutputTypeCountNotaFiscalArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NotaFiscalWhereInput
+  }
+
+  /**
+   * EmpresaCountOutputType without action
+   */
+  export type EmpresaCountOutputTypeCountLancamentosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LancamentoWhereInput
+  }
+
+  /**
+   * EmpresaCountOutputType without action
+   */
+  export type EmpresaCountOutputTypeCountPeriodosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PeriodoWhereInput
+  }
+
+
+  /**
+   * Count Type GrupoCountOutputType
+   */
+
+  export type GrupoCountOutputType = {
+    usuarios: number
+  }
+
+  export type GrupoCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    usuarios?: boolean | GrupoCountOutputTypeCountUsuariosArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * GrupoCountOutputType without action
+   */
+  export type GrupoCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GrupoCountOutputType
+     */
+    select?: GrupoCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * GrupoCountOutputType without action
+   */
+  export type GrupoCountOutputTypeCountUsuariosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UsuarioWhereInput
+  }
+
+
+  /**
+   * Count Type LancamentoCountOutputType
+   */
+
+  export type LancamentoCountOutputType = {
+    imagens: number
+  }
+
+  export type LancamentoCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    imagens?: boolean | LancamentoCountOutputTypeCountImagensArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * LancamentoCountOutputType without action
+   */
+  export type LancamentoCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LancamentoCountOutputType
+     */
+    select?: LancamentoCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * LancamentoCountOutputType without action
+   */
+  export type LancamentoCountOutputTypeCountImagensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ImagemWhereInput
+  }
+
+
+  /**
+   * Count Type PeriodoCountOutputType
+   */
+
+  export type PeriodoCountOutputType = {
+    lancamentos: number
+  }
+
+  export type PeriodoCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lancamentos?: boolean | PeriodoCountOutputTypeCountLancamentosArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * PeriodoCountOutputType without action
+   */
+  export type PeriodoCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PeriodoCountOutputType
+     */
+    select?: PeriodoCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * PeriodoCountOutputType without action
+   */
+  export type PeriodoCountOutputTypeCountLancamentosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LancamentoWhereInput
+  }
+
+
+  /**
+   * Models
+   */
+
+  /**
+   * Model Usuario
+   */
+
+  export type AggregateUsuario = {
+    _count: UsuarioCountAggregateOutputType | null
+    _avg: UsuarioAvgAggregateOutputType | null
+    _sum: UsuarioSumAggregateOutputType | null
+    _min: UsuarioMinAggregateOutputType | null
+    _max: UsuarioMaxAggregateOutputType | null
+  }
+
+  export type UsuarioAvgAggregateOutputType = {
+    id: number | null
+    empresaId: number | null
+    grupoId: number | null
+  }
+
+  export type UsuarioSumAggregateOutputType = {
+    id: number | null
+    empresaId: number | null
+    grupoId: number | null
+  }
+
+  export type UsuarioMinAggregateOutputType = {
+    id: number | null
+    email: string | null
+    senha: string | null
+    cpf: string | null
+    nome: string | null
+    admin: boolean | null
+    dataCriacao: Date | null
+    empresaId: number | null
+    grupoId: number | null
+  }
+
+  export type UsuarioMaxAggregateOutputType = {
+    id: number | null
+    email: string | null
+    senha: string | null
+    cpf: string | null
+    nome: string | null
+    admin: boolean | null
+    dataCriacao: Date | null
+    empresaId: number | null
+    grupoId: number | null
+  }
+
+  export type UsuarioCountAggregateOutputType = {
+    id: number
+    email: number
+    senha: number
+    cpf: number
+    nome: number
+    admin: number
+    dataCriacao: number
+    empresaId: number
+    grupoId: number
+    _all: number
+  }
+
+
+  export type UsuarioAvgAggregateInputType = {
+    id?: true
+    empresaId?: true
+    grupoId?: true
+  }
+
+  export type UsuarioSumAggregateInputType = {
+    id?: true
+    empresaId?: true
+    grupoId?: true
+  }
+
+  export type UsuarioMinAggregateInputType = {
+    id?: true
+    email?: true
+    senha?: true
+    cpf?: true
+    nome?: true
+    admin?: true
+    dataCriacao?: true
+    empresaId?: true
+    grupoId?: true
+  }
+
+  export type UsuarioMaxAggregateInputType = {
+    id?: true
+    email?: true
+    senha?: true
+    cpf?: true
+    nome?: true
+    admin?: true
+    dataCriacao?: true
+    empresaId?: true
+    grupoId?: true
+  }
+
+  export type UsuarioCountAggregateInputType = {
+    id?: true
+    email?: true
+    senha?: true
+    cpf?: true
+    nome?: true
+    admin?: true
+    dataCriacao?: true
+    empresaId?: true
+    grupoId?: true
+    _all?: true
+  }
+
+  export type UsuarioAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Usuario to aggregate.
+     */
+    where?: UsuarioWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Usuarios to fetch.
+     */
+    orderBy?: UsuarioOrderByWithRelationInput | UsuarioOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UsuarioWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Usuarios from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Usuarios.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Usuarios
+    **/
+    _count?: true | UsuarioCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: UsuarioAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UsuarioSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UsuarioMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UsuarioMaxAggregateInputType
+  }
+
+  export type GetUsuarioAggregateType<T extends UsuarioAggregateArgs> = {
+        [P in keyof T & keyof AggregateUsuario]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUsuario[P]>
+      : GetScalarType<T[P], AggregateUsuario[P]>
+  }
+
+
+
+
+  export type UsuarioGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UsuarioWhereInput
+    orderBy?: UsuarioOrderByWithAggregationInput | UsuarioOrderByWithAggregationInput[]
+    by: UsuarioScalarFieldEnum[] | UsuarioScalarFieldEnum
+    having?: UsuarioScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UsuarioCountAggregateInputType | true
+    _avg?: UsuarioAvgAggregateInputType
+    _sum?: UsuarioSumAggregateInputType
+    _min?: UsuarioMinAggregateInputType
+    _max?: UsuarioMaxAggregateInputType
+  }
+
+  export type UsuarioGroupByOutputType = {
+    id: number
+    email: string
+    senha: string
+    cpf: string
+    nome: string
+    admin: boolean
+    dataCriacao: Date
+    empresaId: number
+    grupoId: number | null
+    _count: UsuarioCountAggregateOutputType | null
+    _avg: UsuarioAvgAggregateOutputType | null
+    _sum: UsuarioSumAggregateOutputType | null
+    _min: UsuarioMinAggregateOutputType | null
+    _max: UsuarioMaxAggregateOutputType | null
+  }
+
+  type GetUsuarioGroupByPayload<T extends UsuarioGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UsuarioGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UsuarioGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UsuarioGroupByOutputType[P]>
+            : GetScalarType<T[P], UsuarioGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UsuarioSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    email?: boolean
+    senha?: boolean
+    cpf?: boolean
+    nome?: boolean
+    admin?: boolean
+    dataCriacao?: boolean
+    empresaId?: boolean
+    grupoId?: boolean
+    empresa?: boolean | EmpresaDefaultArgs<ExtArgs>
+    grupo?: boolean | Usuario$grupoArgs<ExtArgs>
+    lancamento?: boolean | Usuario$lancamentoArgs<ExtArgs>
+    _count?: boolean | UsuarioCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["usuario"]>
+
+  export type UsuarioSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    email?: boolean
+    senha?: boolean
+    cpf?: boolean
+    nome?: boolean
+    admin?: boolean
+    dataCriacao?: boolean
+    empresaId?: boolean
+    grupoId?: boolean
+    empresa?: boolean | EmpresaDefaultArgs<ExtArgs>
+    grupo?: boolean | Usuario$grupoArgs<ExtArgs>
+  }, ExtArgs["result"]["usuario"]>
+
+  export type UsuarioSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    email?: boolean
+    senha?: boolean
+    cpf?: boolean
+    nome?: boolean
+    admin?: boolean
+    dataCriacao?: boolean
+    empresaId?: boolean
+    grupoId?: boolean
+    empresa?: boolean | EmpresaDefaultArgs<ExtArgs>
+    grupo?: boolean | Usuario$grupoArgs<ExtArgs>
+  }, ExtArgs["result"]["usuario"]>
+
+  export type UsuarioSelectScalar = {
+    id?: boolean
+    email?: boolean
+    senha?: boolean
+    cpf?: boolean
+    nome?: boolean
+    admin?: boolean
+    dataCriacao?: boolean
+    empresaId?: boolean
+    grupoId?: boolean
+  }
+
+  export type UsuarioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "senha" | "cpf" | "nome" | "admin" | "dataCriacao" | "empresaId" | "grupoId", ExtArgs["result"]["usuario"]>
+  export type UsuarioInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    empresa?: boolean | EmpresaDefaultArgs<ExtArgs>
+    grupo?: boolean | Usuario$grupoArgs<ExtArgs>
+    lancamento?: boolean | Usuario$lancamentoArgs<ExtArgs>
+    _count?: boolean | UsuarioCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type UsuarioIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    empresa?: boolean | EmpresaDefaultArgs<ExtArgs>
+    grupo?: boolean | Usuario$grupoArgs<ExtArgs>
+  }
+  export type UsuarioIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    empresa?: boolean | EmpresaDefaultArgs<ExtArgs>
+    grupo?: boolean | Usuario$grupoArgs<ExtArgs>
+  }
+
+  export type $UsuarioPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Usuario"
+    objects: {
+      empresa: Prisma.$EmpresaPayload<ExtArgs>
+      grupo: Prisma.$GrupoPayload<ExtArgs> | null
+      lancamento: Prisma.$LancamentoPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      email: string
+      senha: string
+      cpf: string
+      nome: string
+      admin: boolean
+      dataCriacao: Date
+      empresaId: number
+      grupoId: number | null
+    }, ExtArgs["result"]["usuario"]>
+    composites: {}
+  }
+
+  type UsuarioGetPayload<S extends boolean | null | undefined | UsuarioDefaultArgs> = $Result.GetResult<Prisma.$UsuarioPayload, S>
+
+  type UsuarioCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UsuarioFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UsuarioCountAggregateInputType | true
+    }
+
+  export interface UsuarioDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Usuario'], meta: { name: 'Usuario' } }
+    /**
+     * Find zero or one Usuario that matches the filter.
+     * @param {UsuarioFindUniqueArgs} args - Arguments to find a Usuario
+     * @example
+     * // Get one Usuario
+     * const usuario = await prisma.usuario.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UsuarioFindUniqueArgs>(args: SelectSubset<T, UsuarioFindUniqueArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Usuario that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UsuarioFindUniqueOrThrowArgs} args - Arguments to find a Usuario
+     * @example
+     * // Get one Usuario
+     * const usuario = await prisma.usuario.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UsuarioFindUniqueOrThrowArgs>(args: SelectSubset<T, UsuarioFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Usuario that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UsuarioFindFirstArgs} args - Arguments to find a Usuario
+     * @example
+     * // Get one Usuario
+     * const usuario = await prisma.usuario.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UsuarioFindFirstArgs>(args?: SelectSubset<T, UsuarioFindFirstArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Usuario that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UsuarioFindFirstOrThrowArgs} args - Arguments to find a Usuario
+     * @example
+     * // Get one Usuario
+     * const usuario = await prisma.usuario.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UsuarioFindFirstOrThrowArgs>(args?: SelectSubset<T, UsuarioFindFirstOrThrowArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Usuarios that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UsuarioFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Usuarios
+     * const usuarios = await prisma.usuario.findMany()
+     * 
+     * // Get first 10 Usuarios
+     * const usuarios = await prisma.usuario.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const usuarioWithIdOnly = await prisma.usuario.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends UsuarioFindManyArgs>(args?: SelectSubset<T, UsuarioFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Usuario.
+     * @param {UsuarioCreateArgs} args - Arguments to create a Usuario.
+     * @example
+     * // Create one Usuario
+     * const Usuario = await prisma.usuario.create({
+     *   data: {
+     *     // ... data to create a Usuario
+     *   }
+     * })
+     * 
+     */
+    create<T extends UsuarioCreateArgs>(args: SelectSubset<T, UsuarioCreateArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Usuarios.
+     * @param {UsuarioCreateManyArgs} args - Arguments to create many Usuarios.
+     * @example
+     * // Create many Usuarios
+     * const usuario = await prisma.usuario.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UsuarioCreateManyArgs>(args?: SelectSubset<T, UsuarioCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Usuarios and returns the data saved in the database.
+     * @param {UsuarioCreateManyAndReturnArgs} args - Arguments to create many Usuarios.
+     * @example
+     * // Create many Usuarios
+     * const usuario = await prisma.usuario.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Usuarios and only return the `id`
+     * const usuarioWithIdOnly = await prisma.usuario.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UsuarioCreateManyAndReturnArgs>(args?: SelectSubset<T, UsuarioCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Usuario.
+     * @param {UsuarioDeleteArgs} args - Arguments to delete one Usuario.
+     * @example
+     * // Delete one Usuario
+     * const Usuario = await prisma.usuario.delete({
+     *   where: {
+     *     // ... filter to delete one Usuario
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UsuarioDeleteArgs>(args: SelectSubset<T, UsuarioDeleteArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Usuario.
+     * @param {UsuarioUpdateArgs} args - Arguments to update one Usuario.
+     * @example
+     * // Update one Usuario
+     * const usuario = await prisma.usuario.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UsuarioUpdateArgs>(args: SelectSubset<T, UsuarioUpdateArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Usuarios.
+     * @param {UsuarioDeleteManyArgs} args - Arguments to filter Usuarios to delete.
+     * @example
+     * // Delete a few Usuarios
+     * const { count } = await prisma.usuario.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UsuarioDeleteManyArgs>(args?: SelectSubset<T, UsuarioDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Usuarios.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UsuarioUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Usuarios
+     * const usuario = await prisma.usuario.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UsuarioUpdateManyArgs>(args: SelectSubset<T, UsuarioUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Usuarios and returns the data updated in the database.
+     * @param {UsuarioUpdateManyAndReturnArgs} args - Arguments to update many Usuarios.
+     * @example
+     * // Update many Usuarios
+     * const usuario = await prisma.usuario.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Usuarios and only return the `id`
+     * const usuarioWithIdOnly = await prisma.usuario.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends UsuarioUpdateManyAndReturnArgs>(args: SelectSubset<T, UsuarioUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Usuario.
+     * @param {UsuarioUpsertArgs} args - Arguments to update or create a Usuario.
+     * @example
+     * // Update or create a Usuario
+     * const usuario = await prisma.usuario.upsert({
+     *   create: {
+     *     // ... data to create a Usuario
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Usuario we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UsuarioUpsertArgs>(args: SelectSubset<T, UsuarioUpsertArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Usuarios.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UsuarioCountArgs} args - Arguments to filter Usuarios to count.
+     * @example
+     * // Count the number of Usuarios
+     * const count = await prisma.usuario.count({
+     *   where: {
+     *     // ... the filter for the Usuarios we want to count
+     *   }
+     * })
+    **/
+    count<T extends UsuarioCountArgs>(
+      args?: Subset<T, UsuarioCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UsuarioCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Usuario.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UsuarioAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UsuarioAggregateArgs>(args: Subset<T, UsuarioAggregateArgs>): Prisma.PrismaPromise<GetUsuarioAggregateType<T>>
+
+    /**
+     * Group by Usuario.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UsuarioGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UsuarioGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UsuarioGroupByArgs['orderBy'] }
+        : { orderBy?: UsuarioGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UsuarioGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUsuarioGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Usuario model
+   */
+  readonly fields: UsuarioFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Usuario.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UsuarioClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    empresa<T extends EmpresaDefaultArgs<ExtArgs> = {}>(args?: Subset<T, EmpresaDefaultArgs<ExtArgs>>): Prisma__EmpresaClient<$Result.GetResult<Prisma.$EmpresaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    grupo<T extends Usuario$grupoArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$grupoArgs<ExtArgs>>): Prisma__GrupoClient<$Result.GetResult<Prisma.$GrupoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    lancamento<T extends Usuario$lancamentoArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$lancamentoArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LancamentoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Usuario model
+   */
+  interface UsuarioFieldRefs {
+    readonly id: FieldRef<"Usuario", 'Int'>
+    readonly email: FieldRef<"Usuario", 'String'>
+    readonly senha: FieldRef<"Usuario", 'String'>
+    readonly cpf: FieldRef<"Usuario", 'String'>
+    readonly nome: FieldRef<"Usuario", 'String'>
+    readonly admin: FieldRef<"Usuario", 'Boolean'>
+    readonly dataCriacao: FieldRef<"Usuario", 'DateTime'>
+    readonly empresaId: FieldRef<"Usuario", 'Int'>
+    readonly grupoId: FieldRef<"Usuario", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Usuario findUnique
+   */
+  export type UsuarioFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Usuario
+     */
+    select?: UsuarioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Usuario
+     */
+    omit?: UsuarioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsuarioInclude<ExtArgs> | null
+    /**
+     * Filter, which Usuario to fetch.
+     */
+    where: UsuarioWhereUniqueInput
+  }
+
+  /**
+   * Usuario findUniqueOrThrow
+   */
+  export type UsuarioFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Usuario
+     */
+    select?: UsuarioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Usuario
+     */
+    omit?: UsuarioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsuarioInclude<ExtArgs> | null
+    /**
+     * Filter, which Usuario to fetch.
+     */
+    where: UsuarioWhereUniqueInput
+  }
+
+  /**
+   * Usuario findFirst
+   */
+  export type UsuarioFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Usuario
+     */
+    select?: UsuarioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Usuario
+     */
+    omit?: UsuarioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsuarioInclude<ExtArgs> | null
+    /**
+     * Filter, which Usuario to fetch.
+     */
+    where?: UsuarioWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Usuarios to fetch.
+     */
+    orderBy?: UsuarioOrderByWithRelationInput | UsuarioOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Usuarios.
+     */
+    cursor?: UsuarioWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Usuarios from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Usuarios.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Usuarios.
+     */
+    distinct?: UsuarioScalarFieldEnum | UsuarioScalarFieldEnum[]
+  }
+
+  /**
+   * Usuario findFirstOrThrow
+   */
+  export type UsuarioFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Usuario
+     */
+    select?: UsuarioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Usuario
+     */
+    omit?: UsuarioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsuarioInclude<ExtArgs> | null
+    /**
+     * Filter, which Usuario to fetch.
+     */
+    where?: UsuarioWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Usuarios to fetch.
+     */
+    orderBy?: UsuarioOrderByWithRelationInput | UsuarioOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Usuarios.
+     */
+    cursor?: UsuarioWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Usuarios from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Usuarios.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Usuarios.
+     */
+    distinct?: UsuarioScalarFieldEnum | UsuarioScalarFieldEnum[]
+  }
+
+  /**
+   * Usuario findMany
+   */
+  export type UsuarioFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Usuario
+     */
+    select?: UsuarioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Usuario
+     */
+    omit?: UsuarioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsuarioInclude<ExtArgs> | null
+    /**
+     * Filter, which Usuarios to fetch.
+     */
+    where?: UsuarioWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Usuarios to fetch.
+     */
+    orderBy?: UsuarioOrderByWithRelationInput | UsuarioOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Usuarios.
+     */
+    cursor?: UsuarioWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Usuarios from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Usuarios.
+     */
+    skip?: number
+    distinct?: UsuarioScalarFieldEnum | UsuarioScalarFieldEnum[]
+  }
+
+  /**
+   * Usuario create
+   */
+  export type UsuarioCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Usuario
+     */
+    select?: UsuarioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Usuario
+     */
+    omit?: UsuarioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsuarioInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Usuario.
+     */
+    data: XOR<UsuarioCreateInput, UsuarioUncheckedCreateInput>
+  }
+
+  /**
+   * Usuario createMany
+   */
+  export type UsuarioCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Usuarios.
+     */
+    data: UsuarioCreateManyInput | UsuarioCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Usuario createManyAndReturn
+   */
+  export type UsuarioCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Usuario
+     */
+    select?: UsuarioSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Usuario
+     */
+    omit?: UsuarioOmit<ExtArgs> | null
+    /**
+     * The data used to create many Usuarios.
+     */
+    data: UsuarioCreateManyInput | UsuarioCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsuarioIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Usuario update
+   */
+  export type UsuarioUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Usuario
+     */
+    select?: UsuarioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Usuario
+     */
+    omit?: UsuarioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsuarioInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Usuario.
+     */
+    data: XOR<UsuarioUpdateInput, UsuarioUncheckedUpdateInput>
+    /**
+     * Choose, which Usuario to update.
+     */
+    where: UsuarioWhereUniqueInput
+  }
+
+  /**
+   * Usuario updateMany
+   */
+  export type UsuarioUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Usuarios.
+     */
+    data: XOR<UsuarioUpdateManyMutationInput, UsuarioUncheckedUpdateManyInput>
+    /**
+     * Filter which Usuarios to update
+     */
+    where?: UsuarioWhereInput
+    /**
+     * Limit how many Usuarios to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Usuario updateManyAndReturn
+   */
+  export type UsuarioUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Usuario
+     */
+    select?: UsuarioSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Usuario
+     */
+    omit?: UsuarioOmit<ExtArgs> | null
+    /**
+     * The data used to update Usuarios.
+     */
+    data: XOR<UsuarioUpdateManyMutationInput, UsuarioUncheckedUpdateManyInput>
+    /**
+     * Filter which Usuarios to update
+     */
+    where?: UsuarioWhereInput
+    /**
+     * Limit how many Usuarios to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsuarioIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Usuario upsert
+   */
+  export type UsuarioUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Usuario
+     */
+    select?: UsuarioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Usuario
+     */
+    omit?: UsuarioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsuarioInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Usuario to update in case it exists.
+     */
+    where: UsuarioWhereUniqueInput
+    /**
+     * In case the Usuario found by the `where` argument doesn't exist, create a new Usuario with this data.
+     */
+    create: XOR<UsuarioCreateInput, UsuarioUncheckedCreateInput>
+    /**
+     * In case the Usuario was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UsuarioUpdateInput, UsuarioUncheckedUpdateInput>
+  }
+
+  /**
+   * Usuario delete
+   */
+  export type UsuarioDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Usuario
+     */
+    select?: UsuarioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Usuario
+     */
+    omit?: UsuarioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsuarioInclude<ExtArgs> | null
+    /**
+     * Filter which Usuario to delete.
+     */
+    where: UsuarioWhereUniqueInput
+  }
+
+  /**
+   * Usuario deleteMany
+   */
+  export type UsuarioDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Usuarios to delete
+     */
+    where?: UsuarioWhereInput
+    /**
+     * Limit how many Usuarios to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Usuario.grupo
+   */
+  export type Usuario$grupoArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Grupo
+     */
+    select?: GrupoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Grupo
+     */
+    omit?: GrupoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GrupoInclude<ExtArgs> | null
+    where?: GrupoWhereInput
+  }
+
+  /**
+   * Usuario.lancamento
+   */
+  export type Usuario$lancamentoArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lancamento
+     */
+    select?: LancamentoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lancamento
+     */
+    omit?: LancamentoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LancamentoInclude<ExtArgs> | null
+    where?: LancamentoWhereInput
+    orderBy?: LancamentoOrderByWithRelationInput | LancamentoOrderByWithRelationInput[]
+    cursor?: LancamentoWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LancamentoScalarFieldEnum | LancamentoScalarFieldEnum[]
+  }
+
+  /**
+   * Usuario without action
+   */
+  export type UsuarioDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Usuario
+     */
+    select?: UsuarioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Usuario
+     */
+    omit?: UsuarioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsuarioInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Empresa
+   */
+
+  export type AggregateEmpresa = {
+    _count: EmpresaCountAggregateOutputType | null
+    _avg: EmpresaAvgAggregateOutputType | null
+    _sum: EmpresaSumAggregateOutputType | null
+    _min: EmpresaMinAggregateOutputType | null
+    _max: EmpresaMaxAggregateOutputType | null
+  }
+
+  export type EmpresaAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type EmpresaSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type EmpresaMinAggregateOutputType = {
+    id: number | null
+    cnpj: string | null
+    nomeFantasia: string | null
+    senha: string | null
+    razaoSocial: string | null
+    endereco: string | null
+    situacaoCadastral: string | null
+    naturezaJuridica: string | null
+    CNAES: string | null
+    dataCriacao: Date | null
+  }
+
+  export type EmpresaMaxAggregateOutputType = {
+    id: number | null
+    cnpj: string | null
+    nomeFantasia: string | null
+    senha: string | null
+    razaoSocial: string | null
+    endereco: string | null
+    situacaoCadastral: string | null
+    naturezaJuridica: string | null
+    CNAES: string | null
+    dataCriacao: Date | null
+  }
+
+  export type EmpresaCountAggregateOutputType = {
+    id: number
+    cnpj: number
+    nomeFantasia: number
+    senha: number
+    razaoSocial: number
+    endereco: number
+    situacaoCadastral: number
+    naturezaJuridica: number
+    CNAES: number
+    dataCriacao: number
+    _all: number
+  }
+
+
+  export type EmpresaAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type EmpresaSumAggregateInputType = {
+    id?: true
+  }
+
+  export type EmpresaMinAggregateInputType = {
+    id?: true
+    cnpj?: true
+    nomeFantasia?: true
+    senha?: true
+    razaoSocial?: true
+    endereco?: true
+    situacaoCadastral?: true
+    naturezaJuridica?: true
+    CNAES?: true
+    dataCriacao?: true
+  }
+
+  export type EmpresaMaxAggregateInputType = {
+    id?: true
+    cnpj?: true
+    nomeFantasia?: true
+    senha?: true
+    razaoSocial?: true
+    endereco?: true
+    situacaoCadastral?: true
+    naturezaJuridica?: true
+    CNAES?: true
+    dataCriacao?: true
+  }
+
+  export type EmpresaCountAggregateInputType = {
+    id?: true
+    cnpj?: true
+    nomeFantasia?: true
+    senha?: true
+    razaoSocial?: true
+    endereco?: true
+    situacaoCadastral?: true
+    naturezaJuridica?: true
+    CNAES?: true
+    dataCriacao?: true
+    _all?: true
+  }
+
+  export type EmpresaAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Empresa to aggregate.
+     */
+    where?: EmpresaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Empresas to fetch.
+     */
+    orderBy?: EmpresaOrderByWithRelationInput | EmpresaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: EmpresaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Empresas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Empresas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Empresas
+    **/
+    _count?: true | EmpresaCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: EmpresaAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: EmpresaSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: EmpresaMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: EmpresaMaxAggregateInputType
+  }
+
+  export type GetEmpresaAggregateType<T extends EmpresaAggregateArgs> = {
+        [P in keyof T & keyof AggregateEmpresa]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateEmpresa[P]>
+      : GetScalarType<T[P], AggregateEmpresa[P]>
+  }
+
+
+
+
+  export type EmpresaGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EmpresaWhereInput
+    orderBy?: EmpresaOrderByWithAggregationInput | EmpresaOrderByWithAggregationInput[]
+    by: EmpresaScalarFieldEnum[] | EmpresaScalarFieldEnum
+    having?: EmpresaScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: EmpresaCountAggregateInputType | true
+    _avg?: EmpresaAvgAggregateInputType
+    _sum?: EmpresaSumAggregateInputType
+    _min?: EmpresaMinAggregateInputType
+    _max?: EmpresaMaxAggregateInputType
+  }
+
+  export type EmpresaGroupByOutputType = {
+    id: number
+    cnpj: string
+    nomeFantasia: string | null
+    senha: string
+    razaoSocial: string
+    endereco: string
+    situacaoCadastral: string
+    naturezaJuridica: string
+    CNAES: string
+    dataCriacao: Date
+    _count: EmpresaCountAggregateOutputType | null
+    _avg: EmpresaAvgAggregateOutputType | null
+    _sum: EmpresaSumAggregateOutputType | null
+    _min: EmpresaMinAggregateOutputType | null
+    _max: EmpresaMaxAggregateOutputType | null
+  }
+
+  type GetEmpresaGroupByPayload<T extends EmpresaGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<EmpresaGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof EmpresaGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], EmpresaGroupByOutputType[P]>
+            : GetScalarType<T[P], EmpresaGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type EmpresaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    cnpj?: boolean
+    nomeFantasia?: boolean
+    senha?: boolean
+    razaoSocial?: boolean
+    endereco?: boolean
+    situacaoCadastral?: boolean
+    naturezaJuridica?: boolean
+    CNAES?: boolean
+    dataCriacao?: boolean
+    usuarios?: boolean | Empresa$usuariosArgs<ExtArgs>
+    grupo?: boolean | Empresa$grupoArgs<ExtArgs>
+    NotaFiscal?: boolean | Empresa$NotaFiscalArgs<ExtArgs>
+    Lancamentos?: boolean | Empresa$LancamentosArgs<ExtArgs>
+    Periodos?: boolean | Empresa$PeriodosArgs<ExtArgs>
+    _count?: boolean | EmpresaCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["empresa"]>
+
+  export type EmpresaSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    cnpj?: boolean
+    nomeFantasia?: boolean
+    senha?: boolean
+    razaoSocial?: boolean
+    endereco?: boolean
+    situacaoCadastral?: boolean
+    naturezaJuridica?: boolean
+    CNAES?: boolean
+    dataCriacao?: boolean
+  }, ExtArgs["result"]["empresa"]>
+
+  export type EmpresaSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    cnpj?: boolean
+    nomeFantasia?: boolean
+    senha?: boolean
+    razaoSocial?: boolean
+    endereco?: boolean
+    situacaoCadastral?: boolean
+    naturezaJuridica?: boolean
+    CNAES?: boolean
+    dataCriacao?: boolean
+  }, ExtArgs["result"]["empresa"]>
+
+  export type EmpresaSelectScalar = {
+    id?: boolean
+    cnpj?: boolean
+    nomeFantasia?: boolean
+    senha?: boolean
+    razaoSocial?: boolean
+    endereco?: boolean
+    situacaoCadastral?: boolean
+    naturezaJuridica?: boolean
+    CNAES?: boolean
+    dataCriacao?: boolean
+  }
+
+  export type EmpresaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "cnpj" | "nomeFantasia" | "senha" | "razaoSocial" | "endereco" | "situacaoCadastral" | "naturezaJuridica" | "CNAES" | "dataCriacao", ExtArgs["result"]["empresa"]>
+  export type EmpresaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    usuarios?: boolean | Empresa$usuariosArgs<ExtArgs>
+    grupo?: boolean | Empresa$grupoArgs<ExtArgs>
+    NotaFiscal?: boolean | Empresa$NotaFiscalArgs<ExtArgs>
+    Lancamentos?: boolean | Empresa$LancamentosArgs<ExtArgs>
+    Periodos?: boolean | Empresa$PeriodosArgs<ExtArgs>
+    _count?: boolean | EmpresaCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type EmpresaIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type EmpresaIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $EmpresaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Empresa"
+    objects: {
+      usuarios: Prisma.$UsuarioPayload<ExtArgs>[]
+      grupo: Prisma.$GrupoPayload<ExtArgs>[]
+      NotaFiscal: Prisma.$NotaFiscalPayload<ExtArgs>[]
+      Lancamentos: Prisma.$LancamentoPayload<ExtArgs>[]
+      Periodos: Prisma.$PeriodoPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      cnpj: string
+      nomeFantasia: string | null
+      senha: string
+      razaoSocial: string
+      endereco: string
+      situacaoCadastral: string
+      naturezaJuridica: string
+      CNAES: string
+      dataCriacao: Date
+    }, ExtArgs["result"]["empresa"]>
+    composites: {}
+  }
+
+  type EmpresaGetPayload<S extends boolean | null | undefined | EmpresaDefaultArgs> = $Result.GetResult<Prisma.$EmpresaPayload, S>
+
+  type EmpresaCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<EmpresaFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: EmpresaCountAggregateInputType | true
+    }
+
+  export interface EmpresaDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Empresa'], meta: { name: 'Empresa' } }
+    /**
+     * Find zero or one Empresa that matches the filter.
+     * @param {EmpresaFindUniqueArgs} args - Arguments to find a Empresa
+     * @example
+     * // Get one Empresa
+     * const empresa = await prisma.empresa.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends EmpresaFindUniqueArgs>(args: SelectSubset<T, EmpresaFindUniqueArgs<ExtArgs>>): Prisma__EmpresaClient<$Result.GetResult<Prisma.$EmpresaPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Empresa that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {EmpresaFindUniqueOrThrowArgs} args - Arguments to find a Empresa
+     * @example
+     * // Get one Empresa
+     * const empresa = await prisma.empresa.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends EmpresaFindUniqueOrThrowArgs>(args: SelectSubset<T, EmpresaFindUniqueOrThrowArgs<ExtArgs>>): Prisma__EmpresaClient<$Result.GetResult<Prisma.$EmpresaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Empresa that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmpresaFindFirstArgs} args - Arguments to find a Empresa
+     * @example
+     * // Get one Empresa
+     * const empresa = await prisma.empresa.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends EmpresaFindFirstArgs>(args?: SelectSubset<T, EmpresaFindFirstArgs<ExtArgs>>): Prisma__EmpresaClient<$Result.GetResult<Prisma.$EmpresaPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Empresa that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmpresaFindFirstOrThrowArgs} args - Arguments to find a Empresa
+     * @example
+     * // Get one Empresa
+     * const empresa = await prisma.empresa.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends EmpresaFindFirstOrThrowArgs>(args?: SelectSubset<T, EmpresaFindFirstOrThrowArgs<ExtArgs>>): Prisma__EmpresaClient<$Result.GetResult<Prisma.$EmpresaPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Empresas that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmpresaFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Empresas
+     * const empresas = await prisma.empresa.findMany()
+     * 
+     * // Get first 10 Empresas
+     * const empresas = await prisma.empresa.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const empresaWithIdOnly = await prisma.empresa.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends EmpresaFindManyArgs>(args?: SelectSubset<T, EmpresaFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmpresaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Empresa.
+     * @param {EmpresaCreateArgs} args - Arguments to create a Empresa.
+     * @example
+     * // Create one Empresa
+     * const Empresa = await prisma.empresa.create({
+     *   data: {
+     *     // ... data to create a Empresa
+     *   }
+     * })
+     * 
+     */
+    create<T extends EmpresaCreateArgs>(args: SelectSubset<T, EmpresaCreateArgs<ExtArgs>>): Prisma__EmpresaClient<$Result.GetResult<Prisma.$EmpresaPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Empresas.
+     * @param {EmpresaCreateManyArgs} args - Arguments to create many Empresas.
+     * @example
+     * // Create many Empresas
+     * const empresa = await prisma.empresa.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends EmpresaCreateManyArgs>(args?: SelectSubset<T, EmpresaCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Empresas and returns the data saved in the database.
+     * @param {EmpresaCreateManyAndReturnArgs} args - Arguments to create many Empresas.
+     * @example
+     * // Create many Empresas
+     * const empresa = await prisma.empresa.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Empresas and only return the `id`
+     * const empresaWithIdOnly = await prisma.empresa.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends EmpresaCreateManyAndReturnArgs>(args?: SelectSubset<T, EmpresaCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmpresaPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Empresa.
+     * @param {EmpresaDeleteArgs} args - Arguments to delete one Empresa.
+     * @example
+     * // Delete one Empresa
+     * const Empresa = await prisma.empresa.delete({
+     *   where: {
+     *     // ... filter to delete one Empresa
+     *   }
+     * })
+     * 
+     */
+    delete<T extends EmpresaDeleteArgs>(args: SelectSubset<T, EmpresaDeleteArgs<ExtArgs>>): Prisma__EmpresaClient<$Result.GetResult<Prisma.$EmpresaPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Empresa.
+     * @param {EmpresaUpdateArgs} args - Arguments to update one Empresa.
+     * @example
+     * // Update one Empresa
+     * const empresa = await prisma.empresa.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends EmpresaUpdateArgs>(args: SelectSubset<T, EmpresaUpdateArgs<ExtArgs>>): Prisma__EmpresaClient<$Result.GetResult<Prisma.$EmpresaPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Empresas.
+     * @param {EmpresaDeleteManyArgs} args - Arguments to filter Empresas to delete.
+     * @example
+     * // Delete a few Empresas
+     * const { count } = await prisma.empresa.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends EmpresaDeleteManyArgs>(args?: SelectSubset<T, EmpresaDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Empresas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmpresaUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Empresas
+     * const empresa = await prisma.empresa.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends EmpresaUpdateManyArgs>(args: SelectSubset<T, EmpresaUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Empresas and returns the data updated in the database.
+     * @param {EmpresaUpdateManyAndReturnArgs} args - Arguments to update many Empresas.
+     * @example
+     * // Update many Empresas
+     * const empresa = await prisma.empresa.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Empresas and only return the `id`
+     * const empresaWithIdOnly = await prisma.empresa.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends EmpresaUpdateManyAndReturnArgs>(args: SelectSubset<T, EmpresaUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmpresaPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Empresa.
+     * @param {EmpresaUpsertArgs} args - Arguments to update or create a Empresa.
+     * @example
+     * // Update or create a Empresa
+     * const empresa = await prisma.empresa.upsert({
+     *   create: {
+     *     // ... data to create a Empresa
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Empresa we want to update
+     *   }
+     * })
+     */
+    upsert<T extends EmpresaUpsertArgs>(args: SelectSubset<T, EmpresaUpsertArgs<ExtArgs>>): Prisma__EmpresaClient<$Result.GetResult<Prisma.$EmpresaPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Empresas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmpresaCountArgs} args - Arguments to filter Empresas to count.
+     * @example
+     * // Count the number of Empresas
+     * const count = await prisma.empresa.count({
+     *   where: {
+     *     // ... the filter for the Empresas we want to count
+     *   }
+     * })
+    **/
+    count<T extends EmpresaCountArgs>(
+      args?: Subset<T, EmpresaCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], EmpresaCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Empresa.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmpresaAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends EmpresaAggregateArgs>(args: Subset<T, EmpresaAggregateArgs>): Prisma.PrismaPromise<GetEmpresaAggregateType<T>>
+
+    /**
+     * Group by Empresa.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmpresaGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends EmpresaGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: EmpresaGroupByArgs['orderBy'] }
+        : { orderBy?: EmpresaGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, EmpresaGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetEmpresaGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Empresa model
+   */
+  readonly fields: EmpresaFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Empresa.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__EmpresaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    usuarios<T extends Empresa$usuariosArgs<ExtArgs> = {}>(args?: Subset<T, Empresa$usuariosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    grupo<T extends Empresa$grupoArgs<ExtArgs> = {}>(args?: Subset<T, Empresa$grupoArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GrupoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    NotaFiscal<T extends Empresa$NotaFiscalArgs<ExtArgs> = {}>(args?: Subset<T, Empresa$NotaFiscalArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotaFiscalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    Lancamentos<T extends Empresa$LancamentosArgs<ExtArgs> = {}>(args?: Subset<T, Empresa$LancamentosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LancamentoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    Periodos<T extends Empresa$PeriodosArgs<ExtArgs> = {}>(args?: Subset<T, Empresa$PeriodosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PeriodoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Empresa model
+   */
+  interface EmpresaFieldRefs {
+    readonly id: FieldRef<"Empresa", 'Int'>
+    readonly cnpj: FieldRef<"Empresa", 'String'>
+    readonly nomeFantasia: FieldRef<"Empresa", 'String'>
+    readonly senha: FieldRef<"Empresa", 'String'>
+    readonly razaoSocial: FieldRef<"Empresa", 'String'>
+    readonly endereco: FieldRef<"Empresa", 'String'>
+    readonly situacaoCadastral: FieldRef<"Empresa", 'String'>
+    readonly naturezaJuridica: FieldRef<"Empresa", 'String'>
+    readonly CNAES: FieldRef<"Empresa", 'String'>
+    readonly dataCriacao: FieldRef<"Empresa", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Empresa findUnique
+   */
+  export type EmpresaFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Empresa
+     */
+    select?: EmpresaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Empresa
+     */
+    omit?: EmpresaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmpresaInclude<ExtArgs> | null
+    /**
+     * Filter, which Empresa to fetch.
+     */
+    where: EmpresaWhereUniqueInput
+  }
+
+  /**
+   * Empresa findUniqueOrThrow
+   */
+  export type EmpresaFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Empresa
+     */
+    select?: EmpresaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Empresa
+     */
+    omit?: EmpresaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmpresaInclude<ExtArgs> | null
+    /**
+     * Filter, which Empresa to fetch.
+     */
+    where: EmpresaWhereUniqueInput
+  }
+
+  /**
+   * Empresa findFirst
+   */
+  export type EmpresaFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Empresa
+     */
+    select?: EmpresaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Empresa
+     */
+    omit?: EmpresaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmpresaInclude<ExtArgs> | null
+    /**
+     * Filter, which Empresa to fetch.
+     */
+    where?: EmpresaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Empresas to fetch.
+     */
+    orderBy?: EmpresaOrderByWithRelationInput | EmpresaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Empresas.
+     */
+    cursor?: EmpresaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Empresas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Empresas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Empresas.
+     */
+    distinct?: EmpresaScalarFieldEnum | EmpresaScalarFieldEnum[]
+  }
+
+  /**
+   * Empresa findFirstOrThrow
+   */
+  export type EmpresaFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Empresa
+     */
+    select?: EmpresaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Empresa
+     */
+    omit?: EmpresaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmpresaInclude<ExtArgs> | null
+    /**
+     * Filter, which Empresa to fetch.
+     */
+    where?: EmpresaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Empresas to fetch.
+     */
+    orderBy?: EmpresaOrderByWithRelationInput | EmpresaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Empresas.
+     */
+    cursor?: EmpresaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Empresas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Empresas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Empresas.
+     */
+    distinct?: EmpresaScalarFieldEnum | EmpresaScalarFieldEnum[]
+  }
+
+  /**
+   * Empresa findMany
+   */
+  export type EmpresaFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Empresa
+     */
+    select?: EmpresaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Empresa
+     */
+    omit?: EmpresaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmpresaInclude<ExtArgs> | null
+    /**
+     * Filter, which Empresas to fetch.
+     */
+    where?: EmpresaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Empresas to fetch.
+     */
+    orderBy?: EmpresaOrderByWithRelationInput | EmpresaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Empresas.
+     */
+    cursor?: EmpresaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Empresas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Empresas.
+     */
+    skip?: number
+    distinct?: EmpresaScalarFieldEnum | EmpresaScalarFieldEnum[]
+  }
+
+  /**
+   * Empresa create
+   */
+  export type EmpresaCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Empresa
+     */
+    select?: EmpresaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Empresa
+     */
+    omit?: EmpresaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmpresaInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Empresa.
+     */
+    data: XOR<EmpresaCreateInput, EmpresaUncheckedCreateInput>
+  }
+
+  /**
+   * Empresa createMany
+   */
+  export type EmpresaCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Empresas.
+     */
+    data: EmpresaCreateManyInput | EmpresaCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Empresa createManyAndReturn
+   */
+  export type EmpresaCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Empresa
+     */
+    select?: EmpresaSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Empresa
+     */
+    omit?: EmpresaOmit<ExtArgs> | null
+    /**
+     * The data used to create many Empresas.
+     */
+    data: EmpresaCreateManyInput | EmpresaCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Empresa update
+   */
+  export type EmpresaUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Empresa
+     */
+    select?: EmpresaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Empresa
+     */
+    omit?: EmpresaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmpresaInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Empresa.
+     */
+    data: XOR<EmpresaUpdateInput, EmpresaUncheckedUpdateInput>
+    /**
+     * Choose, which Empresa to update.
+     */
+    where: EmpresaWhereUniqueInput
+  }
+
+  /**
+   * Empresa updateMany
+   */
+  export type EmpresaUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Empresas.
+     */
+    data: XOR<EmpresaUpdateManyMutationInput, EmpresaUncheckedUpdateManyInput>
+    /**
+     * Filter which Empresas to update
+     */
+    where?: EmpresaWhereInput
+    /**
+     * Limit how many Empresas to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Empresa updateManyAndReturn
+   */
+  export type EmpresaUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Empresa
+     */
+    select?: EmpresaSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Empresa
+     */
+    omit?: EmpresaOmit<ExtArgs> | null
+    /**
+     * The data used to update Empresas.
+     */
+    data: XOR<EmpresaUpdateManyMutationInput, EmpresaUncheckedUpdateManyInput>
+    /**
+     * Filter which Empresas to update
+     */
+    where?: EmpresaWhereInput
+    /**
+     * Limit how many Empresas to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Empresa upsert
+   */
+  export type EmpresaUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Empresa
+     */
+    select?: EmpresaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Empresa
+     */
+    omit?: EmpresaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmpresaInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Empresa to update in case it exists.
+     */
+    where: EmpresaWhereUniqueInput
+    /**
+     * In case the Empresa found by the `where` argument doesn't exist, create a new Empresa with this data.
+     */
+    create: XOR<EmpresaCreateInput, EmpresaUncheckedCreateInput>
+    /**
+     * In case the Empresa was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<EmpresaUpdateInput, EmpresaUncheckedUpdateInput>
+  }
+
+  /**
+   * Empresa delete
+   */
+  export type EmpresaDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Empresa
+     */
+    select?: EmpresaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Empresa
+     */
+    omit?: EmpresaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmpresaInclude<ExtArgs> | null
+    /**
+     * Filter which Empresa to delete.
+     */
+    where: EmpresaWhereUniqueInput
+  }
+
+  /**
+   * Empresa deleteMany
+   */
+  export type EmpresaDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Empresas to delete
+     */
+    where?: EmpresaWhereInput
+    /**
+     * Limit how many Empresas to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Empresa.usuarios
+   */
+  export type Empresa$usuariosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Usuario
+     */
+    select?: UsuarioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Usuario
+     */
+    omit?: UsuarioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsuarioInclude<ExtArgs> | null
+    where?: UsuarioWhereInput
+    orderBy?: UsuarioOrderByWithRelationInput | UsuarioOrderByWithRelationInput[]
+    cursor?: UsuarioWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UsuarioScalarFieldEnum | UsuarioScalarFieldEnum[]
+  }
+
+  /**
+   * Empresa.grupo
+   */
+  export type Empresa$grupoArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Grupo
+     */
+    select?: GrupoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Grupo
+     */
+    omit?: GrupoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GrupoInclude<ExtArgs> | null
+    where?: GrupoWhereInput
+    orderBy?: GrupoOrderByWithRelationInput | GrupoOrderByWithRelationInput[]
+    cursor?: GrupoWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GrupoScalarFieldEnum | GrupoScalarFieldEnum[]
+  }
+
+  /**
+   * Empresa.NotaFiscal
+   */
+  export type Empresa$NotaFiscalArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotaFiscal
+     */
+    select?: NotaFiscalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotaFiscal
+     */
+    omit?: NotaFiscalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotaFiscalInclude<ExtArgs> | null
+    where?: NotaFiscalWhereInput
+    orderBy?: NotaFiscalOrderByWithRelationInput | NotaFiscalOrderByWithRelationInput[]
+    cursor?: NotaFiscalWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: NotaFiscalScalarFieldEnum | NotaFiscalScalarFieldEnum[]
+  }
+
+  /**
+   * Empresa.Lancamentos
+   */
+  export type Empresa$LancamentosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lancamento
+     */
+    select?: LancamentoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lancamento
+     */
+    omit?: LancamentoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LancamentoInclude<ExtArgs> | null
+    where?: LancamentoWhereInput
+    orderBy?: LancamentoOrderByWithRelationInput | LancamentoOrderByWithRelationInput[]
+    cursor?: LancamentoWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LancamentoScalarFieldEnum | LancamentoScalarFieldEnum[]
+  }
+
+  /**
+   * Empresa.Periodos
+   */
+  export type Empresa$PeriodosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Periodo
+     */
+    select?: PeriodoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Periodo
+     */
+    omit?: PeriodoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PeriodoInclude<ExtArgs> | null
+    where?: PeriodoWhereInput
+    orderBy?: PeriodoOrderByWithRelationInput | PeriodoOrderByWithRelationInput[]
+    cursor?: PeriodoWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PeriodoScalarFieldEnum | PeriodoScalarFieldEnum[]
+  }
+
+  /**
+   * Empresa without action
+   */
+  export type EmpresaDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Empresa
+     */
+    select?: EmpresaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Empresa
+     */
+    omit?: EmpresaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmpresaInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Grupo
+   */
+
+  export type AggregateGrupo = {
+    _count: GrupoCountAggregateOutputType | null
+    _avg: GrupoAvgAggregateOutputType | null
+    _sum: GrupoSumAggregateOutputType | null
+    _min: GrupoMinAggregateOutputType | null
+    _max: GrupoMaxAggregateOutputType | null
+  }
+
+  export type GrupoAvgAggregateOutputType = {
+    id: number | null
+    empresaId: number | null
+  }
+
+  export type GrupoSumAggregateOutputType = {
+    id: number | null
+    empresaId: number | null
+  }
+
+  export type GrupoMinAggregateOutputType = {
+    id: number | null
+    nome: string | null
+    empresaId: number | null
+  }
+
+  export type GrupoMaxAggregateOutputType = {
+    id: number | null
+    nome: string | null
+    empresaId: number | null
+  }
+
+  export type GrupoCountAggregateOutputType = {
+    id: number
+    nome: number
+    permissoes: number
+    empresaId: number
+    _all: number
+  }
+
+
+  export type GrupoAvgAggregateInputType = {
+    id?: true
+    empresaId?: true
+  }
+
+  export type GrupoSumAggregateInputType = {
+    id?: true
+    empresaId?: true
+  }
+
+  export type GrupoMinAggregateInputType = {
+    id?: true
+    nome?: true
+    empresaId?: true
+  }
+
+  export type GrupoMaxAggregateInputType = {
+    id?: true
+    nome?: true
+    empresaId?: true
+  }
+
+  export type GrupoCountAggregateInputType = {
+    id?: true
+    nome?: true
+    permissoes?: true
+    empresaId?: true
+    _all?: true
+  }
+
+  export type GrupoAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Grupo to aggregate.
+     */
+    where?: GrupoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Grupos to fetch.
+     */
+    orderBy?: GrupoOrderByWithRelationInput | GrupoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: GrupoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Grupos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Grupos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Grupos
+    **/
+    _count?: true | GrupoCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: GrupoAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: GrupoSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: GrupoMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: GrupoMaxAggregateInputType
+  }
+
+  export type GetGrupoAggregateType<T extends GrupoAggregateArgs> = {
+        [P in keyof T & keyof AggregateGrupo]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateGrupo[P]>
+      : GetScalarType<T[P], AggregateGrupo[P]>
+  }
+
+
+
+
+  export type GrupoGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GrupoWhereInput
+    orderBy?: GrupoOrderByWithAggregationInput | GrupoOrderByWithAggregationInput[]
+    by: GrupoScalarFieldEnum[] | GrupoScalarFieldEnum
+    having?: GrupoScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: GrupoCountAggregateInputType | true
+    _avg?: GrupoAvgAggregateInputType
+    _sum?: GrupoSumAggregateInputType
+    _min?: GrupoMinAggregateInputType
+    _max?: GrupoMaxAggregateInputType
+  }
+
+  export type GrupoGroupByOutputType = {
+    id: number
+    nome: string
+    permissoes: $Enums.Permissoes[]
+    empresaId: number
+    _count: GrupoCountAggregateOutputType | null
+    _avg: GrupoAvgAggregateOutputType | null
+    _sum: GrupoSumAggregateOutputType | null
+    _min: GrupoMinAggregateOutputType | null
+    _max: GrupoMaxAggregateOutputType | null
+  }
+
+  type GetGrupoGroupByPayload<T extends GrupoGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<GrupoGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof GrupoGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], GrupoGroupByOutputType[P]>
+            : GetScalarType<T[P], GrupoGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type GrupoSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    nome?: boolean
+    permissoes?: boolean
+    empresaId?: boolean
+    usuarios?: boolean | Grupo$usuariosArgs<ExtArgs>
+    empresas?: boolean | EmpresaDefaultArgs<ExtArgs>
+    _count?: boolean | GrupoCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["grupo"]>
+
+  export type GrupoSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    nome?: boolean
+    permissoes?: boolean
+    empresaId?: boolean
+    empresas?: boolean | EmpresaDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["grupo"]>
+
+  export type GrupoSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    nome?: boolean
+    permissoes?: boolean
+    empresaId?: boolean
+    empresas?: boolean | EmpresaDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["grupo"]>
+
+  export type GrupoSelectScalar = {
+    id?: boolean
+    nome?: boolean
+    permissoes?: boolean
+    empresaId?: boolean
+  }
+
+  export type GrupoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nome" | "permissoes" | "empresaId", ExtArgs["result"]["grupo"]>
+  export type GrupoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    usuarios?: boolean | Grupo$usuariosArgs<ExtArgs>
+    empresas?: boolean | EmpresaDefaultArgs<ExtArgs>
+    _count?: boolean | GrupoCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type GrupoIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    empresas?: boolean | EmpresaDefaultArgs<ExtArgs>
+  }
+  export type GrupoIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    empresas?: boolean | EmpresaDefaultArgs<ExtArgs>
+  }
+
+  export type $GrupoPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Grupo"
+    objects: {
+      usuarios: Prisma.$UsuarioPayload<ExtArgs>[]
+      empresas: Prisma.$EmpresaPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      nome: string
+      permissoes: $Enums.Permissoes[]
+      empresaId: number
+    }, ExtArgs["result"]["grupo"]>
+    composites: {}
+  }
+
+  type GrupoGetPayload<S extends boolean | null | undefined | GrupoDefaultArgs> = $Result.GetResult<Prisma.$GrupoPayload, S>
+
+  type GrupoCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<GrupoFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: GrupoCountAggregateInputType | true
+    }
+
+  export interface GrupoDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Grupo'], meta: { name: 'Grupo' } }
+    /**
+     * Find zero or one Grupo that matches the filter.
+     * @param {GrupoFindUniqueArgs} args - Arguments to find a Grupo
+     * @example
+     * // Get one Grupo
+     * const grupo = await prisma.grupo.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends GrupoFindUniqueArgs>(args: SelectSubset<T, GrupoFindUniqueArgs<ExtArgs>>): Prisma__GrupoClient<$Result.GetResult<Prisma.$GrupoPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Grupo that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {GrupoFindUniqueOrThrowArgs} args - Arguments to find a Grupo
+     * @example
+     * // Get one Grupo
+     * const grupo = await prisma.grupo.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends GrupoFindUniqueOrThrowArgs>(args: SelectSubset<T, GrupoFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GrupoClient<$Result.GetResult<Prisma.$GrupoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Grupo that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GrupoFindFirstArgs} args - Arguments to find a Grupo
+     * @example
+     * // Get one Grupo
+     * const grupo = await prisma.grupo.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends GrupoFindFirstArgs>(args?: SelectSubset<T, GrupoFindFirstArgs<ExtArgs>>): Prisma__GrupoClient<$Result.GetResult<Prisma.$GrupoPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Grupo that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GrupoFindFirstOrThrowArgs} args - Arguments to find a Grupo
+     * @example
+     * // Get one Grupo
+     * const grupo = await prisma.grupo.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends GrupoFindFirstOrThrowArgs>(args?: SelectSubset<T, GrupoFindFirstOrThrowArgs<ExtArgs>>): Prisma__GrupoClient<$Result.GetResult<Prisma.$GrupoPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Grupos that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GrupoFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Grupos
+     * const grupos = await prisma.grupo.findMany()
+     * 
+     * // Get first 10 Grupos
+     * const grupos = await prisma.grupo.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const grupoWithIdOnly = await prisma.grupo.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends GrupoFindManyArgs>(args?: SelectSubset<T, GrupoFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GrupoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Grupo.
+     * @param {GrupoCreateArgs} args - Arguments to create a Grupo.
+     * @example
+     * // Create one Grupo
+     * const Grupo = await prisma.grupo.create({
+     *   data: {
+     *     // ... data to create a Grupo
+     *   }
+     * })
+     * 
+     */
+    create<T extends GrupoCreateArgs>(args: SelectSubset<T, GrupoCreateArgs<ExtArgs>>): Prisma__GrupoClient<$Result.GetResult<Prisma.$GrupoPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Grupos.
+     * @param {GrupoCreateManyArgs} args - Arguments to create many Grupos.
+     * @example
+     * // Create many Grupos
+     * const grupo = await prisma.grupo.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends GrupoCreateManyArgs>(args?: SelectSubset<T, GrupoCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Grupos and returns the data saved in the database.
+     * @param {GrupoCreateManyAndReturnArgs} args - Arguments to create many Grupos.
+     * @example
+     * // Create many Grupos
+     * const grupo = await prisma.grupo.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Grupos and only return the `id`
+     * const grupoWithIdOnly = await prisma.grupo.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends GrupoCreateManyAndReturnArgs>(args?: SelectSubset<T, GrupoCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GrupoPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Grupo.
+     * @param {GrupoDeleteArgs} args - Arguments to delete one Grupo.
+     * @example
+     * // Delete one Grupo
+     * const Grupo = await prisma.grupo.delete({
+     *   where: {
+     *     // ... filter to delete one Grupo
+     *   }
+     * })
+     * 
+     */
+    delete<T extends GrupoDeleteArgs>(args: SelectSubset<T, GrupoDeleteArgs<ExtArgs>>): Prisma__GrupoClient<$Result.GetResult<Prisma.$GrupoPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Grupo.
+     * @param {GrupoUpdateArgs} args - Arguments to update one Grupo.
+     * @example
+     * // Update one Grupo
+     * const grupo = await prisma.grupo.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends GrupoUpdateArgs>(args: SelectSubset<T, GrupoUpdateArgs<ExtArgs>>): Prisma__GrupoClient<$Result.GetResult<Prisma.$GrupoPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Grupos.
+     * @param {GrupoDeleteManyArgs} args - Arguments to filter Grupos to delete.
+     * @example
+     * // Delete a few Grupos
+     * const { count } = await prisma.grupo.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends GrupoDeleteManyArgs>(args?: SelectSubset<T, GrupoDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Grupos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GrupoUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Grupos
+     * const grupo = await prisma.grupo.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends GrupoUpdateManyArgs>(args: SelectSubset<T, GrupoUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Grupos and returns the data updated in the database.
+     * @param {GrupoUpdateManyAndReturnArgs} args - Arguments to update many Grupos.
+     * @example
+     * // Update many Grupos
+     * const grupo = await prisma.grupo.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Grupos and only return the `id`
+     * const grupoWithIdOnly = await prisma.grupo.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends GrupoUpdateManyAndReturnArgs>(args: SelectSubset<T, GrupoUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GrupoPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Grupo.
+     * @param {GrupoUpsertArgs} args - Arguments to update or create a Grupo.
+     * @example
+     * // Update or create a Grupo
+     * const grupo = await prisma.grupo.upsert({
+     *   create: {
+     *     // ... data to create a Grupo
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Grupo we want to update
+     *   }
+     * })
+     */
+    upsert<T extends GrupoUpsertArgs>(args: SelectSubset<T, GrupoUpsertArgs<ExtArgs>>): Prisma__GrupoClient<$Result.GetResult<Prisma.$GrupoPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Grupos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GrupoCountArgs} args - Arguments to filter Grupos to count.
+     * @example
+     * // Count the number of Grupos
+     * const count = await prisma.grupo.count({
+     *   where: {
+     *     // ... the filter for the Grupos we want to count
+     *   }
+     * })
+    **/
+    count<T extends GrupoCountArgs>(
+      args?: Subset<T, GrupoCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], GrupoCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Grupo.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GrupoAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends GrupoAggregateArgs>(args: Subset<T, GrupoAggregateArgs>): Prisma.PrismaPromise<GetGrupoAggregateType<T>>
+
+    /**
+     * Group by Grupo.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GrupoGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends GrupoGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: GrupoGroupByArgs['orderBy'] }
+        : { orderBy?: GrupoGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, GrupoGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGrupoGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Grupo model
+   */
+  readonly fields: GrupoFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Grupo.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__GrupoClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    usuarios<T extends Grupo$usuariosArgs<ExtArgs> = {}>(args?: Subset<T, Grupo$usuariosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    empresas<T extends EmpresaDefaultArgs<ExtArgs> = {}>(args?: Subset<T, EmpresaDefaultArgs<ExtArgs>>): Prisma__EmpresaClient<$Result.GetResult<Prisma.$EmpresaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Grupo model
+   */
+  interface GrupoFieldRefs {
+    readonly id: FieldRef<"Grupo", 'Int'>
+    readonly nome: FieldRef<"Grupo", 'String'>
+    readonly permissoes: FieldRef<"Grupo", 'Permissoes[]'>
+    readonly empresaId: FieldRef<"Grupo", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Grupo findUnique
+   */
+  export type GrupoFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Grupo
+     */
+    select?: GrupoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Grupo
+     */
+    omit?: GrupoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GrupoInclude<ExtArgs> | null
+    /**
+     * Filter, which Grupo to fetch.
+     */
+    where: GrupoWhereUniqueInput
+  }
+
+  /**
+   * Grupo findUniqueOrThrow
+   */
+  export type GrupoFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Grupo
+     */
+    select?: GrupoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Grupo
+     */
+    omit?: GrupoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GrupoInclude<ExtArgs> | null
+    /**
+     * Filter, which Grupo to fetch.
+     */
+    where: GrupoWhereUniqueInput
+  }
+
+  /**
+   * Grupo findFirst
+   */
+  export type GrupoFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Grupo
+     */
+    select?: GrupoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Grupo
+     */
+    omit?: GrupoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GrupoInclude<ExtArgs> | null
+    /**
+     * Filter, which Grupo to fetch.
+     */
+    where?: GrupoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Grupos to fetch.
+     */
+    orderBy?: GrupoOrderByWithRelationInput | GrupoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Grupos.
+     */
+    cursor?: GrupoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Grupos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Grupos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Grupos.
+     */
+    distinct?: GrupoScalarFieldEnum | GrupoScalarFieldEnum[]
+  }
+
+  /**
+   * Grupo findFirstOrThrow
+   */
+  export type GrupoFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Grupo
+     */
+    select?: GrupoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Grupo
+     */
+    omit?: GrupoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GrupoInclude<ExtArgs> | null
+    /**
+     * Filter, which Grupo to fetch.
+     */
+    where?: GrupoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Grupos to fetch.
+     */
+    orderBy?: GrupoOrderByWithRelationInput | GrupoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Grupos.
+     */
+    cursor?: GrupoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Grupos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Grupos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Grupos.
+     */
+    distinct?: GrupoScalarFieldEnum | GrupoScalarFieldEnum[]
+  }
+
+  /**
+   * Grupo findMany
+   */
+  export type GrupoFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Grupo
+     */
+    select?: GrupoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Grupo
+     */
+    omit?: GrupoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GrupoInclude<ExtArgs> | null
+    /**
+     * Filter, which Grupos to fetch.
+     */
+    where?: GrupoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Grupos to fetch.
+     */
+    orderBy?: GrupoOrderByWithRelationInput | GrupoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Grupos.
+     */
+    cursor?: GrupoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Grupos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Grupos.
+     */
+    skip?: number
+    distinct?: GrupoScalarFieldEnum | GrupoScalarFieldEnum[]
+  }
+
+  /**
+   * Grupo create
+   */
+  export type GrupoCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Grupo
+     */
+    select?: GrupoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Grupo
+     */
+    omit?: GrupoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GrupoInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Grupo.
+     */
+    data: XOR<GrupoCreateInput, GrupoUncheckedCreateInput>
+  }
+
+  /**
+   * Grupo createMany
+   */
+  export type GrupoCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Grupos.
+     */
+    data: GrupoCreateManyInput | GrupoCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Grupo createManyAndReturn
+   */
+  export type GrupoCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Grupo
+     */
+    select?: GrupoSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Grupo
+     */
+    omit?: GrupoOmit<ExtArgs> | null
+    /**
+     * The data used to create many Grupos.
+     */
+    data: GrupoCreateManyInput | GrupoCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GrupoIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Grupo update
+   */
+  export type GrupoUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Grupo
+     */
+    select?: GrupoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Grupo
+     */
+    omit?: GrupoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GrupoInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Grupo.
+     */
+    data: XOR<GrupoUpdateInput, GrupoUncheckedUpdateInput>
+    /**
+     * Choose, which Grupo to update.
+     */
+    where: GrupoWhereUniqueInput
+  }
+
+  /**
+   * Grupo updateMany
+   */
+  export type GrupoUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Grupos.
+     */
+    data: XOR<GrupoUpdateManyMutationInput, GrupoUncheckedUpdateManyInput>
+    /**
+     * Filter which Grupos to update
+     */
+    where?: GrupoWhereInput
+    /**
+     * Limit how many Grupos to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Grupo updateManyAndReturn
+   */
+  export type GrupoUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Grupo
+     */
+    select?: GrupoSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Grupo
+     */
+    omit?: GrupoOmit<ExtArgs> | null
+    /**
+     * The data used to update Grupos.
+     */
+    data: XOR<GrupoUpdateManyMutationInput, GrupoUncheckedUpdateManyInput>
+    /**
+     * Filter which Grupos to update
+     */
+    where?: GrupoWhereInput
+    /**
+     * Limit how many Grupos to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GrupoIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Grupo upsert
+   */
+  export type GrupoUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Grupo
+     */
+    select?: GrupoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Grupo
+     */
+    omit?: GrupoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GrupoInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Grupo to update in case it exists.
+     */
+    where: GrupoWhereUniqueInput
+    /**
+     * In case the Grupo found by the `where` argument doesn't exist, create a new Grupo with this data.
+     */
+    create: XOR<GrupoCreateInput, GrupoUncheckedCreateInput>
+    /**
+     * In case the Grupo was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<GrupoUpdateInput, GrupoUncheckedUpdateInput>
+  }
+
+  /**
+   * Grupo delete
+   */
+  export type GrupoDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Grupo
+     */
+    select?: GrupoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Grupo
+     */
+    omit?: GrupoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GrupoInclude<ExtArgs> | null
+    /**
+     * Filter which Grupo to delete.
+     */
+    where: GrupoWhereUniqueInput
+  }
+
+  /**
+   * Grupo deleteMany
+   */
+  export type GrupoDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Grupos to delete
+     */
+    where?: GrupoWhereInput
+    /**
+     * Limit how many Grupos to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Grupo.usuarios
+   */
+  export type Grupo$usuariosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Usuario
+     */
+    select?: UsuarioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Usuario
+     */
+    omit?: UsuarioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsuarioInclude<ExtArgs> | null
+    where?: UsuarioWhereInput
+    orderBy?: UsuarioOrderByWithRelationInput | UsuarioOrderByWithRelationInput[]
+    cursor?: UsuarioWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UsuarioScalarFieldEnum | UsuarioScalarFieldEnum[]
+  }
+
+  /**
+   * Grupo without action
+   */
+  export type GrupoDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Grupo
+     */
+    select?: GrupoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Grupo
+     */
+    omit?: GrupoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GrupoInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Lancamento
+   */
+
+  export type AggregateLancamento = {
+    _count: LancamentoCountAggregateOutputType | null
+    _avg: LancamentoAvgAggregateOutputType | null
+    _sum: LancamentoSumAggregateOutputType | null
+    _min: LancamentoMinAggregateOutputType | null
+    _max: LancamentoMaxAggregateOutputType | null
+  }
+
+  export type LancamentoAvgAggregateOutputType = {
+    id: number | null
+    latitude: number | null
+    longitude: number | null
+    periodoId: number | null
+    notaFiscalId: number | null
+    usuarioId: number | null
+    empresaId: number | null
+  }
+
+  export type LancamentoSumAggregateOutputType = {
+    id: number | null
+    latitude: number | null
+    longitude: number | null
+    periodoId: number | null
+    notaFiscalId: number | null
+    usuarioId: number | null
+    empresaId: number | null
+  }
+
+  export type LancamentoMinAggregateOutputType = {
+    id: number | null
+    data_lancamento: Date | null
+    latitude: number | null
+    longitude: number | null
+    dataCriacao: Date | null
+    dataAtualizacao: Date | null
+    periodoId: number | null
+    notaFiscalId: number | null
+    usuarioId: number | null
+    empresaId: number | null
+  }
+
+  export type LancamentoMaxAggregateOutputType = {
+    id: number | null
+    data_lancamento: Date | null
+    latitude: number | null
+    longitude: number | null
+    dataCriacao: Date | null
+    dataAtualizacao: Date | null
+    periodoId: number | null
+    notaFiscalId: number | null
+    usuarioId: number | null
+    empresaId: number | null
+  }
+
+  export type LancamentoCountAggregateOutputType = {
+    id: number
+    data_lancamento: number
+    latitude: number
+    longitude: number
+    dataCriacao: number
+    dataAtualizacao: number
+    periodoId: number
+    notaFiscalId: number
+    usuarioId: number
+    empresaId: number
+    _all: number
+  }
+
+
+  export type LancamentoAvgAggregateInputType = {
+    id?: true
+    latitude?: true
+    longitude?: true
+    periodoId?: true
+    notaFiscalId?: true
+    usuarioId?: true
+    empresaId?: true
+  }
+
+  export type LancamentoSumAggregateInputType = {
+    id?: true
+    latitude?: true
+    longitude?: true
+    periodoId?: true
+    notaFiscalId?: true
+    usuarioId?: true
+    empresaId?: true
+  }
+
+  export type LancamentoMinAggregateInputType = {
+    id?: true
+    data_lancamento?: true
+    latitude?: true
+    longitude?: true
+    dataCriacao?: true
+    dataAtualizacao?: true
+    periodoId?: true
+    notaFiscalId?: true
+    usuarioId?: true
+    empresaId?: true
+  }
+
+  export type LancamentoMaxAggregateInputType = {
+    id?: true
+    data_lancamento?: true
+    latitude?: true
+    longitude?: true
+    dataCriacao?: true
+    dataAtualizacao?: true
+    periodoId?: true
+    notaFiscalId?: true
+    usuarioId?: true
+    empresaId?: true
+  }
+
+  export type LancamentoCountAggregateInputType = {
+    id?: true
+    data_lancamento?: true
+    latitude?: true
+    longitude?: true
+    dataCriacao?: true
+    dataAtualizacao?: true
+    periodoId?: true
+    notaFiscalId?: true
+    usuarioId?: true
+    empresaId?: true
+    _all?: true
+  }
+
+  export type LancamentoAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Lancamento to aggregate.
+     */
+    where?: LancamentoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Lancamentos to fetch.
+     */
+    orderBy?: LancamentoOrderByWithRelationInput | LancamentoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LancamentoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Lancamentos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Lancamentos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Lancamentos
+    **/
+    _count?: true | LancamentoCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: LancamentoAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: LancamentoSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LancamentoMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LancamentoMaxAggregateInputType
+  }
+
+  export type GetLancamentoAggregateType<T extends LancamentoAggregateArgs> = {
+        [P in keyof T & keyof AggregateLancamento]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLancamento[P]>
+      : GetScalarType<T[P], AggregateLancamento[P]>
+  }
+
+
+
+
+  export type LancamentoGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LancamentoWhereInput
+    orderBy?: LancamentoOrderByWithAggregationInput | LancamentoOrderByWithAggregationInput[]
+    by: LancamentoScalarFieldEnum[] | LancamentoScalarFieldEnum
+    having?: LancamentoScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LancamentoCountAggregateInputType | true
+    _avg?: LancamentoAvgAggregateInputType
+    _sum?: LancamentoSumAggregateInputType
+    _min?: LancamentoMinAggregateInputType
+    _max?: LancamentoMaxAggregateInputType
+  }
+
+  export type LancamentoGroupByOutputType = {
+    id: number
+    data_lancamento: Date
+    latitude: number
+    longitude: number
+    dataCriacao: Date
+    dataAtualizacao: Date
+    periodoId: number | null
+    notaFiscalId: number
+    usuarioId: number
+    empresaId: number
+    _count: LancamentoCountAggregateOutputType | null
+    _avg: LancamentoAvgAggregateOutputType | null
+    _sum: LancamentoSumAggregateOutputType | null
+    _min: LancamentoMinAggregateOutputType | null
+    _max: LancamentoMaxAggregateOutputType | null
+  }
+
+  type GetLancamentoGroupByPayload<T extends LancamentoGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<LancamentoGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LancamentoGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LancamentoGroupByOutputType[P]>
+            : GetScalarType<T[P], LancamentoGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LancamentoSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    data_lancamento?: boolean
+    latitude?: boolean
+    longitude?: boolean
+    dataCriacao?: boolean
+    dataAtualizacao?: boolean
+    periodoId?: boolean
+    notaFiscalId?: boolean
+    usuarioId?: boolean
+    empresaId?: boolean
+    empresa?: boolean | EmpresaDefaultArgs<ExtArgs>
+    periodo?: boolean | Lancamento$periodoArgs<ExtArgs>
+    notaFiscal?: boolean | NotaFiscalDefaultArgs<ExtArgs>
+    imagens?: boolean | Lancamento$imagensArgs<ExtArgs>
+    usuarios?: boolean | UsuarioDefaultArgs<ExtArgs>
+    _count?: boolean | LancamentoCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["lancamento"]>
+
+  export type LancamentoSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    data_lancamento?: boolean
+    latitude?: boolean
+    longitude?: boolean
+    dataCriacao?: boolean
+    dataAtualizacao?: boolean
+    periodoId?: boolean
+    notaFiscalId?: boolean
+    usuarioId?: boolean
+    empresaId?: boolean
+    empresa?: boolean | EmpresaDefaultArgs<ExtArgs>
+    periodo?: boolean | Lancamento$periodoArgs<ExtArgs>
+    notaFiscal?: boolean | NotaFiscalDefaultArgs<ExtArgs>
+    usuarios?: boolean | UsuarioDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["lancamento"]>
+
+  export type LancamentoSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    data_lancamento?: boolean
+    latitude?: boolean
+    longitude?: boolean
+    dataCriacao?: boolean
+    dataAtualizacao?: boolean
+    periodoId?: boolean
+    notaFiscalId?: boolean
+    usuarioId?: boolean
+    empresaId?: boolean
+    empresa?: boolean | EmpresaDefaultArgs<ExtArgs>
+    periodo?: boolean | Lancamento$periodoArgs<ExtArgs>
+    notaFiscal?: boolean | NotaFiscalDefaultArgs<ExtArgs>
+    usuarios?: boolean | UsuarioDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["lancamento"]>
+
+  export type LancamentoSelectScalar = {
+    id?: boolean
+    data_lancamento?: boolean
+    latitude?: boolean
+    longitude?: boolean
+    dataCriacao?: boolean
+    dataAtualizacao?: boolean
+    periodoId?: boolean
+    notaFiscalId?: boolean
+    usuarioId?: boolean
+    empresaId?: boolean
+  }
+
+  export type LancamentoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "data_lancamento" | "latitude" | "longitude" | "dataCriacao" | "dataAtualizacao" | "periodoId" | "notaFiscalId" | "usuarioId" | "empresaId", ExtArgs["result"]["lancamento"]>
+  export type LancamentoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    empresa?: boolean | EmpresaDefaultArgs<ExtArgs>
+    periodo?: boolean | Lancamento$periodoArgs<ExtArgs>
+    notaFiscal?: boolean | NotaFiscalDefaultArgs<ExtArgs>
+    imagens?: boolean | Lancamento$imagensArgs<ExtArgs>
+    usuarios?: boolean | UsuarioDefaultArgs<ExtArgs>
+    _count?: boolean | LancamentoCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type LancamentoIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    empresa?: boolean | EmpresaDefaultArgs<ExtArgs>
+    periodo?: boolean | Lancamento$periodoArgs<ExtArgs>
+    notaFiscal?: boolean | NotaFiscalDefaultArgs<ExtArgs>
+    usuarios?: boolean | UsuarioDefaultArgs<ExtArgs>
+  }
+  export type LancamentoIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    empresa?: boolean | EmpresaDefaultArgs<ExtArgs>
+    periodo?: boolean | Lancamento$periodoArgs<ExtArgs>
+    notaFiscal?: boolean | NotaFiscalDefaultArgs<ExtArgs>
+    usuarios?: boolean | UsuarioDefaultArgs<ExtArgs>
+  }
+
+  export type $LancamentoPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Lancamento"
+    objects: {
+      empresa: Prisma.$EmpresaPayload<ExtArgs>
+      periodo: Prisma.$PeriodoPayload<ExtArgs> | null
+      notaFiscal: Prisma.$NotaFiscalPayload<ExtArgs>
+      imagens: Prisma.$ImagemPayload<ExtArgs>[]
+      usuarios: Prisma.$UsuarioPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      data_lancamento: Date
+      latitude: number
+      longitude: number
+      dataCriacao: Date
+      dataAtualizacao: Date
+      periodoId: number | null
+      notaFiscalId: number
+      usuarioId: number
+      empresaId: number
+    }, ExtArgs["result"]["lancamento"]>
+    composites: {}
+  }
+
+  type LancamentoGetPayload<S extends boolean | null | undefined | LancamentoDefaultArgs> = $Result.GetResult<Prisma.$LancamentoPayload, S>
+
+  type LancamentoCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<LancamentoFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: LancamentoCountAggregateInputType | true
+    }
+
+  export interface LancamentoDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Lancamento'], meta: { name: 'Lancamento' } }
+    /**
+     * Find zero or one Lancamento that matches the filter.
+     * @param {LancamentoFindUniqueArgs} args - Arguments to find a Lancamento
+     * @example
+     * // Get one Lancamento
+     * const lancamento = await prisma.lancamento.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends LancamentoFindUniqueArgs>(args: SelectSubset<T, LancamentoFindUniqueArgs<ExtArgs>>): Prisma__LancamentoClient<$Result.GetResult<Prisma.$LancamentoPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Lancamento that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {LancamentoFindUniqueOrThrowArgs} args - Arguments to find a Lancamento
+     * @example
+     * // Get one Lancamento
+     * const lancamento = await prisma.lancamento.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends LancamentoFindUniqueOrThrowArgs>(args: SelectSubset<T, LancamentoFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LancamentoClient<$Result.GetResult<Prisma.$LancamentoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Lancamento that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LancamentoFindFirstArgs} args - Arguments to find a Lancamento
+     * @example
+     * // Get one Lancamento
+     * const lancamento = await prisma.lancamento.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends LancamentoFindFirstArgs>(args?: SelectSubset<T, LancamentoFindFirstArgs<ExtArgs>>): Prisma__LancamentoClient<$Result.GetResult<Prisma.$LancamentoPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Lancamento that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LancamentoFindFirstOrThrowArgs} args - Arguments to find a Lancamento
+     * @example
+     * // Get one Lancamento
+     * const lancamento = await prisma.lancamento.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends LancamentoFindFirstOrThrowArgs>(args?: SelectSubset<T, LancamentoFindFirstOrThrowArgs<ExtArgs>>): Prisma__LancamentoClient<$Result.GetResult<Prisma.$LancamentoPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Lancamentos that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LancamentoFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Lancamentos
+     * const lancamentos = await prisma.lancamento.findMany()
+     * 
+     * // Get first 10 Lancamentos
+     * const lancamentos = await prisma.lancamento.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const lancamentoWithIdOnly = await prisma.lancamento.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends LancamentoFindManyArgs>(args?: SelectSubset<T, LancamentoFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LancamentoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Lancamento.
+     * @param {LancamentoCreateArgs} args - Arguments to create a Lancamento.
+     * @example
+     * // Create one Lancamento
+     * const Lancamento = await prisma.lancamento.create({
+     *   data: {
+     *     // ... data to create a Lancamento
+     *   }
+     * })
+     * 
+     */
+    create<T extends LancamentoCreateArgs>(args: SelectSubset<T, LancamentoCreateArgs<ExtArgs>>): Prisma__LancamentoClient<$Result.GetResult<Prisma.$LancamentoPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Lancamentos.
+     * @param {LancamentoCreateManyArgs} args - Arguments to create many Lancamentos.
+     * @example
+     * // Create many Lancamentos
+     * const lancamento = await prisma.lancamento.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends LancamentoCreateManyArgs>(args?: SelectSubset<T, LancamentoCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Lancamentos and returns the data saved in the database.
+     * @param {LancamentoCreateManyAndReturnArgs} args - Arguments to create many Lancamentos.
+     * @example
+     * // Create many Lancamentos
+     * const lancamento = await prisma.lancamento.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Lancamentos and only return the `id`
+     * const lancamentoWithIdOnly = await prisma.lancamento.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends LancamentoCreateManyAndReturnArgs>(args?: SelectSubset<T, LancamentoCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LancamentoPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Lancamento.
+     * @param {LancamentoDeleteArgs} args - Arguments to delete one Lancamento.
+     * @example
+     * // Delete one Lancamento
+     * const Lancamento = await prisma.lancamento.delete({
+     *   where: {
+     *     // ... filter to delete one Lancamento
+     *   }
+     * })
+     * 
+     */
+    delete<T extends LancamentoDeleteArgs>(args: SelectSubset<T, LancamentoDeleteArgs<ExtArgs>>): Prisma__LancamentoClient<$Result.GetResult<Prisma.$LancamentoPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Lancamento.
+     * @param {LancamentoUpdateArgs} args - Arguments to update one Lancamento.
+     * @example
+     * // Update one Lancamento
+     * const lancamento = await prisma.lancamento.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends LancamentoUpdateArgs>(args: SelectSubset<T, LancamentoUpdateArgs<ExtArgs>>): Prisma__LancamentoClient<$Result.GetResult<Prisma.$LancamentoPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Lancamentos.
+     * @param {LancamentoDeleteManyArgs} args - Arguments to filter Lancamentos to delete.
+     * @example
+     * // Delete a few Lancamentos
+     * const { count } = await prisma.lancamento.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends LancamentoDeleteManyArgs>(args?: SelectSubset<T, LancamentoDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Lancamentos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LancamentoUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Lancamentos
+     * const lancamento = await prisma.lancamento.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends LancamentoUpdateManyArgs>(args: SelectSubset<T, LancamentoUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Lancamentos and returns the data updated in the database.
+     * @param {LancamentoUpdateManyAndReturnArgs} args - Arguments to update many Lancamentos.
+     * @example
+     * // Update many Lancamentos
+     * const lancamento = await prisma.lancamento.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Lancamentos and only return the `id`
+     * const lancamentoWithIdOnly = await prisma.lancamento.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends LancamentoUpdateManyAndReturnArgs>(args: SelectSubset<T, LancamentoUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LancamentoPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Lancamento.
+     * @param {LancamentoUpsertArgs} args - Arguments to update or create a Lancamento.
+     * @example
+     * // Update or create a Lancamento
+     * const lancamento = await prisma.lancamento.upsert({
+     *   create: {
+     *     // ... data to create a Lancamento
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Lancamento we want to update
+     *   }
+     * })
+     */
+    upsert<T extends LancamentoUpsertArgs>(args: SelectSubset<T, LancamentoUpsertArgs<ExtArgs>>): Prisma__LancamentoClient<$Result.GetResult<Prisma.$LancamentoPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Lancamentos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LancamentoCountArgs} args - Arguments to filter Lancamentos to count.
+     * @example
+     * // Count the number of Lancamentos
+     * const count = await prisma.lancamento.count({
+     *   where: {
+     *     // ... the filter for the Lancamentos we want to count
+     *   }
+     * })
+    **/
+    count<T extends LancamentoCountArgs>(
+      args?: Subset<T, LancamentoCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LancamentoCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Lancamento.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LancamentoAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LancamentoAggregateArgs>(args: Subset<T, LancamentoAggregateArgs>): Prisma.PrismaPromise<GetLancamentoAggregateType<T>>
+
+    /**
+     * Group by Lancamento.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LancamentoGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LancamentoGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LancamentoGroupByArgs['orderBy'] }
+        : { orderBy?: LancamentoGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LancamentoGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLancamentoGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Lancamento model
+   */
+  readonly fields: LancamentoFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Lancamento.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__LancamentoClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    empresa<T extends EmpresaDefaultArgs<ExtArgs> = {}>(args?: Subset<T, EmpresaDefaultArgs<ExtArgs>>): Prisma__EmpresaClient<$Result.GetResult<Prisma.$EmpresaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    periodo<T extends Lancamento$periodoArgs<ExtArgs> = {}>(args?: Subset<T, Lancamento$periodoArgs<ExtArgs>>): Prisma__PeriodoClient<$Result.GetResult<Prisma.$PeriodoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    notaFiscal<T extends NotaFiscalDefaultArgs<ExtArgs> = {}>(args?: Subset<T, NotaFiscalDefaultArgs<ExtArgs>>): Prisma__NotaFiscalClient<$Result.GetResult<Prisma.$NotaFiscalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    imagens<T extends Lancamento$imagensArgs<ExtArgs> = {}>(args?: Subset<T, Lancamento$imagensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ImagemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    usuarios<T extends UsuarioDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsuarioDefaultArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Lancamento model
+   */
+  interface LancamentoFieldRefs {
+    readonly id: FieldRef<"Lancamento", 'Int'>
+    readonly data_lancamento: FieldRef<"Lancamento", 'DateTime'>
+    readonly latitude: FieldRef<"Lancamento", 'Float'>
+    readonly longitude: FieldRef<"Lancamento", 'Float'>
+    readonly dataCriacao: FieldRef<"Lancamento", 'DateTime'>
+    readonly dataAtualizacao: FieldRef<"Lancamento", 'DateTime'>
+    readonly periodoId: FieldRef<"Lancamento", 'Int'>
+    readonly notaFiscalId: FieldRef<"Lancamento", 'Int'>
+    readonly usuarioId: FieldRef<"Lancamento", 'Int'>
+    readonly empresaId: FieldRef<"Lancamento", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Lancamento findUnique
+   */
+  export type LancamentoFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lancamento
+     */
+    select?: LancamentoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lancamento
+     */
+    omit?: LancamentoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LancamentoInclude<ExtArgs> | null
+    /**
+     * Filter, which Lancamento to fetch.
+     */
+    where: LancamentoWhereUniqueInput
+  }
+
+  /**
+   * Lancamento findUniqueOrThrow
+   */
+  export type LancamentoFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lancamento
+     */
+    select?: LancamentoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lancamento
+     */
+    omit?: LancamentoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LancamentoInclude<ExtArgs> | null
+    /**
+     * Filter, which Lancamento to fetch.
+     */
+    where: LancamentoWhereUniqueInput
+  }
+
+  /**
+   * Lancamento findFirst
+   */
+  export type LancamentoFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lancamento
+     */
+    select?: LancamentoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lancamento
+     */
+    omit?: LancamentoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LancamentoInclude<ExtArgs> | null
+    /**
+     * Filter, which Lancamento to fetch.
+     */
+    where?: LancamentoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Lancamentos to fetch.
+     */
+    orderBy?: LancamentoOrderByWithRelationInput | LancamentoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Lancamentos.
+     */
+    cursor?: LancamentoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Lancamentos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Lancamentos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Lancamentos.
+     */
+    distinct?: LancamentoScalarFieldEnum | LancamentoScalarFieldEnum[]
+  }
+
+  /**
+   * Lancamento findFirstOrThrow
+   */
+  export type LancamentoFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lancamento
+     */
+    select?: LancamentoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lancamento
+     */
+    omit?: LancamentoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LancamentoInclude<ExtArgs> | null
+    /**
+     * Filter, which Lancamento to fetch.
+     */
+    where?: LancamentoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Lancamentos to fetch.
+     */
+    orderBy?: LancamentoOrderByWithRelationInput | LancamentoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Lancamentos.
+     */
+    cursor?: LancamentoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Lancamentos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Lancamentos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Lancamentos.
+     */
+    distinct?: LancamentoScalarFieldEnum | LancamentoScalarFieldEnum[]
+  }
+
+  /**
+   * Lancamento findMany
+   */
+  export type LancamentoFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lancamento
+     */
+    select?: LancamentoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lancamento
+     */
+    omit?: LancamentoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LancamentoInclude<ExtArgs> | null
+    /**
+     * Filter, which Lancamentos to fetch.
+     */
+    where?: LancamentoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Lancamentos to fetch.
+     */
+    orderBy?: LancamentoOrderByWithRelationInput | LancamentoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Lancamentos.
+     */
+    cursor?: LancamentoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Lancamentos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Lancamentos.
+     */
+    skip?: number
+    distinct?: LancamentoScalarFieldEnum | LancamentoScalarFieldEnum[]
+  }
+
+  /**
+   * Lancamento create
+   */
+  export type LancamentoCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lancamento
+     */
+    select?: LancamentoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lancamento
+     */
+    omit?: LancamentoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LancamentoInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Lancamento.
+     */
+    data: XOR<LancamentoCreateInput, LancamentoUncheckedCreateInput>
+  }
+
+  /**
+   * Lancamento createMany
+   */
+  export type LancamentoCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Lancamentos.
+     */
+    data: LancamentoCreateManyInput | LancamentoCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Lancamento createManyAndReturn
+   */
+  export type LancamentoCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lancamento
+     */
+    select?: LancamentoSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lancamento
+     */
+    omit?: LancamentoOmit<ExtArgs> | null
+    /**
+     * The data used to create many Lancamentos.
+     */
+    data: LancamentoCreateManyInput | LancamentoCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LancamentoIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Lancamento update
+   */
+  export type LancamentoUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lancamento
+     */
+    select?: LancamentoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lancamento
+     */
+    omit?: LancamentoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LancamentoInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Lancamento.
+     */
+    data: XOR<LancamentoUpdateInput, LancamentoUncheckedUpdateInput>
+    /**
+     * Choose, which Lancamento to update.
+     */
+    where: LancamentoWhereUniqueInput
+  }
+
+  /**
+   * Lancamento updateMany
+   */
+  export type LancamentoUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Lancamentos.
+     */
+    data: XOR<LancamentoUpdateManyMutationInput, LancamentoUncheckedUpdateManyInput>
+    /**
+     * Filter which Lancamentos to update
+     */
+    where?: LancamentoWhereInput
+    /**
+     * Limit how many Lancamentos to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Lancamento updateManyAndReturn
+   */
+  export type LancamentoUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lancamento
+     */
+    select?: LancamentoSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lancamento
+     */
+    omit?: LancamentoOmit<ExtArgs> | null
+    /**
+     * The data used to update Lancamentos.
+     */
+    data: XOR<LancamentoUpdateManyMutationInput, LancamentoUncheckedUpdateManyInput>
+    /**
+     * Filter which Lancamentos to update
+     */
+    where?: LancamentoWhereInput
+    /**
+     * Limit how many Lancamentos to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LancamentoIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Lancamento upsert
+   */
+  export type LancamentoUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lancamento
+     */
+    select?: LancamentoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lancamento
+     */
+    omit?: LancamentoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LancamentoInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Lancamento to update in case it exists.
+     */
+    where: LancamentoWhereUniqueInput
+    /**
+     * In case the Lancamento found by the `where` argument doesn't exist, create a new Lancamento with this data.
+     */
+    create: XOR<LancamentoCreateInput, LancamentoUncheckedCreateInput>
+    /**
+     * In case the Lancamento was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LancamentoUpdateInput, LancamentoUncheckedUpdateInput>
+  }
+
+  /**
+   * Lancamento delete
+   */
+  export type LancamentoDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lancamento
+     */
+    select?: LancamentoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lancamento
+     */
+    omit?: LancamentoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LancamentoInclude<ExtArgs> | null
+    /**
+     * Filter which Lancamento to delete.
+     */
+    where: LancamentoWhereUniqueInput
+  }
+
+  /**
+   * Lancamento deleteMany
+   */
+  export type LancamentoDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Lancamentos to delete
+     */
+    where?: LancamentoWhereInput
+    /**
+     * Limit how many Lancamentos to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Lancamento.periodo
+   */
+  export type Lancamento$periodoArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Periodo
+     */
+    select?: PeriodoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Periodo
+     */
+    omit?: PeriodoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PeriodoInclude<ExtArgs> | null
+    where?: PeriodoWhereInput
+  }
+
+  /**
+   * Lancamento.imagens
+   */
+  export type Lancamento$imagensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Imagem
+     */
+    select?: ImagemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Imagem
+     */
+    omit?: ImagemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImagemInclude<ExtArgs> | null
+    where?: ImagemWhereInput
+    orderBy?: ImagemOrderByWithRelationInput | ImagemOrderByWithRelationInput[]
+    cursor?: ImagemWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ImagemScalarFieldEnum | ImagemScalarFieldEnum[]
+  }
+
+  /**
+   * Lancamento without action
+   */
+  export type LancamentoDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lancamento
+     */
+    select?: LancamentoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lancamento
+     */
+    omit?: LancamentoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LancamentoInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model NotaFiscal
+   */
+
+  export type AggregateNotaFiscal = {
+    _count: NotaFiscalCountAggregateOutputType | null
+    _avg: NotaFiscalAvgAggregateOutputType | null
+    _sum: NotaFiscalSumAggregateOutputType | null
+    _min: NotaFiscalMinAggregateOutputType | null
+    _max: NotaFiscalMaxAggregateOutputType | null
+  }
+
+  export type NotaFiscalAvgAggregateOutputType = {
+    id: number | null
+    valor: number | null
+    empresaId: number | null
+  }
+
+  export type NotaFiscalSumAggregateOutputType = {
+    id: number | null
+    valor: number | null
+    empresaId: number | null
+  }
+
+  export type NotaFiscalMinAggregateOutputType = {
+    id: number | null
+    numero: string | null
+    valor: number | null
+    xmlPath: string | null
+    dataEmissao: Date | null
+    dataCriacao: Date | null
+    empresaId: number | null
+  }
+
+  export type NotaFiscalMaxAggregateOutputType = {
+    id: number | null
+    numero: string | null
+    valor: number | null
+    xmlPath: string | null
+    dataEmissao: Date | null
+    dataCriacao: Date | null
+    empresaId: number | null
+  }
+
+  export type NotaFiscalCountAggregateOutputType = {
+    id: number
+    numero: number
+    valor: number
+    xmlPath: number
+    dataEmissao: number
+    dataCriacao: number
+    empresaId: number
+    _all: number
+  }
+
+
+  export type NotaFiscalAvgAggregateInputType = {
+    id?: true
+    valor?: true
+    empresaId?: true
+  }
+
+  export type NotaFiscalSumAggregateInputType = {
+    id?: true
+    valor?: true
+    empresaId?: true
+  }
+
+  export type NotaFiscalMinAggregateInputType = {
+    id?: true
+    numero?: true
+    valor?: true
+    xmlPath?: true
+    dataEmissao?: true
+    dataCriacao?: true
+    empresaId?: true
+  }
+
+  export type NotaFiscalMaxAggregateInputType = {
+    id?: true
+    numero?: true
+    valor?: true
+    xmlPath?: true
+    dataEmissao?: true
+    dataCriacao?: true
+    empresaId?: true
+  }
+
+  export type NotaFiscalCountAggregateInputType = {
+    id?: true
+    numero?: true
+    valor?: true
+    xmlPath?: true
+    dataEmissao?: true
+    dataCriacao?: true
+    empresaId?: true
+    _all?: true
+  }
+
+  export type NotaFiscalAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which NotaFiscal to aggregate.
+     */
+    where?: NotaFiscalWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NotaFiscals to fetch.
+     */
+    orderBy?: NotaFiscalOrderByWithRelationInput | NotaFiscalOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: NotaFiscalWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NotaFiscals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NotaFiscals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned NotaFiscals
+    **/
+    _count?: true | NotaFiscalCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: NotaFiscalAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: NotaFiscalSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: NotaFiscalMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: NotaFiscalMaxAggregateInputType
+  }
+
+  export type GetNotaFiscalAggregateType<T extends NotaFiscalAggregateArgs> = {
+        [P in keyof T & keyof AggregateNotaFiscal]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateNotaFiscal[P]>
+      : GetScalarType<T[P], AggregateNotaFiscal[P]>
+  }
+
+
+
+
+  export type NotaFiscalGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NotaFiscalWhereInput
+    orderBy?: NotaFiscalOrderByWithAggregationInput | NotaFiscalOrderByWithAggregationInput[]
+    by: NotaFiscalScalarFieldEnum[] | NotaFiscalScalarFieldEnum
+    having?: NotaFiscalScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: NotaFiscalCountAggregateInputType | true
+    _avg?: NotaFiscalAvgAggregateInputType
+    _sum?: NotaFiscalSumAggregateInputType
+    _min?: NotaFiscalMinAggregateInputType
+    _max?: NotaFiscalMaxAggregateInputType
+  }
+
+  export type NotaFiscalGroupByOutputType = {
+    id: number
+    numero: string
+    valor: number | null
+    xmlPath: string | null
+    dataEmissao: Date
+    dataCriacao: Date
+    empresaId: number
+    _count: NotaFiscalCountAggregateOutputType | null
+    _avg: NotaFiscalAvgAggregateOutputType | null
+    _sum: NotaFiscalSumAggregateOutputType | null
+    _min: NotaFiscalMinAggregateOutputType | null
+    _max: NotaFiscalMaxAggregateOutputType | null
+  }
+
+  type GetNotaFiscalGroupByPayload<T extends NotaFiscalGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<NotaFiscalGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof NotaFiscalGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], NotaFiscalGroupByOutputType[P]>
+            : GetScalarType<T[P], NotaFiscalGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type NotaFiscalSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    numero?: boolean
+    valor?: boolean
+    xmlPath?: boolean
+    dataEmissao?: boolean
+    dataCriacao?: boolean
+    empresaId?: boolean
+    lancamento?: boolean | NotaFiscal$lancamentoArgs<ExtArgs>
+    empresa?: boolean | EmpresaDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["notaFiscal"]>
+
+  export type NotaFiscalSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    numero?: boolean
+    valor?: boolean
+    xmlPath?: boolean
+    dataEmissao?: boolean
+    dataCriacao?: boolean
+    empresaId?: boolean
+    empresa?: boolean | EmpresaDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["notaFiscal"]>
+
+  export type NotaFiscalSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    numero?: boolean
+    valor?: boolean
+    xmlPath?: boolean
+    dataEmissao?: boolean
+    dataCriacao?: boolean
+    empresaId?: boolean
+    empresa?: boolean | EmpresaDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["notaFiscal"]>
+
+  export type NotaFiscalSelectScalar = {
+    id?: boolean
+    numero?: boolean
+    valor?: boolean
+    xmlPath?: boolean
+    dataEmissao?: boolean
+    dataCriacao?: boolean
+    empresaId?: boolean
+  }
+
+  export type NotaFiscalOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "numero" | "valor" | "xmlPath" | "dataEmissao" | "dataCriacao" | "empresaId", ExtArgs["result"]["notaFiscal"]>
+  export type NotaFiscalInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lancamento?: boolean | NotaFiscal$lancamentoArgs<ExtArgs>
+    empresa?: boolean | EmpresaDefaultArgs<ExtArgs>
+  }
+  export type NotaFiscalIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    empresa?: boolean | EmpresaDefaultArgs<ExtArgs>
+  }
+  export type NotaFiscalIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    empresa?: boolean | EmpresaDefaultArgs<ExtArgs>
+  }
+
+  export type $NotaFiscalPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "NotaFiscal"
+    objects: {
+      lancamento: Prisma.$LancamentoPayload<ExtArgs> | null
+      empresa: Prisma.$EmpresaPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      numero: string
+      valor: number | null
+      xmlPath: string | null
+      dataEmissao: Date
+      dataCriacao: Date
+      empresaId: number
+    }, ExtArgs["result"]["notaFiscal"]>
+    composites: {}
+  }
+
+  type NotaFiscalGetPayload<S extends boolean | null | undefined | NotaFiscalDefaultArgs> = $Result.GetResult<Prisma.$NotaFiscalPayload, S>
+
+  type NotaFiscalCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<NotaFiscalFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: NotaFiscalCountAggregateInputType | true
+    }
+
+  export interface NotaFiscalDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['NotaFiscal'], meta: { name: 'NotaFiscal' } }
+    /**
+     * Find zero or one NotaFiscal that matches the filter.
+     * @param {NotaFiscalFindUniqueArgs} args - Arguments to find a NotaFiscal
+     * @example
+     * // Get one NotaFiscal
+     * const notaFiscal = await prisma.notaFiscal.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends NotaFiscalFindUniqueArgs>(args: SelectSubset<T, NotaFiscalFindUniqueArgs<ExtArgs>>): Prisma__NotaFiscalClient<$Result.GetResult<Prisma.$NotaFiscalPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one NotaFiscal that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {NotaFiscalFindUniqueOrThrowArgs} args - Arguments to find a NotaFiscal
+     * @example
+     * // Get one NotaFiscal
+     * const notaFiscal = await prisma.notaFiscal.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends NotaFiscalFindUniqueOrThrowArgs>(args: SelectSubset<T, NotaFiscalFindUniqueOrThrowArgs<ExtArgs>>): Prisma__NotaFiscalClient<$Result.GetResult<Prisma.$NotaFiscalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first NotaFiscal that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotaFiscalFindFirstArgs} args - Arguments to find a NotaFiscal
+     * @example
+     * // Get one NotaFiscal
+     * const notaFiscal = await prisma.notaFiscal.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends NotaFiscalFindFirstArgs>(args?: SelectSubset<T, NotaFiscalFindFirstArgs<ExtArgs>>): Prisma__NotaFiscalClient<$Result.GetResult<Prisma.$NotaFiscalPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first NotaFiscal that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotaFiscalFindFirstOrThrowArgs} args - Arguments to find a NotaFiscal
+     * @example
+     * // Get one NotaFiscal
+     * const notaFiscal = await prisma.notaFiscal.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends NotaFiscalFindFirstOrThrowArgs>(args?: SelectSubset<T, NotaFiscalFindFirstOrThrowArgs<ExtArgs>>): Prisma__NotaFiscalClient<$Result.GetResult<Prisma.$NotaFiscalPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more NotaFiscals that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotaFiscalFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all NotaFiscals
+     * const notaFiscals = await prisma.notaFiscal.findMany()
+     * 
+     * // Get first 10 NotaFiscals
+     * const notaFiscals = await prisma.notaFiscal.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const notaFiscalWithIdOnly = await prisma.notaFiscal.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends NotaFiscalFindManyArgs>(args?: SelectSubset<T, NotaFiscalFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotaFiscalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a NotaFiscal.
+     * @param {NotaFiscalCreateArgs} args - Arguments to create a NotaFiscal.
+     * @example
+     * // Create one NotaFiscal
+     * const NotaFiscal = await prisma.notaFiscal.create({
+     *   data: {
+     *     // ... data to create a NotaFiscal
+     *   }
+     * })
+     * 
+     */
+    create<T extends NotaFiscalCreateArgs>(args: SelectSubset<T, NotaFiscalCreateArgs<ExtArgs>>): Prisma__NotaFiscalClient<$Result.GetResult<Prisma.$NotaFiscalPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many NotaFiscals.
+     * @param {NotaFiscalCreateManyArgs} args - Arguments to create many NotaFiscals.
+     * @example
+     * // Create many NotaFiscals
+     * const notaFiscal = await prisma.notaFiscal.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends NotaFiscalCreateManyArgs>(args?: SelectSubset<T, NotaFiscalCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many NotaFiscals and returns the data saved in the database.
+     * @param {NotaFiscalCreateManyAndReturnArgs} args - Arguments to create many NotaFiscals.
+     * @example
+     * // Create many NotaFiscals
+     * const notaFiscal = await prisma.notaFiscal.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many NotaFiscals and only return the `id`
+     * const notaFiscalWithIdOnly = await prisma.notaFiscal.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends NotaFiscalCreateManyAndReturnArgs>(args?: SelectSubset<T, NotaFiscalCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotaFiscalPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a NotaFiscal.
+     * @param {NotaFiscalDeleteArgs} args - Arguments to delete one NotaFiscal.
+     * @example
+     * // Delete one NotaFiscal
+     * const NotaFiscal = await prisma.notaFiscal.delete({
+     *   where: {
+     *     // ... filter to delete one NotaFiscal
+     *   }
+     * })
+     * 
+     */
+    delete<T extends NotaFiscalDeleteArgs>(args: SelectSubset<T, NotaFiscalDeleteArgs<ExtArgs>>): Prisma__NotaFiscalClient<$Result.GetResult<Prisma.$NotaFiscalPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one NotaFiscal.
+     * @param {NotaFiscalUpdateArgs} args - Arguments to update one NotaFiscal.
+     * @example
+     * // Update one NotaFiscal
+     * const notaFiscal = await prisma.notaFiscal.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends NotaFiscalUpdateArgs>(args: SelectSubset<T, NotaFiscalUpdateArgs<ExtArgs>>): Prisma__NotaFiscalClient<$Result.GetResult<Prisma.$NotaFiscalPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more NotaFiscals.
+     * @param {NotaFiscalDeleteManyArgs} args - Arguments to filter NotaFiscals to delete.
+     * @example
+     * // Delete a few NotaFiscals
+     * const { count } = await prisma.notaFiscal.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends NotaFiscalDeleteManyArgs>(args?: SelectSubset<T, NotaFiscalDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more NotaFiscals.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotaFiscalUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many NotaFiscals
+     * const notaFiscal = await prisma.notaFiscal.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends NotaFiscalUpdateManyArgs>(args: SelectSubset<T, NotaFiscalUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more NotaFiscals and returns the data updated in the database.
+     * @param {NotaFiscalUpdateManyAndReturnArgs} args - Arguments to update many NotaFiscals.
+     * @example
+     * // Update many NotaFiscals
+     * const notaFiscal = await prisma.notaFiscal.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more NotaFiscals and only return the `id`
+     * const notaFiscalWithIdOnly = await prisma.notaFiscal.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends NotaFiscalUpdateManyAndReturnArgs>(args: SelectSubset<T, NotaFiscalUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotaFiscalPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one NotaFiscal.
+     * @param {NotaFiscalUpsertArgs} args - Arguments to update or create a NotaFiscal.
+     * @example
+     * // Update or create a NotaFiscal
+     * const notaFiscal = await prisma.notaFiscal.upsert({
+     *   create: {
+     *     // ... data to create a NotaFiscal
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the NotaFiscal we want to update
+     *   }
+     * })
+     */
+    upsert<T extends NotaFiscalUpsertArgs>(args: SelectSubset<T, NotaFiscalUpsertArgs<ExtArgs>>): Prisma__NotaFiscalClient<$Result.GetResult<Prisma.$NotaFiscalPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of NotaFiscals.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotaFiscalCountArgs} args - Arguments to filter NotaFiscals to count.
+     * @example
+     * // Count the number of NotaFiscals
+     * const count = await prisma.notaFiscal.count({
+     *   where: {
+     *     // ... the filter for the NotaFiscals we want to count
+     *   }
+     * })
+    **/
+    count<T extends NotaFiscalCountArgs>(
+      args?: Subset<T, NotaFiscalCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], NotaFiscalCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a NotaFiscal.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotaFiscalAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends NotaFiscalAggregateArgs>(args: Subset<T, NotaFiscalAggregateArgs>): Prisma.PrismaPromise<GetNotaFiscalAggregateType<T>>
+
+    /**
+     * Group by NotaFiscal.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotaFiscalGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends NotaFiscalGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: NotaFiscalGroupByArgs['orderBy'] }
+        : { orderBy?: NotaFiscalGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, NotaFiscalGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetNotaFiscalGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the NotaFiscal model
+   */
+  readonly fields: NotaFiscalFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for NotaFiscal.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__NotaFiscalClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    lancamento<T extends NotaFiscal$lancamentoArgs<ExtArgs> = {}>(args?: Subset<T, NotaFiscal$lancamentoArgs<ExtArgs>>): Prisma__LancamentoClient<$Result.GetResult<Prisma.$LancamentoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    empresa<T extends EmpresaDefaultArgs<ExtArgs> = {}>(args?: Subset<T, EmpresaDefaultArgs<ExtArgs>>): Prisma__EmpresaClient<$Result.GetResult<Prisma.$EmpresaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the NotaFiscal model
+   */
+  interface NotaFiscalFieldRefs {
+    readonly id: FieldRef<"NotaFiscal", 'Int'>
+    readonly numero: FieldRef<"NotaFiscal", 'String'>
+    readonly valor: FieldRef<"NotaFiscal", 'Float'>
+    readonly xmlPath: FieldRef<"NotaFiscal", 'String'>
+    readonly dataEmissao: FieldRef<"NotaFiscal", 'DateTime'>
+    readonly dataCriacao: FieldRef<"NotaFiscal", 'DateTime'>
+    readonly empresaId: FieldRef<"NotaFiscal", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * NotaFiscal findUnique
+   */
+  export type NotaFiscalFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotaFiscal
+     */
+    select?: NotaFiscalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotaFiscal
+     */
+    omit?: NotaFiscalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotaFiscalInclude<ExtArgs> | null
+    /**
+     * Filter, which NotaFiscal to fetch.
+     */
+    where: NotaFiscalWhereUniqueInput
+  }
+
+  /**
+   * NotaFiscal findUniqueOrThrow
+   */
+  export type NotaFiscalFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotaFiscal
+     */
+    select?: NotaFiscalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotaFiscal
+     */
+    omit?: NotaFiscalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotaFiscalInclude<ExtArgs> | null
+    /**
+     * Filter, which NotaFiscal to fetch.
+     */
+    where: NotaFiscalWhereUniqueInput
+  }
+
+  /**
+   * NotaFiscal findFirst
+   */
+  export type NotaFiscalFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotaFiscal
+     */
+    select?: NotaFiscalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotaFiscal
+     */
+    omit?: NotaFiscalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotaFiscalInclude<ExtArgs> | null
+    /**
+     * Filter, which NotaFiscal to fetch.
+     */
+    where?: NotaFiscalWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NotaFiscals to fetch.
+     */
+    orderBy?: NotaFiscalOrderByWithRelationInput | NotaFiscalOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for NotaFiscals.
+     */
+    cursor?: NotaFiscalWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NotaFiscals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NotaFiscals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of NotaFiscals.
+     */
+    distinct?: NotaFiscalScalarFieldEnum | NotaFiscalScalarFieldEnum[]
+  }
+
+  /**
+   * NotaFiscal findFirstOrThrow
+   */
+  export type NotaFiscalFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotaFiscal
+     */
+    select?: NotaFiscalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotaFiscal
+     */
+    omit?: NotaFiscalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotaFiscalInclude<ExtArgs> | null
+    /**
+     * Filter, which NotaFiscal to fetch.
+     */
+    where?: NotaFiscalWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NotaFiscals to fetch.
+     */
+    orderBy?: NotaFiscalOrderByWithRelationInput | NotaFiscalOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for NotaFiscals.
+     */
+    cursor?: NotaFiscalWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NotaFiscals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NotaFiscals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of NotaFiscals.
+     */
+    distinct?: NotaFiscalScalarFieldEnum | NotaFiscalScalarFieldEnum[]
+  }
+
+  /**
+   * NotaFiscal findMany
+   */
+  export type NotaFiscalFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotaFiscal
+     */
+    select?: NotaFiscalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotaFiscal
+     */
+    omit?: NotaFiscalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotaFiscalInclude<ExtArgs> | null
+    /**
+     * Filter, which NotaFiscals to fetch.
+     */
+    where?: NotaFiscalWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NotaFiscals to fetch.
+     */
+    orderBy?: NotaFiscalOrderByWithRelationInput | NotaFiscalOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing NotaFiscals.
+     */
+    cursor?: NotaFiscalWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NotaFiscals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NotaFiscals.
+     */
+    skip?: number
+    distinct?: NotaFiscalScalarFieldEnum | NotaFiscalScalarFieldEnum[]
+  }
+
+  /**
+   * NotaFiscal create
+   */
+  export type NotaFiscalCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotaFiscal
+     */
+    select?: NotaFiscalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotaFiscal
+     */
+    omit?: NotaFiscalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotaFiscalInclude<ExtArgs> | null
+    /**
+     * The data needed to create a NotaFiscal.
+     */
+    data: XOR<NotaFiscalCreateInput, NotaFiscalUncheckedCreateInput>
+  }
+
+  /**
+   * NotaFiscal createMany
+   */
+  export type NotaFiscalCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many NotaFiscals.
+     */
+    data: NotaFiscalCreateManyInput | NotaFiscalCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * NotaFiscal createManyAndReturn
+   */
+  export type NotaFiscalCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotaFiscal
+     */
+    select?: NotaFiscalSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotaFiscal
+     */
+    omit?: NotaFiscalOmit<ExtArgs> | null
+    /**
+     * The data used to create many NotaFiscals.
+     */
+    data: NotaFiscalCreateManyInput | NotaFiscalCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotaFiscalIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * NotaFiscal update
+   */
+  export type NotaFiscalUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotaFiscal
+     */
+    select?: NotaFiscalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotaFiscal
+     */
+    omit?: NotaFiscalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotaFiscalInclude<ExtArgs> | null
+    /**
+     * The data needed to update a NotaFiscal.
+     */
+    data: XOR<NotaFiscalUpdateInput, NotaFiscalUncheckedUpdateInput>
+    /**
+     * Choose, which NotaFiscal to update.
+     */
+    where: NotaFiscalWhereUniqueInput
+  }
+
+  /**
+   * NotaFiscal updateMany
+   */
+  export type NotaFiscalUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update NotaFiscals.
+     */
+    data: XOR<NotaFiscalUpdateManyMutationInput, NotaFiscalUncheckedUpdateManyInput>
+    /**
+     * Filter which NotaFiscals to update
+     */
+    where?: NotaFiscalWhereInput
+    /**
+     * Limit how many NotaFiscals to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * NotaFiscal updateManyAndReturn
+   */
+  export type NotaFiscalUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotaFiscal
+     */
+    select?: NotaFiscalSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotaFiscal
+     */
+    omit?: NotaFiscalOmit<ExtArgs> | null
+    /**
+     * The data used to update NotaFiscals.
+     */
+    data: XOR<NotaFiscalUpdateManyMutationInput, NotaFiscalUncheckedUpdateManyInput>
+    /**
+     * Filter which NotaFiscals to update
+     */
+    where?: NotaFiscalWhereInput
+    /**
+     * Limit how many NotaFiscals to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotaFiscalIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * NotaFiscal upsert
+   */
+  export type NotaFiscalUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotaFiscal
+     */
+    select?: NotaFiscalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotaFiscal
+     */
+    omit?: NotaFiscalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotaFiscalInclude<ExtArgs> | null
+    /**
+     * The filter to search for the NotaFiscal to update in case it exists.
+     */
+    where: NotaFiscalWhereUniqueInput
+    /**
+     * In case the NotaFiscal found by the `where` argument doesn't exist, create a new NotaFiscal with this data.
+     */
+    create: XOR<NotaFiscalCreateInput, NotaFiscalUncheckedCreateInput>
+    /**
+     * In case the NotaFiscal was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<NotaFiscalUpdateInput, NotaFiscalUncheckedUpdateInput>
+  }
+
+  /**
+   * NotaFiscal delete
+   */
+  export type NotaFiscalDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotaFiscal
+     */
+    select?: NotaFiscalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotaFiscal
+     */
+    omit?: NotaFiscalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotaFiscalInclude<ExtArgs> | null
+    /**
+     * Filter which NotaFiscal to delete.
+     */
+    where: NotaFiscalWhereUniqueInput
+  }
+
+  /**
+   * NotaFiscal deleteMany
+   */
+  export type NotaFiscalDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which NotaFiscals to delete
+     */
+    where?: NotaFiscalWhereInput
+    /**
+     * Limit how many NotaFiscals to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * NotaFiscal.lancamento
+   */
+  export type NotaFiscal$lancamentoArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lancamento
+     */
+    select?: LancamentoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lancamento
+     */
+    omit?: LancamentoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LancamentoInclude<ExtArgs> | null
+    where?: LancamentoWhereInput
+  }
+
+  /**
+   * NotaFiscal without action
+   */
+  export type NotaFiscalDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotaFiscal
+     */
+    select?: NotaFiscalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotaFiscal
+     */
+    omit?: NotaFiscalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotaFiscalInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Imagem
+   */
+
+  export type AggregateImagem = {
+    _count: ImagemCountAggregateOutputType | null
+    _avg: ImagemAvgAggregateOutputType | null
+    _sum: ImagemSumAggregateOutputType | null
+    _min: ImagemMinAggregateOutputType | null
+    _max: ImagemMaxAggregateOutputType | null
+  }
+
+  export type ImagemAvgAggregateOutputType = {
+    id: number | null
+    lancamentoId: number | null
+  }
+
+  export type ImagemSumAggregateOutputType = {
+    id: number | null
+    lancamentoId: number | null
+  }
+
+  export type ImagemMinAggregateOutputType = {
+    id: number | null
+    url: string | null
+    dataCriacao: Date | null
+    dataAtualizacao: Date | null
+    lancamentoId: number | null
+  }
+
+  export type ImagemMaxAggregateOutputType = {
+    id: number | null
+    url: string | null
+    dataCriacao: Date | null
+    dataAtualizacao: Date | null
+    lancamentoId: number | null
+  }
+
+  export type ImagemCountAggregateOutputType = {
+    id: number
+    url: number
+    dataCriacao: number
+    dataAtualizacao: number
+    lancamentoId: number
+    _all: number
+  }
+
+
+  export type ImagemAvgAggregateInputType = {
+    id?: true
+    lancamentoId?: true
+  }
+
+  export type ImagemSumAggregateInputType = {
+    id?: true
+    lancamentoId?: true
+  }
+
+  export type ImagemMinAggregateInputType = {
+    id?: true
+    url?: true
+    dataCriacao?: true
+    dataAtualizacao?: true
+    lancamentoId?: true
+  }
+
+  export type ImagemMaxAggregateInputType = {
+    id?: true
+    url?: true
+    dataCriacao?: true
+    dataAtualizacao?: true
+    lancamentoId?: true
+  }
+
+  export type ImagemCountAggregateInputType = {
+    id?: true
+    url?: true
+    dataCriacao?: true
+    dataAtualizacao?: true
+    lancamentoId?: true
+    _all?: true
+  }
+
+  export type ImagemAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Imagem to aggregate.
+     */
+    where?: ImagemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Imagems to fetch.
+     */
+    orderBy?: ImagemOrderByWithRelationInput | ImagemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ImagemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Imagems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Imagems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Imagems
+    **/
+    _count?: true | ImagemCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ImagemAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ImagemSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ImagemMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ImagemMaxAggregateInputType
+  }
+
+  export type GetImagemAggregateType<T extends ImagemAggregateArgs> = {
+        [P in keyof T & keyof AggregateImagem]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateImagem[P]>
+      : GetScalarType<T[P], AggregateImagem[P]>
+  }
+
+
+
+
+  export type ImagemGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ImagemWhereInput
+    orderBy?: ImagemOrderByWithAggregationInput | ImagemOrderByWithAggregationInput[]
+    by: ImagemScalarFieldEnum[] | ImagemScalarFieldEnum
+    having?: ImagemScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ImagemCountAggregateInputType | true
+    _avg?: ImagemAvgAggregateInputType
+    _sum?: ImagemSumAggregateInputType
+    _min?: ImagemMinAggregateInputType
+    _max?: ImagemMaxAggregateInputType
+  }
+
+  export type ImagemGroupByOutputType = {
+    id: number
+    url: string
+    dataCriacao: Date
+    dataAtualizacao: Date
+    lancamentoId: number
+    _count: ImagemCountAggregateOutputType | null
+    _avg: ImagemAvgAggregateOutputType | null
+    _sum: ImagemSumAggregateOutputType | null
+    _min: ImagemMinAggregateOutputType | null
+    _max: ImagemMaxAggregateOutputType | null
+  }
+
+  type GetImagemGroupByPayload<T extends ImagemGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ImagemGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ImagemGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ImagemGroupByOutputType[P]>
+            : GetScalarType<T[P], ImagemGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ImagemSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    url?: boolean
+    dataCriacao?: boolean
+    dataAtualizacao?: boolean
+    lancamentoId?: boolean
+    lancamento?: boolean | LancamentoDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["imagem"]>
+
+  export type ImagemSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    url?: boolean
+    dataCriacao?: boolean
+    dataAtualizacao?: boolean
+    lancamentoId?: boolean
+    lancamento?: boolean | LancamentoDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["imagem"]>
+
+  export type ImagemSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    url?: boolean
+    dataCriacao?: boolean
+    dataAtualizacao?: boolean
+    lancamentoId?: boolean
+    lancamento?: boolean | LancamentoDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["imagem"]>
+
+  export type ImagemSelectScalar = {
+    id?: boolean
+    url?: boolean
+    dataCriacao?: boolean
+    dataAtualizacao?: boolean
+    lancamentoId?: boolean
+  }
+
+  export type ImagemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "url" | "dataCriacao" | "dataAtualizacao" | "lancamentoId", ExtArgs["result"]["imagem"]>
+  export type ImagemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lancamento?: boolean | LancamentoDefaultArgs<ExtArgs>
+  }
+  export type ImagemIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lancamento?: boolean | LancamentoDefaultArgs<ExtArgs>
+  }
+  export type ImagemIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lancamento?: boolean | LancamentoDefaultArgs<ExtArgs>
+  }
+
+  export type $ImagemPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Imagem"
+    objects: {
+      lancamento: Prisma.$LancamentoPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      url: string
+      dataCriacao: Date
+      dataAtualizacao: Date
+      lancamentoId: number
+    }, ExtArgs["result"]["imagem"]>
+    composites: {}
+  }
+
+  type ImagemGetPayload<S extends boolean | null | undefined | ImagemDefaultArgs> = $Result.GetResult<Prisma.$ImagemPayload, S>
+
+  type ImagemCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ImagemFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ImagemCountAggregateInputType | true
+    }
+
+  export interface ImagemDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Imagem'], meta: { name: 'Imagem' } }
+    /**
+     * Find zero or one Imagem that matches the filter.
+     * @param {ImagemFindUniqueArgs} args - Arguments to find a Imagem
+     * @example
+     * // Get one Imagem
+     * const imagem = await prisma.imagem.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ImagemFindUniqueArgs>(args: SelectSubset<T, ImagemFindUniqueArgs<ExtArgs>>): Prisma__ImagemClient<$Result.GetResult<Prisma.$ImagemPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Imagem that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ImagemFindUniqueOrThrowArgs} args - Arguments to find a Imagem
+     * @example
+     * // Get one Imagem
+     * const imagem = await prisma.imagem.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ImagemFindUniqueOrThrowArgs>(args: SelectSubset<T, ImagemFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ImagemClient<$Result.GetResult<Prisma.$ImagemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Imagem that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImagemFindFirstArgs} args - Arguments to find a Imagem
+     * @example
+     * // Get one Imagem
+     * const imagem = await prisma.imagem.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ImagemFindFirstArgs>(args?: SelectSubset<T, ImagemFindFirstArgs<ExtArgs>>): Prisma__ImagemClient<$Result.GetResult<Prisma.$ImagemPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Imagem that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImagemFindFirstOrThrowArgs} args - Arguments to find a Imagem
+     * @example
+     * // Get one Imagem
+     * const imagem = await prisma.imagem.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ImagemFindFirstOrThrowArgs>(args?: SelectSubset<T, ImagemFindFirstOrThrowArgs<ExtArgs>>): Prisma__ImagemClient<$Result.GetResult<Prisma.$ImagemPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Imagems that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImagemFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Imagems
+     * const imagems = await prisma.imagem.findMany()
+     * 
+     * // Get first 10 Imagems
+     * const imagems = await prisma.imagem.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const imagemWithIdOnly = await prisma.imagem.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ImagemFindManyArgs>(args?: SelectSubset<T, ImagemFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ImagemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Imagem.
+     * @param {ImagemCreateArgs} args - Arguments to create a Imagem.
+     * @example
+     * // Create one Imagem
+     * const Imagem = await prisma.imagem.create({
+     *   data: {
+     *     // ... data to create a Imagem
+     *   }
+     * })
+     * 
+     */
+    create<T extends ImagemCreateArgs>(args: SelectSubset<T, ImagemCreateArgs<ExtArgs>>): Prisma__ImagemClient<$Result.GetResult<Prisma.$ImagemPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Imagems.
+     * @param {ImagemCreateManyArgs} args - Arguments to create many Imagems.
+     * @example
+     * // Create many Imagems
+     * const imagem = await prisma.imagem.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ImagemCreateManyArgs>(args?: SelectSubset<T, ImagemCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Imagems and returns the data saved in the database.
+     * @param {ImagemCreateManyAndReturnArgs} args - Arguments to create many Imagems.
+     * @example
+     * // Create many Imagems
+     * const imagem = await prisma.imagem.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Imagems and only return the `id`
+     * const imagemWithIdOnly = await prisma.imagem.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ImagemCreateManyAndReturnArgs>(args?: SelectSubset<T, ImagemCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ImagemPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Imagem.
+     * @param {ImagemDeleteArgs} args - Arguments to delete one Imagem.
+     * @example
+     * // Delete one Imagem
+     * const Imagem = await prisma.imagem.delete({
+     *   where: {
+     *     // ... filter to delete one Imagem
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ImagemDeleteArgs>(args: SelectSubset<T, ImagemDeleteArgs<ExtArgs>>): Prisma__ImagemClient<$Result.GetResult<Prisma.$ImagemPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Imagem.
+     * @param {ImagemUpdateArgs} args - Arguments to update one Imagem.
+     * @example
+     * // Update one Imagem
+     * const imagem = await prisma.imagem.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ImagemUpdateArgs>(args: SelectSubset<T, ImagemUpdateArgs<ExtArgs>>): Prisma__ImagemClient<$Result.GetResult<Prisma.$ImagemPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Imagems.
+     * @param {ImagemDeleteManyArgs} args - Arguments to filter Imagems to delete.
+     * @example
+     * // Delete a few Imagems
+     * const { count } = await prisma.imagem.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ImagemDeleteManyArgs>(args?: SelectSubset<T, ImagemDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Imagems.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImagemUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Imagems
+     * const imagem = await prisma.imagem.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ImagemUpdateManyArgs>(args: SelectSubset<T, ImagemUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Imagems and returns the data updated in the database.
+     * @param {ImagemUpdateManyAndReturnArgs} args - Arguments to update many Imagems.
+     * @example
+     * // Update many Imagems
+     * const imagem = await prisma.imagem.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Imagems and only return the `id`
+     * const imagemWithIdOnly = await prisma.imagem.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ImagemUpdateManyAndReturnArgs>(args: SelectSubset<T, ImagemUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ImagemPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Imagem.
+     * @param {ImagemUpsertArgs} args - Arguments to update or create a Imagem.
+     * @example
+     * // Update or create a Imagem
+     * const imagem = await prisma.imagem.upsert({
+     *   create: {
+     *     // ... data to create a Imagem
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Imagem we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ImagemUpsertArgs>(args: SelectSubset<T, ImagemUpsertArgs<ExtArgs>>): Prisma__ImagemClient<$Result.GetResult<Prisma.$ImagemPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Imagems.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImagemCountArgs} args - Arguments to filter Imagems to count.
+     * @example
+     * // Count the number of Imagems
+     * const count = await prisma.imagem.count({
+     *   where: {
+     *     // ... the filter for the Imagems we want to count
+     *   }
+     * })
+    **/
+    count<T extends ImagemCountArgs>(
+      args?: Subset<T, ImagemCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ImagemCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Imagem.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImagemAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ImagemAggregateArgs>(args: Subset<T, ImagemAggregateArgs>): Prisma.PrismaPromise<GetImagemAggregateType<T>>
+
+    /**
+     * Group by Imagem.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImagemGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ImagemGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ImagemGroupByArgs['orderBy'] }
+        : { orderBy?: ImagemGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ImagemGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetImagemGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Imagem model
+   */
+  readonly fields: ImagemFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Imagem.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ImagemClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    lancamento<T extends LancamentoDefaultArgs<ExtArgs> = {}>(args?: Subset<T, LancamentoDefaultArgs<ExtArgs>>): Prisma__LancamentoClient<$Result.GetResult<Prisma.$LancamentoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Imagem model
+   */
+  interface ImagemFieldRefs {
+    readonly id: FieldRef<"Imagem", 'Int'>
+    readonly url: FieldRef<"Imagem", 'String'>
+    readonly dataCriacao: FieldRef<"Imagem", 'DateTime'>
+    readonly dataAtualizacao: FieldRef<"Imagem", 'DateTime'>
+    readonly lancamentoId: FieldRef<"Imagem", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Imagem findUnique
+   */
+  export type ImagemFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Imagem
+     */
+    select?: ImagemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Imagem
+     */
+    omit?: ImagemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImagemInclude<ExtArgs> | null
+    /**
+     * Filter, which Imagem to fetch.
+     */
+    where: ImagemWhereUniqueInput
+  }
+
+  /**
+   * Imagem findUniqueOrThrow
+   */
+  export type ImagemFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Imagem
+     */
+    select?: ImagemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Imagem
+     */
+    omit?: ImagemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImagemInclude<ExtArgs> | null
+    /**
+     * Filter, which Imagem to fetch.
+     */
+    where: ImagemWhereUniqueInput
+  }
+
+  /**
+   * Imagem findFirst
+   */
+  export type ImagemFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Imagem
+     */
+    select?: ImagemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Imagem
+     */
+    omit?: ImagemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImagemInclude<ExtArgs> | null
+    /**
+     * Filter, which Imagem to fetch.
+     */
+    where?: ImagemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Imagems to fetch.
+     */
+    orderBy?: ImagemOrderByWithRelationInput | ImagemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Imagems.
+     */
+    cursor?: ImagemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Imagems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Imagems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Imagems.
+     */
+    distinct?: ImagemScalarFieldEnum | ImagemScalarFieldEnum[]
+  }
+
+  /**
+   * Imagem findFirstOrThrow
+   */
+  export type ImagemFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Imagem
+     */
+    select?: ImagemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Imagem
+     */
+    omit?: ImagemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImagemInclude<ExtArgs> | null
+    /**
+     * Filter, which Imagem to fetch.
+     */
+    where?: ImagemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Imagems to fetch.
+     */
+    orderBy?: ImagemOrderByWithRelationInput | ImagemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Imagems.
+     */
+    cursor?: ImagemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Imagems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Imagems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Imagems.
+     */
+    distinct?: ImagemScalarFieldEnum | ImagemScalarFieldEnum[]
+  }
+
+  /**
+   * Imagem findMany
+   */
+  export type ImagemFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Imagem
+     */
+    select?: ImagemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Imagem
+     */
+    omit?: ImagemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImagemInclude<ExtArgs> | null
+    /**
+     * Filter, which Imagems to fetch.
+     */
+    where?: ImagemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Imagems to fetch.
+     */
+    orderBy?: ImagemOrderByWithRelationInput | ImagemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Imagems.
+     */
+    cursor?: ImagemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Imagems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Imagems.
+     */
+    skip?: number
+    distinct?: ImagemScalarFieldEnum | ImagemScalarFieldEnum[]
+  }
+
+  /**
+   * Imagem create
+   */
+  export type ImagemCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Imagem
+     */
+    select?: ImagemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Imagem
+     */
+    omit?: ImagemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImagemInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Imagem.
+     */
+    data: XOR<ImagemCreateInput, ImagemUncheckedCreateInput>
+  }
+
+  /**
+   * Imagem createMany
+   */
+  export type ImagemCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Imagems.
+     */
+    data: ImagemCreateManyInput | ImagemCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Imagem createManyAndReturn
+   */
+  export type ImagemCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Imagem
+     */
+    select?: ImagemSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Imagem
+     */
+    omit?: ImagemOmit<ExtArgs> | null
+    /**
+     * The data used to create many Imagems.
+     */
+    data: ImagemCreateManyInput | ImagemCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImagemIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Imagem update
+   */
+  export type ImagemUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Imagem
+     */
+    select?: ImagemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Imagem
+     */
+    omit?: ImagemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImagemInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Imagem.
+     */
+    data: XOR<ImagemUpdateInput, ImagemUncheckedUpdateInput>
+    /**
+     * Choose, which Imagem to update.
+     */
+    where: ImagemWhereUniqueInput
+  }
+
+  /**
+   * Imagem updateMany
+   */
+  export type ImagemUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Imagems.
+     */
+    data: XOR<ImagemUpdateManyMutationInput, ImagemUncheckedUpdateManyInput>
+    /**
+     * Filter which Imagems to update
+     */
+    where?: ImagemWhereInput
+    /**
+     * Limit how many Imagems to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Imagem updateManyAndReturn
+   */
+  export type ImagemUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Imagem
+     */
+    select?: ImagemSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Imagem
+     */
+    omit?: ImagemOmit<ExtArgs> | null
+    /**
+     * The data used to update Imagems.
+     */
+    data: XOR<ImagemUpdateManyMutationInput, ImagemUncheckedUpdateManyInput>
+    /**
+     * Filter which Imagems to update
+     */
+    where?: ImagemWhereInput
+    /**
+     * Limit how many Imagems to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImagemIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Imagem upsert
+   */
+  export type ImagemUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Imagem
+     */
+    select?: ImagemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Imagem
+     */
+    omit?: ImagemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImagemInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Imagem to update in case it exists.
+     */
+    where: ImagemWhereUniqueInput
+    /**
+     * In case the Imagem found by the `where` argument doesn't exist, create a new Imagem with this data.
+     */
+    create: XOR<ImagemCreateInput, ImagemUncheckedCreateInput>
+    /**
+     * In case the Imagem was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ImagemUpdateInput, ImagemUncheckedUpdateInput>
+  }
+
+  /**
+   * Imagem delete
+   */
+  export type ImagemDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Imagem
+     */
+    select?: ImagemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Imagem
+     */
+    omit?: ImagemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImagemInclude<ExtArgs> | null
+    /**
+     * Filter which Imagem to delete.
+     */
+    where: ImagemWhereUniqueInput
+  }
+
+  /**
+   * Imagem deleteMany
+   */
+  export type ImagemDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Imagems to delete
+     */
+    where?: ImagemWhereInput
+    /**
+     * Limit how many Imagems to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Imagem without action
+   */
+  export type ImagemDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Imagem
+     */
+    select?: ImagemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Imagem
+     */
+    omit?: ImagemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImagemInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Periodo
+   */
+
+  export type AggregatePeriodo = {
+    _count: PeriodoCountAggregateOutputType | null
+    _avg: PeriodoAvgAggregateOutputType | null
+    _sum: PeriodoSumAggregateOutputType | null
+    _min: PeriodoMinAggregateOutputType | null
+    _max: PeriodoMaxAggregateOutputType | null
+  }
+
+  export type PeriodoAvgAggregateOutputType = {
+    id: number | null
+    valorTotal: number | null
+    empresaId: number | null
+  }
+
+  export type PeriodoSumAggregateOutputType = {
+    id: number | null
+    valorTotal: number | null
+    empresaId: number | null
+  }
+
+  export type PeriodoMinAggregateOutputType = {
+    id: number | null
+    dataInicio: Date | null
+    dataFim: Date | null
+    fechado: boolean | null
+    valorTotal: number | null
+    observacoes: string | null
+    dataFechamento: Date | null
+    dataCriacao: Date | null
+    dataAtualizacao: Date | null
+    empresaId: number | null
+  }
+
+  export type PeriodoMaxAggregateOutputType = {
+    id: number | null
+    dataInicio: Date | null
+    dataFim: Date | null
+    fechado: boolean | null
+    valorTotal: number | null
+    observacoes: string | null
+    dataFechamento: Date | null
+    dataCriacao: Date | null
+    dataAtualizacao: Date | null
+    empresaId: number | null
+  }
+
+  export type PeriodoCountAggregateOutputType = {
+    id: number
+    dataInicio: number
+    dataFim: number
+    fechado: number
+    valorTotal: number
+    observacoes: number
+    dataFechamento: number
+    dataCriacao: number
+    dataAtualizacao: number
+    empresaId: number
+    _all: number
+  }
+
+
+  export type PeriodoAvgAggregateInputType = {
+    id?: true
+    valorTotal?: true
+    empresaId?: true
+  }
+
+  export type PeriodoSumAggregateInputType = {
+    id?: true
+    valorTotal?: true
+    empresaId?: true
+  }
+
+  export type PeriodoMinAggregateInputType = {
+    id?: true
+    dataInicio?: true
+    dataFim?: true
+    fechado?: true
+    valorTotal?: true
+    observacoes?: true
+    dataFechamento?: true
+    dataCriacao?: true
+    dataAtualizacao?: true
+    empresaId?: true
+  }
+
+  export type PeriodoMaxAggregateInputType = {
+    id?: true
+    dataInicio?: true
+    dataFim?: true
+    fechado?: true
+    valorTotal?: true
+    observacoes?: true
+    dataFechamento?: true
+    dataCriacao?: true
+    dataAtualizacao?: true
+    empresaId?: true
+  }
+
+  export type PeriodoCountAggregateInputType = {
+    id?: true
+    dataInicio?: true
+    dataFim?: true
+    fechado?: true
+    valorTotal?: true
+    observacoes?: true
+    dataFechamento?: true
+    dataCriacao?: true
+    dataAtualizacao?: true
+    empresaId?: true
+    _all?: true
+  }
+
+  export type PeriodoAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Periodo to aggregate.
+     */
+    where?: PeriodoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Periodos to fetch.
+     */
+    orderBy?: PeriodoOrderByWithRelationInput | PeriodoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PeriodoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Periodos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Periodos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Periodos
+    **/
+    _count?: true | PeriodoCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PeriodoAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PeriodoSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PeriodoMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PeriodoMaxAggregateInputType
+  }
+
+  export type GetPeriodoAggregateType<T extends PeriodoAggregateArgs> = {
+        [P in keyof T & keyof AggregatePeriodo]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePeriodo[P]>
+      : GetScalarType<T[P], AggregatePeriodo[P]>
+  }
+
+
+
+
+  export type PeriodoGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PeriodoWhereInput
+    orderBy?: PeriodoOrderByWithAggregationInput | PeriodoOrderByWithAggregationInput[]
+    by: PeriodoScalarFieldEnum[] | PeriodoScalarFieldEnum
+    having?: PeriodoScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PeriodoCountAggregateInputType | true
+    _avg?: PeriodoAvgAggregateInputType
+    _sum?: PeriodoSumAggregateInputType
+    _min?: PeriodoMinAggregateInputType
+    _max?: PeriodoMaxAggregateInputType
+  }
+
+  export type PeriodoGroupByOutputType = {
+    id: number
+    dataInicio: Date
+    dataFim: Date
+    fechado: boolean
+    valorTotal: number | null
+    observacoes: string | null
+    dataFechamento: Date | null
+    dataCriacao: Date
+    dataAtualizacao: Date
+    empresaId: number
+    _count: PeriodoCountAggregateOutputType | null
+    _avg: PeriodoAvgAggregateOutputType | null
+    _sum: PeriodoSumAggregateOutputType | null
+    _min: PeriodoMinAggregateOutputType | null
+    _max: PeriodoMaxAggregateOutputType | null
+  }
+
+  type GetPeriodoGroupByPayload<T extends PeriodoGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PeriodoGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PeriodoGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PeriodoGroupByOutputType[P]>
+            : GetScalarType<T[P], PeriodoGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PeriodoSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    dataInicio?: boolean
+    dataFim?: boolean
+    fechado?: boolean
+    valorTotal?: boolean
+    observacoes?: boolean
+    dataFechamento?: boolean
+    dataCriacao?: boolean
+    dataAtualizacao?: boolean
+    empresaId?: boolean
+    empresa?: boolean | EmpresaDefaultArgs<ExtArgs>
+    lancamentos?: boolean | Periodo$lancamentosArgs<ExtArgs>
+    _count?: boolean | PeriodoCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["periodo"]>
+
+  export type PeriodoSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    dataInicio?: boolean
+    dataFim?: boolean
+    fechado?: boolean
+    valorTotal?: boolean
+    observacoes?: boolean
+    dataFechamento?: boolean
+    dataCriacao?: boolean
+    dataAtualizacao?: boolean
+    empresaId?: boolean
+    empresa?: boolean | EmpresaDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["periodo"]>
+
+  export type PeriodoSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    dataInicio?: boolean
+    dataFim?: boolean
+    fechado?: boolean
+    valorTotal?: boolean
+    observacoes?: boolean
+    dataFechamento?: boolean
+    dataCriacao?: boolean
+    dataAtualizacao?: boolean
+    empresaId?: boolean
+    empresa?: boolean | EmpresaDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["periodo"]>
+
+  export type PeriodoSelectScalar = {
+    id?: boolean
+    dataInicio?: boolean
+    dataFim?: boolean
+    fechado?: boolean
+    valorTotal?: boolean
+    observacoes?: boolean
+    dataFechamento?: boolean
+    dataCriacao?: boolean
+    dataAtualizacao?: boolean
+    empresaId?: boolean
+  }
+
+  export type PeriodoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "dataInicio" | "dataFim" | "fechado" | "valorTotal" | "observacoes" | "dataFechamento" | "dataCriacao" | "dataAtualizacao" | "empresaId", ExtArgs["result"]["periodo"]>
+  export type PeriodoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    empresa?: boolean | EmpresaDefaultArgs<ExtArgs>
+    lancamentos?: boolean | Periodo$lancamentosArgs<ExtArgs>
+    _count?: boolean | PeriodoCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type PeriodoIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    empresa?: boolean | EmpresaDefaultArgs<ExtArgs>
+  }
+  export type PeriodoIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    empresa?: boolean | EmpresaDefaultArgs<ExtArgs>
+  }
+
+  export type $PeriodoPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Periodo"
+    objects: {
+      empresa: Prisma.$EmpresaPayload<ExtArgs>
+      lancamentos: Prisma.$LancamentoPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      dataInicio: Date
+      dataFim: Date
+      fechado: boolean
+      valorTotal: number | null
+      observacoes: string | null
+      dataFechamento: Date | null
+      dataCriacao: Date
+      dataAtualizacao: Date
+      empresaId: number
+    }, ExtArgs["result"]["periodo"]>
+    composites: {}
+  }
+
+  type PeriodoGetPayload<S extends boolean | null | undefined | PeriodoDefaultArgs> = $Result.GetResult<Prisma.$PeriodoPayload, S>
+
+  type PeriodoCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PeriodoFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PeriodoCountAggregateInputType | true
+    }
+
+  export interface PeriodoDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Periodo'], meta: { name: 'Periodo' } }
+    /**
+     * Find zero or one Periodo that matches the filter.
+     * @param {PeriodoFindUniqueArgs} args - Arguments to find a Periodo
+     * @example
+     * // Get one Periodo
+     * const periodo = await prisma.periodo.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PeriodoFindUniqueArgs>(args: SelectSubset<T, PeriodoFindUniqueArgs<ExtArgs>>): Prisma__PeriodoClient<$Result.GetResult<Prisma.$PeriodoPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Periodo that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PeriodoFindUniqueOrThrowArgs} args - Arguments to find a Periodo
+     * @example
+     * // Get one Periodo
+     * const periodo = await prisma.periodo.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PeriodoFindUniqueOrThrowArgs>(args: SelectSubset<T, PeriodoFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PeriodoClient<$Result.GetResult<Prisma.$PeriodoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Periodo that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PeriodoFindFirstArgs} args - Arguments to find a Periodo
+     * @example
+     * // Get one Periodo
+     * const periodo = await prisma.periodo.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PeriodoFindFirstArgs>(args?: SelectSubset<T, PeriodoFindFirstArgs<ExtArgs>>): Prisma__PeriodoClient<$Result.GetResult<Prisma.$PeriodoPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Periodo that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PeriodoFindFirstOrThrowArgs} args - Arguments to find a Periodo
+     * @example
+     * // Get one Periodo
+     * const periodo = await prisma.periodo.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PeriodoFindFirstOrThrowArgs>(args?: SelectSubset<T, PeriodoFindFirstOrThrowArgs<ExtArgs>>): Prisma__PeriodoClient<$Result.GetResult<Prisma.$PeriodoPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Periodos that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PeriodoFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Periodos
+     * const periodos = await prisma.periodo.findMany()
+     * 
+     * // Get first 10 Periodos
+     * const periodos = await prisma.periodo.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const periodoWithIdOnly = await prisma.periodo.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PeriodoFindManyArgs>(args?: SelectSubset<T, PeriodoFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PeriodoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Periodo.
+     * @param {PeriodoCreateArgs} args - Arguments to create a Periodo.
+     * @example
+     * // Create one Periodo
+     * const Periodo = await prisma.periodo.create({
+     *   data: {
+     *     // ... data to create a Periodo
+     *   }
+     * })
+     * 
+     */
+    create<T extends PeriodoCreateArgs>(args: SelectSubset<T, PeriodoCreateArgs<ExtArgs>>): Prisma__PeriodoClient<$Result.GetResult<Prisma.$PeriodoPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Periodos.
+     * @param {PeriodoCreateManyArgs} args - Arguments to create many Periodos.
+     * @example
+     * // Create many Periodos
+     * const periodo = await prisma.periodo.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PeriodoCreateManyArgs>(args?: SelectSubset<T, PeriodoCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Periodos and returns the data saved in the database.
+     * @param {PeriodoCreateManyAndReturnArgs} args - Arguments to create many Periodos.
+     * @example
+     * // Create many Periodos
+     * const periodo = await prisma.periodo.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Periodos and only return the `id`
+     * const periodoWithIdOnly = await prisma.periodo.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PeriodoCreateManyAndReturnArgs>(args?: SelectSubset<T, PeriodoCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PeriodoPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Periodo.
+     * @param {PeriodoDeleteArgs} args - Arguments to delete one Periodo.
+     * @example
+     * // Delete one Periodo
+     * const Periodo = await prisma.periodo.delete({
+     *   where: {
+     *     // ... filter to delete one Periodo
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PeriodoDeleteArgs>(args: SelectSubset<T, PeriodoDeleteArgs<ExtArgs>>): Prisma__PeriodoClient<$Result.GetResult<Prisma.$PeriodoPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Periodo.
+     * @param {PeriodoUpdateArgs} args - Arguments to update one Periodo.
+     * @example
+     * // Update one Periodo
+     * const periodo = await prisma.periodo.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PeriodoUpdateArgs>(args: SelectSubset<T, PeriodoUpdateArgs<ExtArgs>>): Prisma__PeriodoClient<$Result.GetResult<Prisma.$PeriodoPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Periodos.
+     * @param {PeriodoDeleteManyArgs} args - Arguments to filter Periodos to delete.
+     * @example
+     * // Delete a few Periodos
+     * const { count } = await prisma.periodo.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PeriodoDeleteManyArgs>(args?: SelectSubset<T, PeriodoDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Periodos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PeriodoUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Periodos
+     * const periodo = await prisma.periodo.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PeriodoUpdateManyArgs>(args: SelectSubset<T, PeriodoUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Periodos and returns the data updated in the database.
+     * @param {PeriodoUpdateManyAndReturnArgs} args - Arguments to update many Periodos.
+     * @example
+     * // Update many Periodos
+     * const periodo = await prisma.periodo.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Periodos and only return the `id`
+     * const periodoWithIdOnly = await prisma.periodo.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PeriodoUpdateManyAndReturnArgs>(args: SelectSubset<T, PeriodoUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PeriodoPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Periodo.
+     * @param {PeriodoUpsertArgs} args - Arguments to update or create a Periodo.
+     * @example
+     * // Update or create a Periodo
+     * const periodo = await prisma.periodo.upsert({
+     *   create: {
+     *     // ... data to create a Periodo
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Periodo we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PeriodoUpsertArgs>(args: SelectSubset<T, PeriodoUpsertArgs<ExtArgs>>): Prisma__PeriodoClient<$Result.GetResult<Prisma.$PeriodoPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Periodos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PeriodoCountArgs} args - Arguments to filter Periodos to count.
+     * @example
+     * // Count the number of Periodos
+     * const count = await prisma.periodo.count({
+     *   where: {
+     *     // ... the filter for the Periodos we want to count
+     *   }
+     * })
+    **/
+    count<T extends PeriodoCountArgs>(
+      args?: Subset<T, PeriodoCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PeriodoCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Periodo.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PeriodoAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PeriodoAggregateArgs>(args: Subset<T, PeriodoAggregateArgs>): Prisma.PrismaPromise<GetPeriodoAggregateType<T>>
+
+    /**
+     * Group by Periodo.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PeriodoGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PeriodoGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PeriodoGroupByArgs['orderBy'] }
+        : { orderBy?: PeriodoGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PeriodoGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPeriodoGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Periodo model
+   */
+  readonly fields: PeriodoFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Periodo.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PeriodoClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    empresa<T extends EmpresaDefaultArgs<ExtArgs> = {}>(args?: Subset<T, EmpresaDefaultArgs<ExtArgs>>): Prisma__EmpresaClient<$Result.GetResult<Prisma.$EmpresaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    lancamentos<T extends Periodo$lancamentosArgs<ExtArgs> = {}>(args?: Subset<T, Periodo$lancamentosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LancamentoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Periodo model
+   */
+  interface PeriodoFieldRefs {
+    readonly id: FieldRef<"Periodo", 'Int'>
+    readonly dataInicio: FieldRef<"Periodo", 'DateTime'>
+    readonly dataFim: FieldRef<"Periodo", 'DateTime'>
+    readonly fechado: FieldRef<"Periodo", 'Boolean'>
+    readonly valorTotal: FieldRef<"Periodo", 'Float'>
+    readonly observacoes: FieldRef<"Periodo", 'String'>
+    readonly dataFechamento: FieldRef<"Periodo", 'DateTime'>
+    readonly dataCriacao: FieldRef<"Periodo", 'DateTime'>
+    readonly dataAtualizacao: FieldRef<"Periodo", 'DateTime'>
+    readonly empresaId: FieldRef<"Periodo", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Periodo findUnique
+   */
+  export type PeriodoFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Periodo
+     */
+    select?: PeriodoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Periodo
+     */
+    omit?: PeriodoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PeriodoInclude<ExtArgs> | null
+    /**
+     * Filter, which Periodo to fetch.
+     */
+    where: PeriodoWhereUniqueInput
+  }
+
+  /**
+   * Periodo findUniqueOrThrow
+   */
+  export type PeriodoFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Periodo
+     */
+    select?: PeriodoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Periodo
+     */
+    omit?: PeriodoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PeriodoInclude<ExtArgs> | null
+    /**
+     * Filter, which Periodo to fetch.
+     */
+    where: PeriodoWhereUniqueInput
+  }
+
+  /**
+   * Periodo findFirst
+   */
+  export type PeriodoFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Periodo
+     */
+    select?: PeriodoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Periodo
+     */
+    omit?: PeriodoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PeriodoInclude<ExtArgs> | null
+    /**
+     * Filter, which Periodo to fetch.
+     */
+    where?: PeriodoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Periodos to fetch.
+     */
+    orderBy?: PeriodoOrderByWithRelationInput | PeriodoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Periodos.
+     */
+    cursor?: PeriodoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Periodos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Periodos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Periodos.
+     */
+    distinct?: PeriodoScalarFieldEnum | PeriodoScalarFieldEnum[]
+  }
+
+  /**
+   * Periodo findFirstOrThrow
+   */
+  export type PeriodoFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Periodo
+     */
+    select?: PeriodoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Periodo
+     */
+    omit?: PeriodoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PeriodoInclude<ExtArgs> | null
+    /**
+     * Filter, which Periodo to fetch.
+     */
+    where?: PeriodoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Periodos to fetch.
+     */
+    orderBy?: PeriodoOrderByWithRelationInput | PeriodoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Periodos.
+     */
+    cursor?: PeriodoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Periodos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Periodos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Periodos.
+     */
+    distinct?: PeriodoScalarFieldEnum | PeriodoScalarFieldEnum[]
+  }
+
+  /**
+   * Periodo findMany
+   */
+  export type PeriodoFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Periodo
+     */
+    select?: PeriodoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Periodo
+     */
+    omit?: PeriodoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PeriodoInclude<ExtArgs> | null
+    /**
+     * Filter, which Periodos to fetch.
+     */
+    where?: PeriodoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Periodos to fetch.
+     */
+    orderBy?: PeriodoOrderByWithRelationInput | PeriodoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Periodos.
+     */
+    cursor?: PeriodoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Periodos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Periodos.
+     */
+    skip?: number
+    distinct?: PeriodoScalarFieldEnum | PeriodoScalarFieldEnum[]
+  }
+
+  /**
+   * Periodo create
+   */
+  export type PeriodoCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Periodo
+     */
+    select?: PeriodoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Periodo
+     */
+    omit?: PeriodoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PeriodoInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Periodo.
+     */
+    data: XOR<PeriodoCreateInput, PeriodoUncheckedCreateInput>
+  }
+
+  /**
+   * Periodo createMany
+   */
+  export type PeriodoCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Periodos.
+     */
+    data: PeriodoCreateManyInput | PeriodoCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Periodo createManyAndReturn
+   */
+  export type PeriodoCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Periodo
+     */
+    select?: PeriodoSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Periodo
+     */
+    omit?: PeriodoOmit<ExtArgs> | null
+    /**
+     * The data used to create many Periodos.
+     */
+    data: PeriodoCreateManyInput | PeriodoCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PeriodoIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Periodo update
+   */
+  export type PeriodoUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Periodo
+     */
+    select?: PeriodoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Periodo
+     */
+    omit?: PeriodoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PeriodoInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Periodo.
+     */
+    data: XOR<PeriodoUpdateInput, PeriodoUncheckedUpdateInput>
+    /**
+     * Choose, which Periodo to update.
+     */
+    where: PeriodoWhereUniqueInput
+  }
+
+  /**
+   * Periodo updateMany
+   */
+  export type PeriodoUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Periodos.
+     */
+    data: XOR<PeriodoUpdateManyMutationInput, PeriodoUncheckedUpdateManyInput>
+    /**
+     * Filter which Periodos to update
+     */
+    where?: PeriodoWhereInput
+    /**
+     * Limit how many Periodos to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Periodo updateManyAndReturn
+   */
+  export type PeriodoUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Periodo
+     */
+    select?: PeriodoSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Periodo
+     */
+    omit?: PeriodoOmit<ExtArgs> | null
+    /**
+     * The data used to update Periodos.
+     */
+    data: XOR<PeriodoUpdateManyMutationInput, PeriodoUncheckedUpdateManyInput>
+    /**
+     * Filter which Periodos to update
+     */
+    where?: PeriodoWhereInput
+    /**
+     * Limit how many Periodos to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PeriodoIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Periodo upsert
+   */
+  export type PeriodoUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Periodo
+     */
+    select?: PeriodoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Periodo
+     */
+    omit?: PeriodoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PeriodoInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Periodo to update in case it exists.
+     */
+    where: PeriodoWhereUniqueInput
+    /**
+     * In case the Periodo found by the `where` argument doesn't exist, create a new Periodo with this data.
+     */
+    create: XOR<PeriodoCreateInput, PeriodoUncheckedCreateInput>
+    /**
+     * In case the Periodo was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PeriodoUpdateInput, PeriodoUncheckedUpdateInput>
+  }
+
+  /**
+   * Periodo delete
+   */
+  export type PeriodoDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Periodo
+     */
+    select?: PeriodoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Periodo
+     */
+    omit?: PeriodoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PeriodoInclude<ExtArgs> | null
+    /**
+     * Filter which Periodo to delete.
+     */
+    where: PeriodoWhereUniqueInput
+  }
+
+  /**
+   * Periodo deleteMany
+   */
+  export type PeriodoDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Periodos to delete
+     */
+    where?: PeriodoWhereInput
+    /**
+     * Limit how many Periodos to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Periodo.lancamentos
+   */
+  export type Periodo$lancamentosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lancamento
+     */
+    select?: LancamentoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lancamento
+     */
+    omit?: LancamentoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LancamentoInclude<ExtArgs> | null
+    where?: LancamentoWhereInput
+    orderBy?: LancamentoOrderByWithRelationInput | LancamentoOrderByWithRelationInput[]
+    cursor?: LancamentoWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LancamentoScalarFieldEnum | LancamentoScalarFieldEnum[]
+  }
+
+  /**
+   * Periodo without action
+   */
+  export type PeriodoDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Periodo
+     */
+    select?: PeriodoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Periodo
+     */
+    omit?: PeriodoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PeriodoInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Enums
+   */
+
+  export const TransactionIsolationLevel: {
+    ReadUncommitted: 'ReadUncommitted',
+    ReadCommitted: 'ReadCommitted',
+    RepeatableRead: 'RepeatableRead',
+    Serializable: 'Serializable'
+  };
+
+  export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
+
+
+  export const UsuarioScalarFieldEnum: {
+    id: 'id',
+    email: 'email',
+    senha: 'senha',
+    cpf: 'cpf',
+    nome: 'nome',
+    admin: 'admin',
+    dataCriacao: 'dataCriacao',
+    empresaId: 'empresaId',
+    grupoId: 'grupoId'
+  };
+
+  export type UsuarioScalarFieldEnum = (typeof UsuarioScalarFieldEnum)[keyof typeof UsuarioScalarFieldEnum]
+
+
+  export const EmpresaScalarFieldEnum: {
+    id: 'id',
+    cnpj: 'cnpj',
+    nomeFantasia: 'nomeFantasia',
+    senha: 'senha',
+    razaoSocial: 'razaoSocial',
+    endereco: 'endereco',
+    situacaoCadastral: 'situacaoCadastral',
+    naturezaJuridica: 'naturezaJuridica',
+    CNAES: 'CNAES',
+    dataCriacao: 'dataCriacao'
+  };
+
+  export type EmpresaScalarFieldEnum = (typeof EmpresaScalarFieldEnum)[keyof typeof EmpresaScalarFieldEnum]
+
+
+  export const GrupoScalarFieldEnum: {
+    id: 'id',
+    nome: 'nome',
+    permissoes: 'permissoes',
+    empresaId: 'empresaId'
+  };
+
+  export type GrupoScalarFieldEnum = (typeof GrupoScalarFieldEnum)[keyof typeof GrupoScalarFieldEnum]
+
+
+  export const LancamentoScalarFieldEnum: {
+    id: 'id',
+    data_lancamento: 'data_lancamento',
+    latitude: 'latitude',
+    longitude: 'longitude',
+    dataCriacao: 'dataCriacao',
+    dataAtualizacao: 'dataAtualizacao',
+    periodoId: 'periodoId',
+    notaFiscalId: 'notaFiscalId',
+    usuarioId: 'usuarioId',
+    empresaId: 'empresaId'
+  };
+
+  export type LancamentoScalarFieldEnum = (typeof LancamentoScalarFieldEnum)[keyof typeof LancamentoScalarFieldEnum]
+
+
+  export const NotaFiscalScalarFieldEnum: {
+    id: 'id',
+    numero: 'numero',
+    valor: 'valor',
+    xmlPath: 'xmlPath',
+    dataEmissao: 'dataEmissao',
+    dataCriacao: 'dataCriacao',
+    empresaId: 'empresaId'
+  };
+
+  export type NotaFiscalScalarFieldEnum = (typeof NotaFiscalScalarFieldEnum)[keyof typeof NotaFiscalScalarFieldEnum]
+
+
+  export const ImagemScalarFieldEnum: {
+    id: 'id',
+    url: 'url',
+    dataCriacao: 'dataCriacao',
+    dataAtualizacao: 'dataAtualizacao',
+    lancamentoId: 'lancamentoId'
+  };
+
+  export type ImagemScalarFieldEnum = (typeof ImagemScalarFieldEnum)[keyof typeof ImagemScalarFieldEnum]
+
+
+  export const PeriodoScalarFieldEnum: {
+    id: 'id',
+    dataInicio: 'dataInicio',
+    dataFim: 'dataFim',
+    fechado: 'fechado',
+    valorTotal: 'valorTotal',
+    observacoes: 'observacoes',
+    dataFechamento: 'dataFechamento',
+    dataCriacao: 'dataCriacao',
+    dataAtualizacao: 'dataAtualizacao',
+    empresaId: 'empresaId'
+  };
+
+  export type PeriodoScalarFieldEnum = (typeof PeriodoScalarFieldEnum)[keyof typeof PeriodoScalarFieldEnum]
+
+
+  export const SortOrder: {
+    asc: 'asc',
+    desc: 'desc'
+  };
+
+  export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+  export const QueryMode: {
+    default: 'default',
+    insensitive: 'insensitive'
+  };
+
+  export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+  /**
+   * Field references
+   */
+
+
+  /**
+   * Reference to a field of type 'Int'
+   */
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int[]'
+   */
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'String'
+   */
+  export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
+    
+
+
+  /**
+   * Reference to a field of type 'String[]'
+   */
+  export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime'
+   */
+  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime[]'
+   */
+  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Permissoes[]'
+   */
+  export type ListEnumPermissoesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Permissoes[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Permissoes'
+   */
+  export type EnumPermissoesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Permissoes'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+  /**
+   * Deep Input Types
+   */
+
+
+  export type UsuarioWhereInput = {
+    AND?: UsuarioWhereInput | UsuarioWhereInput[]
+    OR?: UsuarioWhereInput[]
+    NOT?: UsuarioWhereInput | UsuarioWhereInput[]
+    id?: IntFilter<"Usuario"> | number
+    email?: StringFilter<"Usuario"> | string
+    senha?: StringFilter<"Usuario"> | string
+    cpf?: StringFilter<"Usuario"> | string
+    nome?: StringFilter<"Usuario"> | string
+    admin?: BoolFilter<"Usuario"> | boolean
+    dataCriacao?: DateTimeFilter<"Usuario"> | Date | string
+    empresaId?: IntFilter<"Usuario"> | number
+    grupoId?: IntNullableFilter<"Usuario"> | number | null
+    empresa?: XOR<EmpresaScalarRelationFilter, EmpresaWhereInput>
+    grupo?: XOR<GrupoNullableScalarRelationFilter, GrupoWhereInput> | null
+    lancamento?: LancamentoListRelationFilter
+  }
+
+  export type UsuarioOrderByWithRelationInput = {
+    id?: SortOrder
+    email?: SortOrder
+    senha?: SortOrder
+    cpf?: SortOrder
+    nome?: SortOrder
+    admin?: SortOrder
+    dataCriacao?: SortOrder
+    empresaId?: SortOrder
+    grupoId?: SortOrderInput | SortOrder
+    empresa?: EmpresaOrderByWithRelationInput
+    grupo?: GrupoOrderByWithRelationInput
+    lancamento?: LancamentoOrderByRelationAggregateInput
+  }
+
+  export type UsuarioWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    email?: string
+    cpf?: string
+    AND?: UsuarioWhereInput | UsuarioWhereInput[]
+    OR?: UsuarioWhereInput[]
+    NOT?: UsuarioWhereInput | UsuarioWhereInput[]
+    senha?: StringFilter<"Usuario"> | string
+    nome?: StringFilter<"Usuario"> | string
+    admin?: BoolFilter<"Usuario"> | boolean
+    dataCriacao?: DateTimeFilter<"Usuario"> | Date | string
+    empresaId?: IntFilter<"Usuario"> | number
+    grupoId?: IntNullableFilter<"Usuario"> | number | null
+    empresa?: XOR<EmpresaScalarRelationFilter, EmpresaWhereInput>
+    grupo?: XOR<GrupoNullableScalarRelationFilter, GrupoWhereInput> | null
+    lancamento?: LancamentoListRelationFilter
+  }, "id" | "email" | "cpf">
+
+  export type UsuarioOrderByWithAggregationInput = {
+    id?: SortOrder
+    email?: SortOrder
+    senha?: SortOrder
+    cpf?: SortOrder
+    nome?: SortOrder
+    admin?: SortOrder
+    dataCriacao?: SortOrder
+    empresaId?: SortOrder
+    grupoId?: SortOrderInput | SortOrder
+    _count?: UsuarioCountOrderByAggregateInput
+    _avg?: UsuarioAvgOrderByAggregateInput
+    _max?: UsuarioMaxOrderByAggregateInput
+    _min?: UsuarioMinOrderByAggregateInput
+    _sum?: UsuarioSumOrderByAggregateInput
+  }
+
+  export type UsuarioScalarWhereWithAggregatesInput = {
+    AND?: UsuarioScalarWhereWithAggregatesInput | UsuarioScalarWhereWithAggregatesInput[]
+    OR?: UsuarioScalarWhereWithAggregatesInput[]
+    NOT?: UsuarioScalarWhereWithAggregatesInput | UsuarioScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Usuario"> | number
+    email?: StringWithAggregatesFilter<"Usuario"> | string
+    senha?: StringWithAggregatesFilter<"Usuario"> | string
+    cpf?: StringWithAggregatesFilter<"Usuario"> | string
+    nome?: StringWithAggregatesFilter<"Usuario"> | string
+    admin?: BoolWithAggregatesFilter<"Usuario"> | boolean
+    dataCriacao?: DateTimeWithAggregatesFilter<"Usuario"> | Date | string
+    empresaId?: IntWithAggregatesFilter<"Usuario"> | number
+    grupoId?: IntNullableWithAggregatesFilter<"Usuario"> | number | null
+  }
+
+  export type EmpresaWhereInput = {
+    AND?: EmpresaWhereInput | EmpresaWhereInput[]
+    OR?: EmpresaWhereInput[]
+    NOT?: EmpresaWhereInput | EmpresaWhereInput[]
+    id?: IntFilter<"Empresa"> | number
+    cnpj?: StringFilter<"Empresa"> | string
+    nomeFantasia?: StringNullableFilter<"Empresa"> | string | null
+    senha?: StringFilter<"Empresa"> | string
+    razaoSocial?: StringFilter<"Empresa"> | string
+    endereco?: StringFilter<"Empresa"> | string
+    situacaoCadastral?: StringFilter<"Empresa"> | string
+    naturezaJuridica?: StringFilter<"Empresa"> | string
+    CNAES?: StringFilter<"Empresa"> | string
+    dataCriacao?: DateTimeFilter<"Empresa"> | Date | string
+    usuarios?: UsuarioListRelationFilter
+    grupo?: GrupoListRelationFilter
+    NotaFiscal?: NotaFiscalListRelationFilter
+    Lancamentos?: LancamentoListRelationFilter
+    Periodos?: PeriodoListRelationFilter
+  }
+
+  export type EmpresaOrderByWithRelationInput = {
+    id?: SortOrder
+    cnpj?: SortOrder
+    nomeFantasia?: SortOrderInput | SortOrder
+    senha?: SortOrder
+    razaoSocial?: SortOrder
+    endereco?: SortOrder
+    situacaoCadastral?: SortOrder
+    naturezaJuridica?: SortOrder
+    CNAES?: SortOrder
+    dataCriacao?: SortOrder
+    usuarios?: UsuarioOrderByRelationAggregateInput
+    grupo?: GrupoOrderByRelationAggregateInput
+    NotaFiscal?: NotaFiscalOrderByRelationAggregateInput
+    Lancamentos?: LancamentoOrderByRelationAggregateInput
+    Periodos?: PeriodoOrderByRelationAggregateInput
+  }
+
+  export type EmpresaWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    cnpj?: string
+    AND?: EmpresaWhereInput | EmpresaWhereInput[]
+    OR?: EmpresaWhereInput[]
+    NOT?: EmpresaWhereInput | EmpresaWhereInput[]
+    nomeFantasia?: StringNullableFilter<"Empresa"> | string | null
+    senha?: StringFilter<"Empresa"> | string
+    razaoSocial?: StringFilter<"Empresa"> | string
+    endereco?: StringFilter<"Empresa"> | string
+    situacaoCadastral?: StringFilter<"Empresa"> | string
+    naturezaJuridica?: StringFilter<"Empresa"> | string
+    CNAES?: StringFilter<"Empresa"> | string
+    dataCriacao?: DateTimeFilter<"Empresa"> | Date | string
+    usuarios?: UsuarioListRelationFilter
+    grupo?: GrupoListRelationFilter
+    NotaFiscal?: NotaFiscalListRelationFilter
+    Lancamentos?: LancamentoListRelationFilter
+    Periodos?: PeriodoListRelationFilter
+  }, "id" | "cnpj">
+
+  export type EmpresaOrderByWithAggregationInput = {
+    id?: SortOrder
+    cnpj?: SortOrder
+    nomeFantasia?: SortOrderInput | SortOrder
+    senha?: SortOrder
+    razaoSocial?: SortOrder
+    endereco?: SortOrder
+    situacaoCadastral?: SortOrder
+    naturezaJuridica?: SortOrder
+    CNAES?: SortOrder
+    dataCriacao?: SortOrder
+    _count?: EmpresaCountOrderByAggregateInput
+    _avg?: EmpresaAvgOrderByAggregateInput
+    _max?: EmpresaMaxOrderByAggregateInput
+    _min?: EmpresaMinOrderByAggregateInput
+    _sum?: EmpresaSumOrderByAggregateInput
+  }
+
+  export type EmpresaScalarWhereWithAggregatesInput = {
+    AND?: EmpresaScalarWhereWithAggregatesInput | EmpresaScalarWhereWithAggregatesInput[]
+    OR?: EmpresaScalarWhereWithAggregatesInput[]
+    NOT?: EmpresaScalarWhereWithAggregatesInput | EmpresaScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Empresa"> | number
+    cnpj?: StringWithAggregatesFilter<"Empresa"> | string
+    nomeFantasia?: StringNullableWithAggregatesFilter<"Empresa"> | string | null
+    senha?: StringWithAggregatesFilter<"Empresa"> | string
+    razaoSocial?: StringWithAggregatesFilter<"Empresa"> | string
+    endereco?: StringWithAggregatesFilter<"Empresa"> | string
+    situacaoCadastral?: StringWithAggregatesFilter<"Empresa"> | string
+    naturezaJuridica?: StringWithAggregatesFilter<"Empresa"> | string
+    CNAES?: StringWithAggregatesFilter<"Empresa"> | string
+    dataCriacao?: DateTimeWithAggregatesFilter<"Empresa"> | Date | string
+  }
+
+  export type GrupoWhereInput = {
+    AND?: GrupoWhereInput | GrupoWhereInput[]
+    OR?: GrupoWhereInput[]
+    NOT?: GrupoWhereInput | GrupoWhereInput[]
+    id?: IntFilter<"Grupo"> | number
+    nome?: StringFilter<"Grupo"> | string
+    permissoes?: EnumPermissoesNullableListFilter<"Grupo">
+    empresaId?: IntFilter<"Grupo"> | number
+    usuarios?: UsuarioListRelationFilter
+    empresas?: XOR<EmpresaScalarRelationFilter, EmpresaWhereInput>
+  }
+
+  export type GrupoOrderByWithRelationInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    permissoes?: SortOrder
+    empresaId?: SortOrder
+    usuarios?: UsuarioOrderByRelationAggregateInput
+    empresas?: EmpresaOrderByWithRelationInput
+  }
+
+  export type GrupoWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: GrupoWhereInput | GrupoWhereInput[]
+    OR?: GrupoWhereInput[]
+    NOT?: GrupoWhereInput | GrupoWhereInput[]
+    nome?: StringFilter<"Grupo"> | string
+    permissoes?: EnumPermissoesNullableListFilter<"Grupo">
+    empresaId?: IntFilter<"Grupo"> | number
+    usuarios?: UsuarioListRelationFilter
+    empresas?: XOR<EmpresaScalarRelationFilter, EmpresaWhereInput>
+  }, "id">
+
+  export type GrupoOrderByWithAggregationInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    permissoes?: SortOrder
+    empresaId?: SortOrder
+    _count?: GrupoCountOrderByAggregateInput
+    _avg?: GrupoAvgOrderByAggregateInput
+    _max?: GrupoMaxOrderByAggregateInput
+    _min?: GrupoMinOrderByAggregateInput
+    _sum?: GrupoSumOrderByAggregateInput
+  }
+
+  export type GrupoScalarWhereWithAggregatesInput = {
+    AND?: GrupoScalarWhereWithAggregatesInput | GrupoScalarWhereWithAggregatesInput[]
+    OR?: GrupoScalarWhereWithAggregatesInput[]
+    NOT?: GrupoScalarWhereWithAggregatesInput | GrupoScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Grupo"> | number
+    nome?: StringWithAggregatesFilter<"Grupo"> | string
+    permissoes?: EnumPermissoesNullableListFilter<"Grupo">
+    empresaId?: IntWithAggregatesFilter<"Grupo"> | number
+  }
+
+  export type LancamentoWhereInput = {
+    AND?: LancamentoWhereInput | LancamentoWhereInput[]
+    OR?: LancamentoWhereInput[]
+    NOT?: LancamentoWhereInput | LancamentoWhereInput[]
+    id?: IntFilter<"Lancamento"> | number
+    data_lancamento?: DateTimeFilter<"Lancamento"> | Date | string
+    latitude?: FloatFilter<"Lancamento"> | number
+    longitude?: FloatFilter<"Lancamento"> | number
+    dataCriacao?: DateTimeFilter<"Lancamento"> | Date | string
+    dataAtualizacao?: DateTimeFilter<"Lancamento"> | Date | string
+    periodoId?: IntNullableFilter<"Lancamento"> | number | null
+    notaFiscalId?: IntFilter<"Lancamento"> | number
+    usuarioId?: IntFilter<"Lancamento"> | number
+    empresaId?: IntFilter<"Lancamento"> | number
+    empresa?: XOR<EmpresaScalarRelationFilter, EmpresaWhereInput>
+    periodo?: XOR<PeriodoNullableScalarRelationFilter, PeriodoWhereInput> | null
+    notaFiscal?: XOR<NotaFiscalScalarRelationFilter, NotaFiscalWhereInput>
+    imagens?: ImagemListRelationFilter
+    usuarios?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
+  }
+
+  export type LancamentoOrderByWithRelationInput = {
+    id?: SortOrder
+    data_lancamento?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    dataCriacao?: SortOrder
+    dataAtualizacao?: SortOrder
+    periodoId?: SortOrderInput | SortOrder
+    notaFiscalId?: SortOrder
+    usuarioId?: SortOrder
+    empresaId?: SortOrder
+    empresa?: EmpresaOrderByWithRelationInput
+    periodo?: PeriodoOrderByWithRelationInput
+    notaFiscal?: NotaFiscalOrderByWithRelationInput
+    imagens?: ImagemOrderByRelationAggregateInput
+    usuarios?: UsuarioOrderByWithRelationInput
+  }
+
+  export type LancamentoWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    notaFiscalId?: number
+    AND?: LancamentoWhereInput | LancamentoWhereInput[]
+    OR?: LancamentoWhereInput[]
+    NOT?: LancamentoWhereInput | LancamentoWhereInput[]
+    data_lancamento?: DateTimeFilter<"Lancamento"> | Date | string
+    latitude?: FloatFilter<"Lancamento"> | number
+    longitude?: FloatFilter<"Lancamento"> | number
+    dataCriacao?: DateTimeFilter<"Lancamento"> | Date | string
+    dataAtualizacao?: DateTimeFilter<"Lancamento"> | Date | string
+    periodoId?: IntNullableFilter<"Lancamento"> | number | null
+    usuarioId?: IntFilter<"Lancamento"> | number
+    empresaId?: IntFilter<"Lancamento"> | number
+    empresa?: XOR<EmpresaScalarRelationFilter, EmpresaWhereInput>
+    periodo?: XOR<PeriodoNullableScalarRelationFilter, PeriodoWhereInput> | null
+    notaFiscal?: XOR<NotaFiscalScalarRelationFilter, NotaFiscalWhereInput>
+    imagens?: ImagemListRelationFilter
+    usuarios?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
+  }, "id" | "notaFiscalId">
+
+  export type LancamentoOrderByWithAggregationInput = {
+    id?: SortOrder
+    data_lancamento?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    dataCriacao?: SortOrder
+    dataAtualizacao?: SortOrder
+    periodoId?: SortOrderInput | SortOrder
+    notaFiscalId?: SortOrder
+    usuarioId?: SortOrder
+    empresaId?: SortOrder
+    _count?: LancamentoCountOrderByAggregateInput
+    _avg?: LancamentoAvgOrderByAggregateInput
+    _max?: LancamentoMaxOrderByAggregateInput
+    _min?: LancamentoMinOrderByAggregateInput
+    _sum?: LancamentoSumOrderByAggregateInput
+  }
+
+  export type LancamentoScalarWhereWithAggregatesInput = {
+    AND?: LancamentoScalarWhereWithAggregatesInput | LancamentoScalarWhereWithAggregatesInput[]
+    OR?: LancamentoScalarWhereWithAggregatesInput[]
+    NOT?: LancamentoScalarWhereWithAggregatesInput | LancamentoScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Lancamento"> | number
+    data_lancamento?: DateTimeWithAggregatesFilter<"Lancamento"> | Date | string
+    latitude?: FloatWithAggregatesFilter<"Lancamento"> | number
+    longitude?: FloatWithAggregatesFilter<"Lancamento"> | number
+    dataCriacao?: DateTimeWithAggregatesFilter<"Lancamento"> | Date | string
+    dataAtualizacao?: DateTimeWithAggregatesFilter<"Lancamento"> | Date | string
+    periodoId?: IntNullableWithAggregatesFilter<"Lancamento"> | number | null
+    notaFiscalId?: IntWithAggregatesFilter<"Lancamento"> | number
+    usuarioId?: IntWithAggregatesFilter<"Lancamento"> | number
+    empresaId?: IntWithAggregatesFilter<"Lancamento"> | number
+  }
+
+  export type NotaFiscalWhereInput = {
+    AND?: NotaFiscalWhereInput | NotaFiscalWhereInput[]
+    OR?: NotaFiscalWhereInput[]
+    NOT?: NotaFiscalWhereInput | NotaFiscalWhereInput[]
+    id?: IntFilter<"NotaFiscal"> | number
+    numero?: StringFilter<"NotaFiscal"> | string
+    valor?: FloatNullableFilter<"NotaFiscal"> | number | null
+    xmlPath?: StringNullableFilter<"NotaFiscal"> | string | null
+    dataEmissao?: DateTimeFilter<"NotaFiscal"> | Date | string
+    dataCriacao?: DateTimeFilter<"NotaFiscal"> | Date | string
+    empresaId?: IntFilter<"NotaFiscal"> | number
+    lancamento?: XOR<LancamentoNullableScalarRelationFilter, LancamentoWhereInput> | null
+    empresa?: XOR<EmpresaScalarRelationFilter, EmpresaWhereInput>
+  }
+
+  export type NotaFiscalOrderByWithRelationInput = {
+    id?: SortOrder
+    numero?: SortOrder
+    valor?: SortOrderInput | SortOrder
+    xmlPath?: SortOrderInput | SortOrder
+    dataEmissao?: SortOrder
+    dataCriacao?: SortOrder
+    empresaId?: SortOrder
+    lancamento?: LancamentoOrderByWithRelationInput
+    empresa?: EmpresaOrderByWithRelationInput
+  }
+
+  export type NotaFiscalWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    numero?: string
+    AND?: NotaFiscalWhereInput | NotaFiscalWhereInput[]
+    OR?: NotaFiscalWhereInput[]
+    NOT?: NotaFiscalWhereInput | NotaFiscalWhereInput[]
+    valor?: FloatNullableFilter<"NotaFiscal"> | number | null
+    xmlPath?: StringNullableFilter<"NotaFiscal"> | string | null
+    dataEmissao?: DateTimeFilter<"NotaFiscal"> | Date | string
+    dataCriacao?: DateTimeFilter<"NotaFiscal"> | Date | string
+    empresaId?: IntFilter<"NotaFiscal"> | number
+    lancamento?: XOR<LancamentoNullableScalarRelationFilter, LancamentoWhereInput> | null
+    empresa?: XOR<EmpresaScalarRelationFilter, EmpresaWhereInput>
+  }, "id" | "numero">
+
+  export type NotaFiscalOrderByWithAggregationInput = {
+    id?: SortOrder
+    numero?: SortOrder
+    valor?: SortOrderInput | SortOrder
+    xmlPath?: SortOrderInput | SortOrder
+    dataEmissao?: SortOrder
+    dataCriacao?: SortOrder
+    empresaId?: SortOrder
+    _count?: NotaFiscalCountOrderByAggregateInput
+    _avg?: NotaFiscalAvgOrderByAggregateInput
+    _max?: NotaFiscalMaxOrderByAggregateInput
+    _min?: NotaFiscalMinOrderByAggregateInput
+    _sum?: NotaFiscalSumOrderByAggregateInput
+  }
+
+  export type NotaFiscalScalarWhereWithAggregatesInput = {
+    AND?: NotaFiscalScalarWhereWithAggregatesInput | NotaFiscalScalarWhereWithAggregatesInput[]
+    OR?: NotaFiscalScalarWhereWithAggregatesInput[]
+    NOT?: NotaFiscalScalarWhereWithAggregatesInput | NotaFiscalScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"NotaFiscal"> | number
+    numero?: StringWithAggregatesFilter<"NotaFiscal"> | string
+    valor?: FloatNullableWithAggregatesFilter<"NotaFiscal"> | number | null
+    xmlPath?: StringNullableWithAggregatesFilter<"NotaFiscal"> | string | null
+    dataEmissao?: DateTimeWithAggregatesFilter<"NotaFiscal"> | Date | string
+    dataCriacao?: DateTimeWithAggregatesFilter<"NotaFiscal"> | Date | string
+    empresaId?: IntWithAggregatesFilter<"NotaFiscal"> | number
+  }
+
+  export type ImagemWhereInput = {
+    AND?: ImagemWhereInput | ImagemWhereInput[]
+    OR?: ImagemWhereInput[]
+    NOT?: ImagemWhereInput | ImagemWhereInput[]
+    id?: IntFilter<"Imagem"> | number
+    url?: StringFilter<"Imagem"> | string
+    dataCriacao?: DateTimeFilter<"Imagem"> | Date | string
+    dataAtualizacao?: DateTimeFilter<"Imagem"> | Date | string
+    lancamentoId?: IntFilter<"Imagem"> | number
+    lancamento?: XOR<LancamentoScalarRelationFilter, LancamentoWhereInput>
+  }
+
+  export type ImagemOrderByWithRelationInput = {
+    id?: SortOrder
+    url?: SortOrder
+    dataCriacao?: SortOrder
+    dataAtualizacao?: SortOrder
+    lancamentoId?: SortOrder
+    lancamento?: LancamentoOrderByWithRelationInput
+  }
+
+  export type ImagemWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: ImagemWhereInput | ImagemWhereInput[]
+    OR?: ImagemWhereInput[]
+    NOT?: ImagemWhereInput | ImagemWhereInput[]
+    url?: StringFilter<"Imagem"> | string
+    dataCriacao?: DateTimeFilter<"Imagem"> | Date | string
+    dataAtualizacao?: DateTimeFilter<"Imagem"> | Date | string
+    lancamentoId?: IntFilter<"Imagem"> | number
+    lancamento?: XOR<LancamentoScalarRelationFilter, LancamentoWhereInput>
+  }, "id">
+
+  export type ImagemOrderByWithAggregationInput = {
+    id?: SortOrder
+    url?: SortOrder
+    dataCriacao?: SortOrder
+    dataAtualizacao?: SortOrder
+    lancamentoId?: SortOrder
+    _count?: ImagemCountOrderByAggregateInput
+    _avg?: ImagemAvgOrderByAggregateInput
+    _max?: ImagemMaxOrderByAggregateInput
+    _min?: ImagemMinOrderByAggregateInput
+    _sum?: ImagemSumOrderByAggregateInput
+  }
+
+  export type ImagemScalarWhereWithAggregatesInput = {
+    AND?: ImagemScalarWhereWithAggregatesInput | ImagemScalarWhereWithAggregatesInput[]
+    OR?: ImagemScalarWhereWithAggregatesInput[]
+    NOT?: ImagemScalarWhereWithAggregatesInput | ImagemScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Imagem"> | number
+    url?: StringWithAggregatesFilter<"Imagem"> | string
+    dataCriacao?: DateTimeWithAggregatesFilter<"Imagem"> | Date | string
+    dataAtualizacao?: DateTimeWithAggregatesFilter<"Imagem"> | Date | string
+    lancamentoId?: IntWithAggregatesFilter<"Imagem"> | number
+  }
+
+  export type PeriodoWhereInput = {
+    AND?: PeriodoWhereInput | PeriodoWhereInput[]
+    OR?: PeriodoWhereInput[]
+    NOT?: PeriodoWhereInput | PeriodoWhereInput[]
+    id?: IntFilter<"Periodo"> | number
+    dataInicio?: DateTimeFilter<"Periodo"> | Date | string
+    dataFim?: DateTimeFilter<"Periodo"> | Date | string
+    fechado?: BoolFilter<"Periodo"> | boolean
+    valorTotal?: FloatNullableFilter<"Periodo"> | number | null
+    observacoes?: StringNullableFilter<"Periodo"> | string | null
+    dataFechamento?: DateTimeNullableFilter<"Periodo"> | Date | string | null
+    dataCriacao?: DateTimeFilter<"Periodo"> | Date | string
+    dataAtualizacao?: DateTimeFilter<"Periodo"> | Date | string
+    empresaId?: IntFilter<"Periodo"> | number
+    empresa?: XOR<EmpresaScalarRelationFilter, EmpresaWhereInput>
+    lancamentos?: LancamentoListRelationFilter
+  }
+
+  export type PeriodoOrderByWithRelationInput = {
+    id?: SortOrder
+    dataInicio?: SortOrder
+    dataFim?: SortOrder
+    fechado?: SortOrder
+    valorTotal?: SortOrderInput | SortOrder
+    observacoes?: SortOrderInput | SortOrder
+    dataFechamento?: SortOrderInput | SortOrder
+    dataCriacao?: SortOrder
+    dataAtualizacao?: SortOrder
+    empresaId?: SortOrder
+    empresa?: EmpresaOrderByWithRelationInput
+    lancamentos?: LancamentoOrderByRelationAggregateInput
+  }
+
+  export type PeriodoWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: PeriodoWhereInput | PeriodoWhereInput[]
+    OR?: PeriodoWhereInput[]
+    NOT?: PeriodoWhereInput | PeriodoWhereInput[]
+    dataInicio?: DateTimeFilter<"Periodo"> | Date | string
+    dataFim?: DateTimeFilter<"Periodo"> | Date | string
+    fechado?: BoolFilter<"Periodo"> | boolean
+    valorTotal?: FloatNullableFilter<"Periodo"> | number | null
+    observacoes?: StringNullableFilter<"Periodo"> | string | null
+    dataFechamento?: DateTimeNullableFilter<"Periodo"> | Date | string | null
+    dataCriacao?: DateTimeFilter<"Periodo"> | Date | string
+    dataAtualizacao?: DateTimeFilter<"Periodo"> | Date | string
+    empresaId?: IntFilter<"Periodo"> | number
+    empresa?: XOR<EmpresaScalarRelationFilter, EmpresaWhereInput>
+    lancamentos?: LancamentoListRelationFilter
+  }, "id">
+
+  export type PeriodoOrderByWithAggregationInput = {
+    id?: SortOrder
+    dataInicio?: SortOrder
+    dataFim?: SortOrder
+    fechado?: SortOrder
+    valorTotal?: SortOrderInput | SortOrder
+    observacoes?: SortOrderInput | SortOrder
+    dataFechamento?: SortOrderInput | SortOrder
+    dataCriacao?: SortOrder
+    dataAtualizacao?: SortOrder
+    empresaId?: SortOrder
+    _count?: PeriodoCountOrderByAggregateInput
+    _avg?: PeriodoAvgOrderByAggregateInput
+    _max?: PeriodoMaxOrderByAggregateInput
+    _min?: PeriodoMinOrderByAggregateInput
+    _sum?: PeriodoSumOrderByAggregateInput
+  }
+
+  export type PeriodoScalarWhereWithAggregatesInput = {
+    AND?: PeriodoScalarWhereWithAggregatesInput | PeriodoScalarWhereWithAggregatesInput[]
+    OR?: PeriodoScalarWhereWithAggregatesInput[]
+    NOT?: PeriodoScalarWhereWithAggregatesInput | PeriodoScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Periodo"> | number
+    dataInicio?: DateTimeWithAggregatesFilter<"Periodo"> | Date | string
+    dataFim?: DateTimeWithAggregatesFilter<"Periodo"> | Date | string
+    fechado?: BoolWithAggregatesFilter<"Periodo"> | boolean
+    valorTotal?: FloatNullableWithAggregatesFilter<"Periodo"> | number | null
+    observacoes?: StringNullableWithAggregatesFilter<"Periodo"> | string | null
+    dataFechamento?: DateTimeNullableWithAggregatesFilter<"Periodo"> | Date | string | null
+    dataCriacao?: DateTimeWithAggregatesFilter<"Periodo"> | Date | string
+    dataAtualizacao?: DateTimeWithAggregatesFilter<"Periodo"> | Date | string
+    empresaId?: IntWithAggregatesFilter<"Periodo"> | number
+  }
+
+  export type UsuarioCreateInput = {
+    email: string
+    senha: string
+    cpf: string
+    nome: string
+    admin?: boolean
+    dataCriacao?: Date | string
+    empresa: EmpresaCreateNestedOneWithoutUsuariosInput
+    grupo?: GrupoCreateNestedOneWithoutUsuariosInput
+    lancamento?: LancamentoCreateNestedManyWithoutUsuariosInput
+  }
+
+  export type UsuarioUncheckedCreateInput = {
+    id?: number
+    email: string
+    senha: string
+    cpf: string
+    nome: string
+    admin?: boolean
+    dataCriacao?: Date | string
+    empresaId: number
+    grupoId?: number | null
+    lancamento?: LancamentoUncheckedCreateNestedManyWithoutUsuariosInput
+  }
+
+  export type UsuarioUpdateInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    senha?: StringFieldUpdateOperationsInput | string
+    cpf?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    empresa?: EmpresaUpdateOneRequiredWithoutUsuariosNestedInput
+    grupo?: GrupoUpdateOneWithoutUsuariosNestedInput
+    lancamento?: LancamentoUpdateManyWithoutUsuariosNestedInput
+  }
+
+  export type UsuarioUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    email?: StringFieldUpdateOperationsInput | string
+    senha?: StringFieldUpdateOperationsInput | string
+    cpf?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    empresaId?: IntFieldUpdateOperationsInput | number
+    grupoId?: NullableIntFieldUpdateOperationsInput | number | null
+    lancamento?: LancamentoUncheckedUpdateManyWithoutUsuariosNestedInput
+  }
+
+  export type UsuarioCreateManyInput = {
+    id?: number
+    email: string
+    senha: string
+    cpf: string
+    nome: string
+    admin?: boolean
+    dataCriacao?: Date | string
+    empresaId: number
+    grupoId?: number | null
+  }
+
+  export type UsuarioUpdateManyMutationInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    senha?: StringFieldUpdateOperationsInput | string
+    cpf?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UsuarioUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    email?: StringFieldUpdateOperationsInput | string
+    senha?: StringFieldUpdateOperationsInput | string
+    cpf?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    empresaId?: IntFieldUpdateOperationsInput | number
+    grupoId?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type EmpresaCreateInput = {
+    cnpj: string
+    nomeFantasia?: string | null
+    senha: string
+    razaoSocial: string
+    endereco: string
+    situacaoCadastral: string
+    naturezaJuridica: string
+    CNAES: string
+    dataCriacao?: Date | string
+    usuarios?: UsuarioCreateNestedManyWithoutEmpresaInput
+    grupo?: GrupoCreateNestedManyWithoutEmpresasInput
+    NotaFiscal?: NotaFiscalCreateNestedManyWithoutEmpresaInput
+    Lancamentos?: LancamentoCreateNestedManyWithoutEmpresaInput
+    Periodos?: PeriodoCreateNestedManyWithoutEmpresaInput
+  }
+
+  export type EmpresaUncheckedCreateInput = {
+    id?: number
+    cnpj: string
+    nomeFantasia?: string | null
+    senha: string
+    razaoSocial: string
+    endereco: string
+    situacaoCadastral: string
+    naturezaJuridica: string
+    CNAES: string
+    dataCriacao?: Date | string
+    usuarios?: UsuarioUncheckedCreateNestedManyWithoutEmpresaInput
+    grupo?: GrupoUncheckedCreateNestedManyWithoutEmpresasInput
+    NotaFiscal?: NotaFiscalUncheckedCreateNestedManyWithoutEmpresaInput
+    Lancamentos?: LancamentoUncheckedCreateNestedManyWithoutEmpresaInput
+    Periodos?: PeriodoUncheckedCreateNestedManyWithoutEmpresaInput
+  }
+
+  export type EmpresaUpdateInput = {
+    cnpj?: StringFieldUpdateOperationsInput | string
+    nomeFantasia?: NullableStringFieldUpdateOperationsInput | string | null
+    senha?: StringFieldUpdateOperationsInput | string
+    razaoSocial?: StringFieldUpdateOperationsInput | string
+    endereco?: StringFieldUpdateOperationsInput | string
+    situacaoCadastral?: StringFieldUpdateOperationsInput | string
+    naturezaJuridica?: StringFieldUpdateOperationsInput | string
+    CNAES?: StringFieldUpdateOperationsInput | string
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    usuarios?: UsuarioUpdateManyWithoutEmpresaNestedInput
+    grupo?: GrupoUpdateManyWithoutEmpresasNestedInput
+    NotaFiscal?: NotaFiscalUpdateManyWithoutEmpresaNestedInput
+    Lancamentos?: LancamentoUpdateManyWithoutEmpresaNestedInput
+    Periodos?: PeriodoUpdateManyWithoutEmpresaNestedInput
+  }
+
+  export type EmpresaUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    cnpj?: StringFieldUpdateOperationsInput | string
+    nomeFantasia?: NullableStringFieldUpdateOperationsInput | string | null
+    senha?: StringFieldUpdateOperationsInput | string
+    razaoSocial?: StringFieldUpdateOperationsInput | string
+    endereco?: StringFieldUpdateOperationsInput | string
+    situacaoCadastral?: StringFieldUpdateOperationsInput | string
+    naturezaJuridica?: StringFieldUpdateOperationsInput | string
+    CNAES?: StringFieldUpdateOperationsInput | string
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    usuarios?: UsuarioUncheckedUpdateManyWithoutEmpresaNestedInput
+    grupo?: GrupoUncheckedUpdateManyWithoutEmpresasNestedInput
+    NotaFiscal?: NotaFiscalUncheckedUpdateManyWithoutEmpresaNestedInput
+    Lancamentos?: LancamentoUncheckedUpdateManyWithoutEmpresaNestedInput
+    Periodos?: PeriodoUncheckedUpdateManyWithoutEmpresaNestedInput
+  }
+
+  export type EmpresaCreateManyInput = {
+    id?: number
+    cnpj: string
+    nomeFantasia?: string | null
+    senha: string
+    razaoSocial: string
+    endereco: string
+    situacaoCadastral: string
+    naturezaJuridica: string
+    CNAES: string
+    dataCriacao?: Date | string
+  }
+
+  export type EmpresaUpdateManyMutationInput = {
+    cnpj?: StringFieldUpdateOperationsInput | string
+    nomeFantasia?: NullableStringFieldUpdateOperationsInput | string | null
+    senha?: StringFieldUpdateOperationsInput | string
+    razaoSocial?: StringFieldUpdateOperationsInput | string
+    endereco?: StringFieldUpdateOperationsInput | string
+    situacaoCadastral?: StringFieldUpdateOperationsInput | string
+    naturezaJuridica?: StringFieldUpdateOperationsInput | string
+    CNAES?: StringFieldUpdateOperationsInput | string
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmpresaUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    cnpj?: StringFieldUpdateOperationsInput | string
+    nomeFantasia?: NullableStringFieldUpdateOperationsInput | string | null
+    senha?: StringFieldUpdateOperationsInput | string
+    razaoSocial?: StringFieldUpdateOperationsInput | string
+    endereco?: StringFieldUpdateOperationsInput | string
+    situacaoCadastral?: StringFieldUpdateOperationsInput | string
+    naturezaJuridica?: StringFieldUpdateOperationsInput | string
+    CNAES?: StringFieldUpdateOperationsInput | string
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GrupoCreateInput = {
+    nome: string
+    permissoes?: GrupoCreatepermissoesInput | $Enums.Permissoes[]
+    usuarios?: UsuarioCreateNestedManyWithoutGrupoInput
+    empresas: EmpresaCreateNestedOneWithoutGrupoInput
+  }
+
+  export type GrupoUncheckedCreateInput = {
+    id?: number
+    nome: string
+    permissoes?: GrupoCreatepermissoesInput | $Enums.Permissoes[]
+    empresaId: number
+    usuarios?: UsuarioUncheckedCreateNestedManyWithoutGrupoInput
+  }
+
+  export type GrupoUpdateInput = {
+    nome?: StringFieldUpdateOperationsInput | string
+    permissoes?: GrupoUpdatepermissoesInput | $Enums.Permissoes[]
+    usuarios?: UsuarioUpdateManyWithoutGrupoNestedInput
+    empresas?: EmpresaUpdateOneRequiredWithoutGrupoNestedInput
+  }
+
+  export type GrupoUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nome?: StringFieldUpdateOperationsInput | string
+    permissoes?: GrupoUpdatepermissoesInput | $Enums.Permissoes[]
+    empresaId?: IntFieldUpdateOperationsInput | number
+    usuarios?: UsuarioUncheckedUpdateManyWithoutGrupoNestedInput
+  }
+
+  export type GrupoCreateManyInput = {
+    id?: number
+    nome: string
+    permissoes?: GrupoCreatepermissoesInput | $Enums.Permissoes[]
+    empresaId: number
+  }
+
+  export type GrupoUpdateManyMutationInput = {
+    nome?: StringFieldUpdateOperationsInput | string
+    permissoes?: GrupoUpdatepermissoesInput | $Enums.Permissoes[]
+  }
+
+  export type GrupoUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nome?: StringFieldUpdateOperationsInput | string
+    permissoes?: GrupoUpdatepermissoesInput | $Enums.Permissoes[]
+    empresaId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LancamentoCreateInput = {
+    data_lancamento: Date | string
+    latitude: number
+    longitude: number
+    dataCriacao?: Date | string
+    dataAtualizacao?: Date | string
+    empresa: EmpresaCreateNestedOneWithoutLancamentosInput
+    periodo?: PeriodoCreateNestedOneWithoutLancamentosInput
+    notaFiscal: NotaFiscalCreateNestedOneWithoutLancamentoInput
+    imagens?: ImagemCreateNestedManyWithoutLancamentoInput
+    usuarios: UsuarioCreateNestedOneWithoutLancamentoInput
+  }
+
+  export type LancamentoUncheckedCreateInput = {
+    id?: number
+    data_lancamento: Date | string
+    latitude: number
+    longitude: number
+    dataCriacao?: Date | string
+    dataAtualizacao?: Date | string
+    periodoId?: number | null
+    notaFiscalId: number
+    usuarioId: number
+    empresaId: number
+    imagens?: ImagemUncheckedCreateNestedManyWithoutLancamentoInput
+  }
+
+  export type LancamentoUpdateInput = {
+    data_lancamento?: DateTimeFieldUpdateOperationsInput | Date | string
+    latitude?: FloatFieldUpdateOperationsInput | number
+    longitude?: FloatFieldUpdateOperationsInput | number
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataAtualizacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    empresa?: EmpresaUpdateOneRequiredWithoutLancamentosNestedInput
+    periodo?: PeriodoUpdateOneWithoutLancamentosNestedInput
+    notaFiscal?: NotaFiscalUpdateOneRequiredWithoutLancamentoNestedInput
+    imagens?: ImagemUpdateManyWithoutLancamentoNestedInput
+    usuarios?: UsuarioUpdateOneRequiredWithoutLancamentoNestedInput
+  }
+
+  export type LancamentoUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    data_lancamento?: DateTimeFieldUpdateOperationsInput | Date | string
+    latitude?: FloatFieldUpdateOperationsInput | number
+    longitude?: FloatFieldUpdateOperationsInput | number
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataAtualizacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    periodoId?: NullableIntFieldUpdateOperationsInput | number | null
+    notaFiscalId?: IntFieldUpdateOperationsInput | number
+    usuarioId?: IntFieldUpdateOperationsInput | number
+    empresaId?: IntFieldUpdateOperationsInput | number
+    imagens?: ImagemUncheckedUpdateManyWithoutLancamentoNestedInput
+  }
+
+  export type LancamentoCreateManyInput = {
+    id?: number
+    data_lancamento: Date | string
+    latitude: number
+    longitude: number
+    dataCriacao?: Date | string
+    dataAtualizacao?: Date | string
+    periodoId?: number | null
+    notaFiscalId: number
+    usuarioId: number
+    empresaId: number
+  }
+
+  export type LancamentoUpdateManyMutationInput = {
+    data_lancamento?: DateTimeFieldUpdateOperationsInput | Date | string
+    latitude?: FloatFieldUpdateOperationsInput | number
+    longitude?: FloatFieldUpdateOperationsInput | number
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataAtualizacao?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LancamentoUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    data_lancamento?: DateTimeFieldUpdateOperationsInput | Date | string
+    latitude?: FloatFieldUpdateOperationsInput | number
+    longitude?: FloatFieldUpdateOperationsInput | number
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataAtualizacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    periodoId?: NullableIntFieldUpdateOperationsInput | number | null
+    notaFiscalId?: IntFieldUpdateOperationsInput | number
+    usuarioId?: IntFieldUpdateOperationsInput | number
+    empresaId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type NotaFiscalCreateInput = {
+    numero: string
+    valor?: number | null
+    xmlPath?: string | null
+    dataEmissao: Date | string
+    dataCriacao?: Date | string
+    lancamento?: LancamentoCreateNestedOneWithoutNotaFiscalInput
+    empresa: EmpresaCreateNestedOneWithoutNotaFiscalInput
+  }
+
+  export type NotaFiscalUncheckedCreateInput = {
+    id?: number
+    numero: string
+    valor?: number | null
+    xmlPath?: string | null
+    dataEmissao: Date | string
+    dataCriacao?: Date | string
+    empresaId: number
+    lancamento?: LancamentoUncheckedCreateNestedOneWithoutNotaFiscalInput
+  }
+
+  export type NotaFiscalUpdateInput = {
+    numero?: StringFieldUpdateOperationsInput | string
+    valor?: NullableFloatFieldUpdateOperationsInput | number | null
+    xmlPath?: NullableStringFieldUpdateOperationsInput | string | null
+    dataEmissao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    lancamento?: LancamentoUpdateOneWithoutNotaFiscalNestedInput
+    empresa?: EmpresaUpdateOneRequiredWithoutNotaFiscalNestedInput
+  }
+
+  export type NotaFiscalUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    numero?: StringFieldUpdateOperationsInput | string
+    valor?: NullableFloatFieldUpdateOperationsInput | number | null
+    xmlPath?: NullableStringFieldUpdateOperationsInput | string | null
+    dataEmissao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    empresaId?: IntFieldUpdateOperationsInput | number
+    lancamento?: LancamentoUncheckedUpdateOneWithoutNotaFiscalNestedInput
+  }
+
+  export type NotaFiscalCreateManyInput = {
+    id?: number
+    numero: string
+    valor?: number | null
+    xmlPath?: string | null
+    dataEmissao: Date | string
+    dataCriacao?: Date | string
+    empresaId: number
+  }
+
+  export type NotaFiscalUpdateManyMutationInput = {
+    numero?: StringFieldUpdateOperationsInput | string
+    valor?: NullableFloatFieldUpdateOperationsInput | number | null
+    xmlPath?: NullableStringFieldUpdateOperationsInput | string | null
+    dataEmissao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotaFiscalUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    numero?: StringFieldUpdateOperationsInput | string
+    valor?: NullableFloatFieldUpdateOperationsInput | number | null
+    xmlPath?: NullableStringFieldUpdateOperationsInput | string | null
+    dataEmissao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    empresaId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type ImagemCreateInput = {
+    url: string
+    dataCriacao?: Date | string
+    dataAtualizacao?: Date | string
+    lancamento: LancamentoCreateNestedOneWithoutImagensInput
+  }
+
+  export type ImagemUncheckedCreateInput = {
+    id?: number
+    url: string
+    dataCriacao?: Date | string
+    dataAtualizacao?: Date | string
+    lancamentoId: number
+  }
+
+  export type ImagemUpdateInput = {
+    url?: StringFieldUpdateOperationsInput | string
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataAtualizacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    lancamento?: LancamentoUpdateOneRequiredWithoutImagensNestedInput
+  }
+
+  export type ImagemUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataAtualizacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    lancamentoId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type ImagemCreateManyInput = {
+    id?: number
+    url: string
+    dataCriacao?: Date | string
+    dataAtualizacao?: Date | string
+    lancamentoId: number
+  }
+
+  export type ImagemUpdateManyMutationInput = {
+    url?: StringFieldUpdateOperationsInput | string
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataAtualizacao?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ImagemUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataAtualizacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    lancamentoId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type PeriodoCreateInput = {
+    dataInicio?: Date | string
+    dataFim: Date | string
+    fechado?: boolean
+    valorTotal?: number | null
+    observacoes?: string | null
+    dataFechamento?: Date | string | null
+    dataCriacao?: Date | string
+    dataAtualizacao?: Date | string
+    empresa: EmpresaCreateNestedOneWithoutPeriodosInput
+    lancamentos?: LancamentoCreateNestedManyWithoutPeriodoInput
+  }
+
+  export type PeriodoUncheckedCreateInput = {
+    id?: number
+    dataInicio?: Date | string
+    dataFim: Date | string
+    fechado?: boolean
+    valorTotal?: number | null
+    observacoes?: string | null
+    dataFechamento?: Date | string | null
+    dataCriacao?: Date | string
+    dataAtualizacao?: Date | string
+    empresaId: number
+    lancamentos?: LancamentoUncheckedCreateNestedManyWithoutPeriodoInput
+  }
+
+  export type PeriodoUpdateInput = {
+    dataInicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataFim?: DateTimeFieldUpdateOperationsInput | Date | string
+    fechado?: BoolFieldUpdateOperationsInput | boolean
+    valorTotal?: NullableFloatFieldUpdateOperationsInput | number | null
+    observacoes?: NullableStringFieldUpdateOperationsInput | string | null
+    dataFechamento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataAtualizacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    empresa?: EmpresaUpdateOneRequiredWithoutPeriodosNestedInput
+    lancamentos?: LancamentoUpdateManyWithoutPeriodoNestedInput
+  }
+
+  export type PeriodoUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    dataInicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataFim?: DateTimeFieldUpdateOperationsInput | Date | string
+    fechado?: BoolFieldUpdateOperationsInput | boolean
+    valorTotal?: NullableFloatFieldUpdateOperationsInput | number | null
+    observacoes?: NullableStringFieldUpdateOperationsInput | string | null
+    dataFechamento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataAtualizacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    empresaId?: IntFieldUpdateOperationsInput | number
+    lancamentos?: LancamentoUncheckedUpdateManyWithoutPeriodoNestedInput
+  }
+
+  export type PeriodoCreateManyInput = {
+    id?: number
+    dataInicio?: Date | string
+    dataFim: Date | string
+    fechado?: boolean
+    valorTotal?: number | null
+    observacoes?: string | null
+    dataFechamento?: Date | string | null
+    dataCriacao?: Date | string
+    dataAtualizacao?: Date | string
+    empresaId: number
+  }
+
+  export type PeriodoUpdateManyMutationInput = {
+    dataInicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataFim?: DateTimeFieldUpdateOperationsInput | Date | string
+    fechado?: BoolFieldUpdateOperationsInput | boolean
+    valorTotal?: NullableFloatFieldUpdateOperationsInput | number | null
+    observacoes?: NullableStringFieldUpdateOperationsInput | string | null
+    dataFechamento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataAtualizacao?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PeriodoUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    dataInicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataFim?: DateTimeFieldUpdateOperationsInput | Date | string
+    fechado?: BoolFieldUpdateOperationsInput | boolean
+    valorTotal?: NullableFloatFieldUpdateOperationsInput | number | null
+    observacoes?: NullableStringFieldUpdateOperationsInput | string | null
+    dataFechamento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataAtualizacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    empresaId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type StringFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type EmpresaScalarRelationFilter = {
+    is?: EmpresaWhereInput
+    isNot?: EmpresaWhereInput
+  }
+
+  export type GrupoNullableScalarRelationFilter = {
+    is?: GrupoWhereInput | null
+    isNot?: GrupoWhereInput | null
+  }
+
+  export type LancamentoListRelationFilter = {
+    every?: LancamentoWhereInput
+    some?: LancamentoWhereInput
+    none?: LancamentoWhereInput
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
+  export type LancamentoOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type UsuarioCountOrderByAggregateInput = {
+    id?: SortOrder
+    email?: SortOrder
+    senha?: SortOrder
+    cpf?: SortOrder
+    nome?: SortOrder
+    admin?: SortOrder
+    dataCriacao?: SortOrder
+    empresaId?: SortOrder
+    grupoId?: SortOrder
+  }
+
+  export type UsuarioAvgOrderByAggregateInput = {
+    id?: SortOrder
+    empresaId?: SortOrder
+    grupoId?: SortOrder
+  }
+
+  export type UsuarioMaxOrderByAggregateInput = {
+    id?: SortOrder
+    email?: SortOrder
+    senha?: SortOrder
+    cpf?: SortOrder
+    nome?: SortOrder
+    admin?: SortOrder
+    dataCriacao?: SortOrder
+    empresaId?: SortOrder
+    grupoId?: SortOrder
+  }
+
+  export type UsuarioMinOrderByAggregateInput = {
+    id?: SortOrder
+    email?: SortOrder
+    senha?: SortOrder
+    cpf?: SortOrder
+    nome?: SortOrder
+    admin?: SortOrder
+    dataCriacao?: SortOrder
+    empresaId?: SortOrder
+    grupoId?: SortOrder
+  }
+
+  export type UsuarioSumOrderByAggregateInput = {
+    id?: SortOrder
+    empresaId?: SortOrder
+    grupoId?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type StringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type UsuarioListRelationFilter = {
+    every?: UsuarioWhereInput
+    some?: UsuarioWhereInput
+    none?: UsuarioWhereInput
+  }
+
+  export type GrupoListRelationFilter = {
+    every?: GrupoWhereInput
+    some?: GrupoWhereInput
+    none?: GrupoWhereInput
+  }
+
+  export type NotaFiscalListRelationFilter = {
+    every?: NotaFiscalWhereInput
+    some?: NotaFiscalWhereInput
+    none?: NotaFiscalWhereInput
+  }
+
+  export type PeriodoListRelationFilter = {
+    every?: PeriodoWhereInput
+    some?: PeriodoWhereInput
+    none?: PeriodoWhereInput
+  }
+
+  export type UsuarioOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type GrupoOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type NotaFiscalOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PeriodoOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type EmpresaCountOrderByAggregateInput = {
+    id?: SortOrder
+    cnpj?: SortOrder
+    nomeFantasia?: SortOrder
+    senha?: SortOrder
+    razaoSocial?: SortOrder
+    endereco?: SortOrder
+    situacaoCadastral?: SortOrder
+    naturezaJuridica?: SortOrder
+    CNAES?: SortOrder
+    dataCriacao?: SortOrder
+  }
+
+  export type EmpresaAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type EmpresaMaxOrderByAggregateInput = {
+    id?: SortOrder
+    cnpj?: SortOrder
+    nomeFantasia?: SortOrder
+    senha?: SortOrder
+    razaoSocial?: SortOrder
+    endereco?: SortOrder
+    situacaoCadastral?: SortOrder
+    naturezaJuridica?: SortOrder
+    CNAES?: SortOrder
+    dataCriacao?: SortOrder
+  }
+
+  export type EmpresaMinOrderByAggregateInput = {
+    id?: SortOrder
+    cnpj?: SortOrder
+    nomeFantasia?: SortOrder
+    senha?: SortOrder
+    razaoSocial?: SortOrder
+    endereco?: SortOrder
+    situacaoCadastral?: SortOrder
+    naturezaJuridica?: SortOrder
+    CNAES?: SortOrder
+    dataCriacao?: SortOrder
+  }
+
+  export type EmpresaSumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type EnumPermissoesNullableListFilter<$PrismaModel = never> = {
+    equals?: $Enums.Permissoes[] | ListEnumPermissoesFieldRefInput<$PrismaModel> | null
+    has?: $Enums.Permissoes | EnumPermissoesFieldRefInput<$PrismaModel> | null
+    hasEvery?: $Enums.Permissoes[] | ListEnumPermissoesFieldRefInput<$PrismaModel>
+    hasSome?: $Enums.Permissoes[] | ListEnumPermissoesFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
+  export type GrupoCountOrderByAggregateInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    permissoes?: SortOrder
+    empresaId?: SortOrder
+  }
+
+  export type GrupoAvgOrderByAggregateInput = {
+    id?: SortOrder
+    empresaId?: SortOrder
+  }
+
+  export type GrupoMaxOrderByAggregateInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    empresaId?: SortOrder
+  }
+
+  export type GrupoMinOrderByAggregateInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    empresaId?: SortOrder
+  }
+
+  export type GrupoSumOrderByAggregateInput = {
+    id?: SortOrder
+    empresaId?: SortOrder
+  }
+
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type PeriodoNullableScalarRelationFilter = {
+    is?: PeriodoWhereInput | null
+    isNot?: PeriodoWhereInput | null
+  }
+
+  export type NotaFiscalScalarRelationFilter = {
+    is?: NotaFiscalWhereInput
+    isNot?: NotaFiscalWhereInput
+  }
+
+  export type ImagemListRelationFilter = {
+    every?: ImagemWhereInput
+    some?: ImagemWhereInput
+    none?: ImagemWhereInput
+  }
+
+  export type UsuarioScalarRelationFilter = {
+    is?: UsuarioWhereInput
+    isNot?: UsuarioWhereInput
+  }
+
+  export type ImagemOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type LancamentoCountOrderByAggregateInput = {
+    id?: SortOrder
+    data_lancamento?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    dataCriacao?: SortOrder
+    dataAtualizacao?: SortOrder
+    periodoId?: SortOrder
+    notaFiscalId?: SortOrder
+    usuarioId?: SortOrder
+    empresaId?: SortOrder
+  }
+
+  export type LancamentoAvgOrderByAggregateInput = {
+    id?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    periodoId?: SortOrder
+    notaFiscalId?: SortOrder
+    usuarioId?: SortOrder
+    empresaId?: SortOrder
+  }
+
+  export type LancamentoMaxOrderByAggregateInput = {
+    id?: SortOrder
+    data_lancamento?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    dataCriacao?: SortOrder
+    dataAtualizacao?: SortOrder
+    periodoId?: SortOrder
+    notaFiscalId?: SortOrder
+    usuarioId?: SortOrder
+    empresaId?: SortOrder
+  }
+
+  export type LancamentoMinOrderByAggregateInput = {
+    id?: SortOrder
+    data_lancamento?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    dataCriacao?: SortOrder
+    dataAtualizacao?: SortOrder
+    periodoId?: SortOrder
+    notaFiscalId?: SortOrder
+    usuarioId?: SortOrder
+    empresaId?: SortOrder
+  }
+
+  export type LancamentoSumOrderByAggregateInput = {
+    id?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    periodoId?: SortOrder
+    notaFiscalId?: SortOrder
+    usuarioId?: SortOrder
+    empresaId?: SortOrder
+  }
+
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type FloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type LancamentoNullableScalarRelationFilter = {
+    is?: LancamentoWhereInput | null
+    isNot?: LancamentoWhereInput | null
+  }
+
+  export type NotaFiscalCountOrderByAggregateInput = {
+    id?: SortOrder
+    numero?: SortOrder
+    valor?: SortOrder
+    xmlPath?: SortOrder
+    dataEmissao?: SortOrder
+    dataCriacao?: SortOrder
+    empresaId?: SortOrder
+  }
+
+  export type NotaFiscalAvgOrderByAggregateInput = {
+    id?: SortOrder
+    valor?: SortOrder
+    empresaId?: SortOrder
+  }
+
+  export type NotaFiscalMaxOrderByAggregateInput = {
+    id?: SortOrder
+    numero?: SortOrder
+    valor?: SortOrder
+    xmlPath?: SortOrder
+    dataEmissao?: SortOrder
+    dataCriacao?: SortOrder
+    empresaId?: SortOrder
+  }
+
+  export type NotaFiscalMinOrderByAggregateInput = {
+    id?: SortOrder
+    numero?: SortOrder
+    valor?: SortOrder
+    xmlPath?: SortOrder
+    dataEmissao?: SortOrder
+    dataCriacao?: SortOrder
+    empresaId?: SortOrder
+  }
+
+  export type NotaFiscalSumOrderByAggregateInput = {
+    id?: SortOrder
+    valor?: SortOrder
+    empresaId?: SortOrder
+  }
+
+  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
+  export type LancamentoScalarRelationFilter = {
+    is?: LancamentoWhereInput
+    isNot?: LancamentoWhereInput
+  }
+
+  export type ImagemCountOrderByAggregateInput = {
+    id?: SortOrder
+    url?: SortOrder
+    dataCriacao?: SortOrder
+    dataAtualizacao?: SortOrder
+    lancamentoId?: SortOrder
+  }
+
+  export type ImagemAvgOrderByAggregateInput = {
+    id?: SortOrder
+    lancamentoId?: SortOrder
+  }
+
+  export type ImagemMaxOrderByAggregateInput = {
+    id?: SortOrder
+    url?: SortOrder
+    dataCriacao?: SortOrder
+    dataAtualizacao?: SortOrder
+    lancamentoId?: SortOrder
+  }
+
+  export type ImagemMinOrderByAggregateInput = {
+    id?: SortOrder
+    url?: SortOrder
+    dataCriacao?: SortOrder
+    dataAtualizacao?: SortOrder
+    lancamentoId?: SortOrder
+  }
+
+  export type ImagemSumOrderByAggregateInput = {
+    id?: SortOrder
+    lancamentoId?: SortOrder
+  }
+
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type PeriodoCountOrderByAggregateInput = {
+    id?: SortOrder
+    dataInicio?: SortOrder
+    dataFim?: SortOrder
+    fechado?: SortOrder
+    valorTotal?: SortOrder
+    observacoes?: SortOrder
+    dataFechamento?: SortOrder
+    dataCriacao?: SortOrder
+    dataAtualizacao?: SortOrder
+    empresaId?: SortOrder
+  }
+
+  export type PeriodoAvgOrderByAggregateInput = {
+    id?: SortOrder
+    valorTotal?: SortOrder
+    empresaId?: SortOrder
+  }
+
+  export type PeriodoMaxOrderByAggregateInput = {
+    id?: SortOrder
+    dataInicio?: SortOrder
+    dataFim?: SortOrder
+    fechado?: SortOrder
+    valorTotal?: SortOrder
+    observacoes?: SortOrder
+    dataFechamento?: SortOrder
+    dataCriacao?: SortOrder
+    dataAtualizacao?: SortOrder
+    empresaId?: SortOrder
+  }
+
+  export type PeriodoMinOrderByAggregateInput = {
+    id?: SortOrder
+    dataInicio?: SortOrder
+    dataFim?: SortOrder
+    fechado?: SortOrder
+    valorTotal?: SortOrder
+    observacoes?: SortOrder
+    dataFechamento?: SortOrder
+    dataCriacao?: SortOrder
+    dataAtualizacao?: SortOrder
+    empresaId?: SortOrder
+  }
+
+  export type PeriodoSumOrderByAggregateInput = {
+    id?: SortOrder
+    valorTotal?: SortOrder
+    empresaId?: SortOrder
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type EmpresaCreateNestedOneWithoutUsuariosInput = {
+    create?: XOR<EmpresaCreateWithoutUsuariosInput, EmpresaUncheckedCreateWithoutUsuariosInput>
+    connectOrCreate?: EmpresaCreateOrConnectWithoutUsuariosInput
+    connect?: EmpresaWhereUniqueInput
+  }
+
+  export type GrupoCreateNestedOneWithoutUsuariosInput = {
+    create?: XOR<GrupoCreateWithoutUsuariosInput, GrupoUncheckedCreateWithoutUsuariosInput>
+    connectOrCreate?: GrupoCreateOrConnectWithoutUsuariosInput
+    connect?: GrupoWhereUniqueInput
+  }
+
+  export type LancamentoCreateNestedManyWithoutUsuariosInput = {
+    create?: XOR<LancamentoCreateWithoutUsuariosInput, LancamentoUncheckedCreateWithoutUsuariosInput> | LancamentoCreateWithoutUsuariosInput[] | LancamentoUncheckedCreateWithoutUsuariosInput[]
+    connectOrCreate?: LancamentoCreateOrConnectWithoutUsuariosInput | LancamentoCreateOrConnectWithoutUsuariosInput[]
+    createMany?: LancamentoCreateManyUsuariosInputEnvelope
+    connect?: LancamentoWhereUniqueInput | LancamentoWhereUniqueInput[]
+  }
+
+  export type LancamentoUncheckedCreateNestedManyWithoutUsuariosInput = {
+    create?: XOR<LancamentoCreateWithoutUsuariosInput, LancamentoUncheckedCreateWithoutUsuariosInput> | LancamentoCreateWithoutUsuariosInput[] | LancamentoUncheckedCreateWithoutUsuariosInput[]
+    connectOrCreate?: LancamentoCreateOrConnectWithoutUsuariosInput | LancamentoCreateOrConnectWithoutUsuariosInput[]
+    createMany?: LancamentoCreateManyUsuariosInputEnvelope
+    connect?: LancamentoWhereUniqueInput | LancamentoWhereUniqueInput[]
+  }
+
+  export type StringFieldUpdateOperationsInput = {
+    set?: string
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
+  export type EmpresaUpdateOneRequiredWithoutUsuariosNestedInput = {
+    create?: XOR<EmpresaCreateWithoutUsuariosInput, EmpresaUncheckedCreateWithoutUsuariosInput>
+    connectOrCreate?: EmpresaCreateOrConnectWithoutUsuariosInput
+    upsert?: EmpresaUpsertWithoutUsuariosInput
+    connect?: EmpresaWhereUniqueInput
+    update?: XOR<XOR<EmpresaUpdateToOneWithWhereWithoutUsuariosInput, EmpresaUpdateWithoutUsuariosInput>, EmpresaUncheckedUpdateWithoutUsuariosInput>
+  }
+
+  export type GrupoUpdateOneWithoutUsuariosNestedInput = {
+    create?: XOR<GrupoCreateWithoutUsuariosInput, GrupoUncheckedCreateWithoutUsuariosInput>
+    connectOrCreate?: GrupoCreateOrConnectWithoutUsuariosInput
+    upsert?: GrupoUpsertWithoutUsuariosInput
+    disconnect?: GrupoWhereInput | boolean
+    delete?: GrupoWhereInput | boolean
+    connect?: GrupoWhereUniqueInput
+    update?: XOR<XOR<GrupoUpdateToOneWithWhereWithoutUsuariosInput, GrupoUpdateWithoutUsuariosInput>, GrupoUncheckedUpdateWithoutUsuariosInput>
+  }
+
+  export type LancamentoUpdateManyWithoutUsuariosNestedInput = {
+    create?: XOR<LancamentoCreateWithoutUsuariosInput, LancamentoUncheckedCreateWithoutUsuariosInput> | LancamentoCreateWithoutUsuariosInput[] | LancamentoUncheckedCreateWithoutUsuariosInput[]
+    connectOrCreate?: LancamentoCreateOrConnectWithoutUsuariosInput | LancamentoCreateOrConnectWithoutUsuariosInput[]
+    upsert?: LancamentoUpsertWithWhereUniqueWithoutUsuariosInput | LancamentoUpsertWithWhereUniqueWithoutUsuariosInput[]
+    createMany?: LancamentoCreateManyUsuariosInputEnvelope
+    set?: LancamentoWhereUniqueInput | LancamentoWhereUniqueInput[]
+    disconnect?: LancamentoWhereUniqueInput | LancamentoWhereUniqueInput[]
+    delete?: LancamentoWhereUniqueInput | LancamentoWhereUniqueInput[]
+    connect?: LancamentoWhereUniqueInput | LancamentoWhereUniqueInput[]
+    update?: LancamentoUpdateWithWhereUniqueWithoutUsuariosInput | LancamentoUpdateWithWhereUniqueWithoutUsuariosInput[]
+    updateMany?: LancamentoUpdateManyWithWhereWithoutUsuariosInput | LancamentoUpdateManyWithWhereWithoutUsuariosInput[]
+    deleteMany?: LancamentoScalarWhereInput | LancamentoScalarWhereInput[]
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type LancamentoUncheckedUpdateManyWithoutUsuariosNestedInput = {
+    create?: XOR<LancamentoCreateWithoutUsuariosInput, LancamentoUncheckedCreateWithoutUsuariosInput> | LancamentoCreateWithoutUsuariosInput[] | LancamentoUncheckedCreateWithoutUsuariosInput[]
+    connectOrCreate?: LancamentoCreateOrConnectWithoutUsuariosInput | LancamentoCreateOrConnectWithoutUsuariosInput[]
+    upsert?: LancamentoUpsertWithWhereUniqueWithoutUsuariosInput | LancamentoUpsertWithWhereUniqueWithoutUsuariosInput[]
+    createMany?: LancamentoCreateManyUsuariosInputEnvelope
+    set?: LancamentoWhereUniqueInput | LancamentoWhereUniqueInput[]
+    disconnect?: LancamentoWhereUniqueInput | LancamentoWhereUniqueInput[]
+    delete?: LancamentoWhereUniqueInput | LancamentoWhereUniqueInput[]
+    connect?: LancamentoWhereUniqueInput | LancamentoWhereUniqueInput[]
+    update?: LancamentoUpdateWithWhereUniqueWithoutUsuariosInput | LancamentoUpdateWithWhereUniqueWithoutUsuariosInput[]
+    updateMany?: LancamentoUpdateManyWithWhereWithoutUsuariosInput | LancamentoUpdateManyWithWhereWithoutUsuariosInput[]
+    deleteMany?: LancamentoScalarWhereInput | LancamentoScalarWhereInput[]
+  }
+
+  export type UsuarioCreateNestedManyWithoutEmpresaInput = {
+    create?: XOR<UsuarioCreateWithoutEmpresaInput, UsuarioUncheckedCreateWithoutEmpresaInput> | UsuarioCreateWithoutEmpresaInput[] | UsuarioUncheckedCreateWithoutEmpresaInput[]
+    connectOrCreate?: UsuarioCreateOrConnectWithoutEmpresaInput | UsuarioCreateOrConnectWithoutEmpresaInput[]
+    createMany?: UsuarioCreateManyEmpresaInputEnvelope
+    connect?: UsuarioWhereUniqueInput | UsuarioWhereUniqueInput[]
+  }
+
+  export type GrupoCreateNestedManyWithoutEmpresasInput = {
+    create?: XOR<GrupoCreateWithoutEmpresasInput, GrupoUncheckedCreateWithoutEmpresasInput> | GrupoCreateWithoutEmpresasInput[] | GrupoUncheckedCreateWithoutEmpresasInput[]
+    connectOrCreate?: GrupoCreateOrConnectWithoutEmpresasInput | GrupoCreateOrConnectWithoutEmpresasInput[]
+    createMany?: GrupoCreateManyEmpresasInputEnvelope
+    connect?: GrupoWhereUniqueInput | GrupoWhereUniqueInput[]
+  }
+
+  export type NotaFiscalCreateNestedManyWithoutEmpresaInput = {
+    create?: XOR<NotaFiscalCreateWithoutEmpresaInput, NotaFiscalUncheckedCreateWithoutEmpresaInput> | NotaFiscalCreateWithoutEmpresaInput[] | NotaFiscalUncheckedCreateWithoutEmpresaInput[]
+    connectOrCreate?: NotaFiscalCreateOrConnectWithoutEmpresaInput | NotaFiscalCreateOrConnectWithoutEmpresaInput[]
+    createMany?: NotaFiscalCreateManyEmpresaInputEnvelope
+    connect?: NotaFiscalWhereUniqueInput | NotaFiscalWhereUniqueInput[]
+  }
+
+  export type LancamentoCreateNestedManyWithoutEmpresaInput = {
+    create?: XOR<LancamentoCreateWithoutEmpresaInput, LancamentoUncheckedCreateWithoutEmpresaInput> | LancamentoCreateWithoutEmpresaInput[] | LancamentoUncheckedCreateWithoutEmpresaInput[]
+    connectOrCreate?: LancamentoCreateOrConnectWithoutEmpresaInput | LancamentoCreateOrConnectWithoutEmpresaInput[]
+    createMany?: LancamentoCreateManyEmpresaInputEnvelope
+    connect?: LancamentoWhereUniqueInput | LancamentoWhereUniqueInput[]
+  }
+
+  export type PeriodoCreateNestedManyWithoutEmpresaInput = {
+    create?: XOR<PeriodoCreateWithoutEmpresaInput, PeriodoUncheckedCreateWithoutEmpresaInput> | PeriodoCreateWithoutEmpresaInput[] | PeriodoUncheckedCreateWithoutEmpresaInput[]
+    connectOrCreate?: PeriodoCreateOrConnectWithoutEmpresaInput | PeriodoCreateOrConnectWithoutEmpresaInput[]
+    createMany?: PeriodoCreateManyEmpresaInputEnvelope
+    connect?: PeriodoWhereUniqueInput | PeriodoWhereUniqueInput[]
+  }
+
+  export type UsuarioUncheckedCreateNestedManyWithoutEmpresaInput = {
+    create?: XOR<UsuarioCreateWithoutEmpresaInput, UsuarioUncheckedCreateWithoutEmpresaInput> | UsuarioCreateWithoutEmpresaInput[] | UsuarioUncheckedCreateWithoutEmpresaInput[]
+    connectOrCreate?: UsuarioCreateOrConnectWithoutEmpresaInput | UsuarioCreateOrConnectWithoutEmpresaInput[]
+    createMany?: UsuarioCreateManyEmpresaInputEnvelope
+    connect?: UsuarioWhereUniqueInput | UsuarioWhereUniqueInput[]
+  }
+
+  export type GrupoUncheckedCreateNestedManyWithoutEmpresasInput = {
+    create?: XOR<GrupoCreateWithoutEmpresasInput, GrupoUncheckedCreateWithoutEmpresasInput> | GrupoCreateWithoutEmpresasInput[] | GrupoUncheckedCreateWithoutEmpresasInput[]
+    connectOrCreate?: GrupoCreateOrConnectWithoutEmpresasInput | GrupoCreateOrConnectWithoutEmpresasInput[]
+    createMany?: GrupoCreateManyEmpresasInputEnvelope
+    connect?: GrupoWhereUniqueInput | GrupoWhereUniqueInput[]
+  }
+
+  export type NotaFiscalUncheckedCreateNestedManyWithoutEmpresaInput = {
+    create?: XOR<NotaFiscalCreateWithoutEmpresaInput, NotaFiscalUncheckedCreateWithoutEmpresaInput> | NotaFiscalCreateWithoutEmpresaInput[] | NotaFiscalUncheckedCreateWithoutEmpresaInput[]
+    connectOrCreate?: NotaFiscalCreateOrConnectWithoutEmpresaInput | NotaFiscalCreateOrConnectWithoutEmpresaInput[]
+    createMany?: NotaFiscalCreateManyEmpresaInputEnvelope
+    connect?: NotaFiscalWhereUniqueInput | NotaFiscalWhereUniqueInput[]
+  }
+
+  export type LancamentoUncheckedCreateNestedManyWithoutEmpresaInput = {
+    create?: XOR<LancamentoCreateWithoutEmpresaInput, LancamentoUncheckedCreateWithoutEmpresaInput> | LancamentoCreateWithoutEmpresaInput[] | LancamentoUncheckedCreateWithoutEmpresaInput[]
+    connectOrCreate?: LancamentoCreateOrConnectWithoutEmpresaInput | LancamentoCreateOrConnectWithoutEmpresaInput[]
+    createMany?: LancamentoCreateManyEmpresaInputEnvelope
+    connect?: LancamentoWhereUniqueInput | LancamentoWhereUniqueInput[]
+  }
+
+  export type PeriodoUncheckedCreateNestedManyWithoutEmpresaInput = {
+    create?: XOR<PeriodoCreateWithoutEmpresaInput, PeriodoUncheckedCreateWithoutEmpresaInput> | PeriodoCreateWithoutEmpresaInput[] | PeriodoUncheckedCreateWithoutEmpresaInput[]
+    connectOrCreate?: PeriodoCreateOrConnectWithoutEmpresaInput | PeriodoCreateOrConnectWithoutEmpresaInput[]
+    createMany?: PeriodoCreateManyEmpresaInputEnvelope
+    connect?: PeriodoWhereUniqueInput | PeriodoWhereUniqueInput[]
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
+  export type UsuarioUpdateManyWithoutEmpresaNestedInput = {
+    create?: XOR<UsuarioCreateWithoutEmpresaInput, UsuarioUncheckedCreateWithoutEmpresaInput> | UsuarioCreateWithoutEmpresaInput[] | UsuarioUncheckedCreateWithoutEmpresaInput[]
+    connectOrCreate?: UsuarioCreateOrConnectWithoutEmpresaInput | UsuarioCreateOrConnectWithoutEmpresaInput[]
+    upsert?: UsuarioUpsertWithWhereUniqueWithoutEmpresaInput | UsuarioUpsertWithWhereUniqueWithoutEmpresaInput[]
+    createMany?: UsuarioCreateManyEmpresaInputEnvelope
+    set?: UsuarioWhereUniqueInput | UsuarioWhereUniqueInput[]
+    disconnect?: UsuarioWhereUniqueInput | UsuarioWhereUniqueInput[]
+    delete?: UsuarioWhereUniqueInput | UsuarioWhereUniqueInput[]
+    connect?: UsuarioWhereUniqueInput | UsuarioWhereUniqueInput[]
+    update?: UsuarioUpdateWithWhereUniqueWithoutEmpresaInput | UsuarioUpdateWithWhereUniqueWithoutEmpresaInput[]
+    updateMany?: UsuarioUpdateManyWithWhereWithoutEmpresaInput | UsuarioUpdateManyWithWhereWithoutEmpresaInput[]
+    deleteMany?: UsuarioScalarWhereInput | UsuarioScalarWhereInput[]
+  }
+
+  export type GrupoUpdateManyWithoutEmpresasNestedInput = {
+    create?: XOR<GrupoCreateWithoutEmpresasInput, GrupoUncheckedCreateWithoutEmpresasInput> | GrupoCreateWithoutEmpresasInput[] | GrupoUncheckedCreateWithoutEmpresasInput[]
+    connectOrCreate?: GrupoCreateOrConnectWithoutEmpresasInput | GrupoCreateOrConnectWithoutEmpresasInput[]
+    upsert?: GrupoUpsertWithWhereUniqueWithoutEmpresasInput | GrupoUpsertWithWhereUniqueWithoutEmpresasInput[]
+    createMany?: GrupoCreateManyEmpresasInputEnvelope
+    set?: GrupoWhereUniqueInput | GrupoWhereUniqueInput[]
+    disconnect?: GrupoWhereUniqueInput | GrupoWhereUniqueInput[]
+    delete?: GrupoWhereUniqueInput | GrupoWhereUniqueInput[]
+    connect?: GrupoWhereUniqueInput | GrupoWhereUniqueInput[]
+    update?: GrupoUpdateWithWhereUniqueWithoutEmpresasInput | GrupoUpdateWithWhereUniqueWithoutEmpresasInput[]
+    updateMany?: GrupoUpdateManyWithWhereWithoutEmpresasInput | GrupoUpdateManyWithWhereWithoutEmpresasInput[]
+    deleteMany?: GrupoScalarWhereInput | GrupoScalarWhereInput[]
+  }
+
+  export type NotaFiscalUpdateManyWithoutEmpresaNestedInput = {
+    create?: XOR<NotaFiscalCreateWithoutEmpresaInput, NotaFiscalUncheckedCreateWithoutEmpresaInput> | NotaFiscalCreateWithoutEmpresaInput[] | NotaFiscalUncheckedCreateWithoutEmpresaInput[]
+    connectOrCreate?: NotaFiscalCreateOrConnectWithoutEmpresaInput | NotaFiscalCreateOrConnectWithoutEmpresaInput[]
+    upsert?: NotaFiscalUpsertWithWhereUniqueWithoutEmpresaInput | NotaFiscalUpsertWithWhereUniqueWithoutEmpresaInput[]
+    createMany?: NotaFiscalCreateManyEmpresaInputEnvelope
+    set?: NotaFiscalWhereUniqueInput | NotaFiscalWhereUniqueInput[]
+    disconnect?: NotaFiscalWhereUniqueInput | NotaFiscalWhereUniqueInput[]
+    delete?: NotaFiscalWhereUniqueInput | NotaFiscalWhereUniqueInput[]
+    connect?: NotaFiscalWhereUniqueInput | NotaFiscalWhereUniqueInput[]
+    update?: NotaFiscalUpdateWithWhereUniqueWithoutEmpresaInput | NotaFiscalUpdateWithWhereUniqueWithoutEmpresaInput[]
+    updateMany?: NotaFiscalUpdateManyWithWhereWithoutEmpresaInput | NotaFiscalUpdateManyWithWhereWithoutEmpresaInput[]
+    deleteMany?: NotaFiscalScalarWhereInput | NotaFiscalScalarWhereInput[]
+  }
+
+  export type LancamentoUpdateManyWithoutEmpresaNestedInput = {
+    create?: XOR<LancamentoCreateWithoutEmpresaInput, LancamentoUncheckedCreateWithoutEmpresaInput> | LancamentoCreateWithoutEmpresaInput[] | LancamentoUncheckedCreateWithoutEmpresaInput[]
+    connectOrCreate?: LancamentoCreateOrConnectWithoutEmpresaInput | LancamentoCreateOrConnectWithoutEmpresaInput[]
+    upsert?: LancamentoUpsertWithWhereUniqueWithoutEmpresaInput | LancamentoUpsertWithWhereUniqueWithoutEmpresaInput[]
+    createMany?: LancamentoCreateManyEmpresaInputEnvelope
+    set?: LancamentoWhereUniqueInput | LancamentoWhereUniqueInput[]
+    disconnect?: LancamentoWhereUniqueInput | LancamentoWhereUniqueInput[]
+    delete?: LancamentoWhereUniqueInput | LancamentoWhereUniqueInput[]
+    connect?: LancamentoWhereUniqueInput | LancamentoWhereUniqueInput[]
+    update?: LancamentoUpdateWithWhereUniqueWithoutEmpresaInput | LancamentoUpdateWithWhereUniqueWithoutEmpresaInput[]
+    updateMany?: LancamentoUpdateManyWithWhereWithoutEmpresaInput | LancamentoUpdateManyWithWhereWithoutEmpresaInput[]
+    deleteMany?: LancamentoScalarWhereInput | LancamentoScalarWhereInput[]
+  }
+
+  export type PeriodoUpdateManyWithoutEmpresaNestedInput = {
+    create?: XOR<PeriodoCreateWithoutEmpresaInput, PeriodoUncheckedCreateWithoutEmpresaInput> | PeriodoCreateWithoutEmpresaInput[] | PeriodoUncheckedCreateWithoutEmpresaInput[]
+    connectOrCreate?: PeriodoCreateOrConnectWithoutEmpresaInput | PeriodoCreateOrConnectWithoutEmpresaInput[]
+    upsert?: PeriodoUpsertWithWhereUniqueWithoutEmpresaInput | PeriodoUpsertWithWhereUniqueWithoutEmpresaInput[]
+    createMany?: PeriodoCreateManyEmpresaInputEnvelope
+    set?: PeriodoWhereUniqueInput | PeriodoWhereUniqueInput[]
+    disconnect?: PeriodoWhereUniqueInput | PeriodoWhereUniqueInput[]
+    delete?: PeriodoWhereUniqueInput | PeriodoWhereUniqueInput[]
+    connect?: PeriodoWhereUniqueInput | PeriodoWhereUniqueInput[]
+    update?: PeriodoUpdateWithWhereUniqueWithoutEmpresaInput | PeriodoUpdateWithWhereUniqueWithoutEmpresaInput[]
+    updateMany?: PeriodoUpdateManyWithWhereWithoutEmpresaInput | PeriodoUpdateManyWithWhereWithoutEmpresaInput[]
+    deleteMany?: PeriodoScalarWhereInput | PeriodoScalarWhereInput[]
+  }
+
+  export type UsuarioUncheckedUpdateManyWithoutEmpresaNestedInput = {
+    create?: XOR<UsuarioCreateWithoutEmpresaInput, UsuarioUncheckedCreateWithoutEmpresaInput> | UsuarioCreateWithoutEmpresaInput[] | UsuarioUncheckedCreateWithoutEmpresaInput[]
+    connectOrCreate?: UsuarioCreateOrConnectWithoutEmpresaInput | UsuarioCreateOrConnectWithoutEmpresaInput[]
+    upsert?: UsuarioUpsertWithWhereUniqueWithoutEmpresaInput | UsuarioUpsertWithWhereUniqueWithoutEmpresaInput[]
+    createMany?: UsuarioCreateManyEmpresaInputEnvelope
+    set?: UsuarioWhereUniqueInput | UsuarioWhereUniqueInput[]
+    disconnect?: UsuarioWhereUniqueInput | UsuarioWhereUniqueInput[]
+    delete?: UsuarioWhereUniqueInput | UsuarioWhereUniqueInput[]
+    connect?: UsuarioWhereUniqueInput | UsuarioWhereUniqueInput[]
+    update?: UsuarioUpdateWithWhereUniqueWithoutEmpresaInput | UsuarioUpdateWithWhereUniqueWithoutEmpresaInput[]
+    updateMany?: UsuarioUpdateManyWithWhereWithoutEmpresaInput | UsuarioUpdateManyWithWhereWithoutEmpresaInput[]
+    deleteMany?: UsuarioScalarWhereInput | UsuarioScalarWhereInput[]
+  }
+
+  export type GrupoUncheckedUpdateManyWithoutEmpresasNestedInput = {
+    create?: XOR<GrupoCreateWithoutEmpresasInput, GrupoUncheckedCreateWithoutEmpresasInput> | GrupoCreateWithoutEmpresasInput[] | GrupoUncheckedCreateWithoutEmpresasInput[]
+    connectOrCreate?: GrupoCreateOrConnectWithoutEmpresasInput | GrupoCreateOrConnectWithoutEmpresasInput[]
+    upsert?: GrupoUpsertWithWhereUniqueWithoutEmpresasInput | GrupoUpsertWithWhereUniqueWithoutEmpresasInput[]
+    createMany?: GrupoCreateManyEmpresasInputEnvelope
+    set?: GrupoWhereUniqueInput | GrupoWhereUniqueInput[]
+    disconnect?: GrupoWhereUniqueInput | GrupoWhereUniqueInput[]
+    delete?: GrupoWhereUniqueInput | GrupoWhereUniqueInput[]
+    connect?: GrupoWhereUniqueInput | GrupoWhereUniqueInput[]
+    update?: GrupoUpdateWithWhereUniqueWithoutEmpresasInput | GrupoUpdateWithWhereUniqueWithoutEmpresasInput[]
+    updateMany?: GrupoUpdateManyWithWhereWithoutEmpresasInput | GrupoUpdateManyWithWhereWithoutEmpresasInput[]
+    deleteMany?: GrupoScalarWhereInput | GrupoScalarWhereInput[]
+  }
+
+  export type NotaFiscalUncheckedUpdateManyWithoutEmpresaNestedInput = {
+    create?: XOR<NotaFiscalCreateWithoutEmpresaInput, NotaFiscalUncheckedCreateWithoutEmpresaInput> | NotaFiscalCreateWithoutEmpresaInput[] | NotaFiscalUncheckedCreateWithoutEmpresaInput[]
+    connectOrCreate?: NotaFiscalCreateOrConnectWithoutEmpresaInput | NotaFiscalCreateOrConnectWithoutEmpresaInput[]
+    upsert?: NotaFiscalUpsertWithWhereUniqueWithoutEmpresaInput | NotaFiscalUpsertWithWhereUniqueWithoutEmpresaInput[]
+    createMany?: NotaFiscalCreateManyEmpresaInputEnvelope
+    set?: NotaFiscalWhereUniqueInput | NotaFiscalWhereUniqueInput[]
+    disconnect?: NotaFiscalWhereUniqueInput | NotaFiscalWhereUniqueInput[]
+    delete?: NotaFiscalWhereUniqueInput | NotaFiscalWhereUniqueInput[]
+    connect?: NotaFiscalWhereUniqueInput | NotaFiscalWhereUniqueInput[]
+    update?: NotaFiscalUpdateWithWhereUniqueWithoutEmpresaInput | NotaFiscalUpdateWithWhereUniqueWithoutEmpresaInput[]
+    updateMany?: NotaFiscalUpdateManyWithWhereWithoutEmpresaInput | NotaFiscalUpdateManyWithWhereWithoutEmpresaInput[]
+    deleteMany?: NotaFiscalScalarWhereInput | NotaFiscalScalarWhereInput[]
+  }
+
+  export type LancamentoUncheckedUpdateManyWithoutEmpresaNestedInput = {
+    create?: XOR<LancamentoCreateWithoutEmpresaInput, LancamentoUncheckedCreateWithoutEmpresaInput> | LancamentoCreateWithoutEmpresaInput[] | LancamentoUncheckedCreateWithoutEmpresaInput[]
+    connectOrCreate?: LancamentoCreateOrConnectWithoutEmpresaInput | LancamentoCreateOrConnectWithoutEmpresaInput[]
+    upsert?: LancamentoUpsertWithWhereUniqueWithoutEmpresaInput | LancamentoUpsertWithWhereUniqueWithoutEmpresaInput[]
+    createMany?: LancamentoCreateManyEmpresaInputEnvelope
+    set?: LancamentoWhereUniqueInput | LancamentoWhereUniqueInput[]
+    disconnect?: LancamentoWhereUniqueInput | LancamentoWhereUniqueInput[]
+    delete?: LancamentoWhereUniqueInput | LancamentoWhereUniqueInput[]
+    connect?: LancamentoWhereUniqueInput | LancamentoWhereUniqueInput[]
+    update?: LancamentoUpdateWithWhereUniqueWithoutEmpresaInput | LancamentoUpdateWithWhereUniqueWithoutEmpresaInput[]
+    updateMany?: LancamentoUpdateManyWithWhereWithoutEmpresaInput | LancamentoUpdateManyWithWhereWithoutEmpresaInput[]
+    deleteMany?: LancamentoScalarWhereInput | LancamentoScalarWhereInput[]
+  }
+
+  export type PeriodoUncheckedUpdateManyWithoutEmpresaNestedInput = {
+    create?: XOR<PeriodoCreateWithoutEmpresaInput, PeriodoUncheckedCreateWithoutEmpresaInput> | PeriodoCreateWithoutEmpresaInput[] | PeriodoUncheckedCreateWithoutEmpresaInput[]
+    connectOrCreate?: PeriodoCreateOrConnectWithoutEmpresaInput | PeriodoCreateOrConnectWithoutEmpresaInput[]
+    upsert?: PeriodoUpsertWithWhereUniqueWithoutEmpresaInput | PeriodoUpsertWithWhereUniqueWithoutEmpresaInput[]
+    createMany?: PeriodoCreateManyEmpresaInputEnvelope
+    set?: PeriodoWhereUniqueInput | PeriodoWhereUniqueInput[]
+    disconnect?: PeriodoWhereUniqueInput | PeriodoWhereUniqueInput[]
+    delete?: PeriodoWhereUniqueInput | PeriodoWhereUniqueInput[]
+    connect?: PeriodoWhereUniqueInput | PeriodoWhereUniqueInput[]
+    update?: PeriodoUpdateWithWhereUniqueWithoutEmpresaInput | PeriodoUpdateWithWhereUniqueWithoutEmpresaInput[]
+    updateMany?: PeriodoUpdateManyWithWhereWithoutEmpresaInput | PeriodoUpdateManyWithWhereWithoutEmpresaInput[]
+    deleteMany?: PeriodoScalarWhereInput | PeriodoScalarWhereInput[]
+  }
+
+  export type GrupoCreatepermissoesInput = {
+    set: $Enums.Permissoes[]
+  }
+
+  export type UsuarioCreateNestedManyWithoutGrupoInput = {
+    create?: XOR<UsuarioCreateWithoutGrupoInput, UsuarioUncheckedCreateWithoutGrupoInput> | UsuarioCreateWithoutGrupoInput[] | UsuarioUncheckedCreateWithoutGrupoInput[]
+    connectOrCreate?: UsuarioCreateOrConnectWithoutGrupoInput | UsuarioCreateOrConnectWithoutGrupoInput[]
+    createMany?: UsuarioCreateManyGrupoInputEnvelope
+    connect?: UsuarioWhereUniqueInput | UsuarioWhereUniqueInput[]
+  }
+
+  export type EmpresaCreateNestedOneWithoutGrupoInput = {
+    create?: XOR<EmpresaCreateWithoutGrupoInput, EmpresaUncheckedCreateWithoutGrupoInput>
+    connectOrCreate?: EmpresaCreateOrConnectWithoutGrupoInput
+    connect?: EmpresaWhereUniqueInput
+  }
+
+  export type UsuarioUncheckedCreateNestedManyWithoutGrupoInput = {
+    create?: XOR<UsuarioCreateWithoutGrupoInput, UsuarioUncheckedCreateWithoutGrupoInput> | UsuarioCreateWithoutGrupoInput[] | UsuarioUncheckedCreateWithoutGrupoInput[]
+    connectOrCreate?: UsuarioCreateOrConnectWithoutGrupoInput | UsuarioCreateOrConnectWithoutGrupoInput[]
+    createMany?: UsuarioCreateManyGrupoInputEnvelope
+    connect?: UsuarioWhereUniqueInput | UsuarioWhereUniqueInput[]
+  }
+
+  export type GrupoUpdatepermissoesInput = {
+    set?: $Enums.Permissoes[]
+    push?: $Enums.Permissoes | $Enums.Permissoes[]
+  }
+
+  export type UsuarioUpdateManyWithoutGrupoNestedInput = {
+    create?: XOR<UsuarioCreateWithoutGrupoInput, UsuarioUncheckedCreateWithoutGrupoInput> | UsuarioCreateWithoutGrupoInput[] | UsuarioUncheckedCreateWithoutGrupoInput[]
+    connectOrCreate?: UsuarioCreateOrConnectWithoutGrupoInput | UsuarioCreateOrConnectWithoutGrupoInput[]
+    upsert?: UsuarioUpsertWithWhereUniqueWithoutGrupoInput | UsuarioUpsertWithWhereUniqueWithoutGrupoInput[]
+    createMany?: UsuarioCreateManyGrupoInputEnvelope
+    set?: UsuarioWhereUniqueInput | UsuarioWhereUniqueInput[]
+    disconnect?: UsuarioWhereUniqueInput | UsuarioWhereUniqueInput[]
+    delete?: UsuarioWhereUniqueInput | UsuarioWhereUniqueInput[]
+    connect?: UsuarioWhereUniqueInput | UsuarioWhereUniqueInput[]
+    update?: UsuarioUpdateWithWhereUniqueWithoutGrupoInput | UsuarioUpdateWithWhereUniqueWithoutGrupoInput[]
+    updateMany?: UsuarioUpdateManyWithWhereWithoutGrupoInput | UsuarioUpdateManyWithWhereWithoutGrupoInput[]
+    deleteMany?: UsuarioScalarWhereInput | UsuarioScalarWhereInput[]
+  }
+
+  export type EmpresaUpdateOneRequiredWithoutGrupoNestedInput = {
+    create?: XOR<EmpresaCreateWithoutGrupoInput, EmpresaUncheckedCreateWithoutGrupoInput>
+    connectOrCreate?: EmpresaCreateOrConnectWithoutGrupoInput
+    upsert?: EmpresaUpsertWithoutGrupoInput
+    connect?: EmpresaWhereUniqueInput
+    update?: XOR<XOR<EmpresaUpdateToOneWithWhereWithoutGrupoInput, EmpresaUpdateWithoutGrupoInput>, EmpresaUncheckedUpdateWithoutGrupoInput>
+  }
+
+  export type UsuarioUncheckedUpdateManyWithoutGrupoNestedInput = {
+    create?: XOR<UsuarioCreateWithoutGrupoInput, UsuarioUncheckedCreateWithoutGrupoInput> | UsuarioCreateWithoutGrupoInput[] | UsuarioUncheckedCreateWithoutGrupoInput[]
+    connectOrCreate?: UsuarioCreateOrConnectWithoutGrupoInput | UsuarioCreateOrConnectWithoutGrupoInput[]
+    upsert?: UsuarioUpsertWithWhereUniqueWithoutGrupoInput | UsuarioUpsertWithWhereUniqueWithoutGrupoInput[]
+    createMany?: UsuarioCreateManyGrupoInputEnvelope
+    set?: UsuarioWhereUniqueInput | UsuarioWhereUniqueInput[]
+    disconnect?: UsuarioWhereUniqueInput | UsuarioWhereUniqueInput[]
+    delete?: UsuarioWhereUniqueInput | UsuarioWhereUniqueInput[]
+    connect?: UsuarioWhereUniqueInput | UsuarioWhereUniqueInput[]
+    update?: UsuarioUpdateWithWhereUniqueWithoutGrupoInput | UsuarioUpdateWithWhereUniqueWithoutGrupoInput[]
+    updateMany?: UsuarioUpdateManyWithWhereWithoutGrupoInput | UsuarioUpdateManyWithWhereWithoutGrupoInput[]
+    deleteMany?: UsuarioScalarWhereInput | UsuarioScalarWhereInput[]
+  }
+
+  export type EmpresaCreateNestedOneWithoutLancamentosInput = {
+    create?: XOR<EmpresaCreateWithoutLancamentosInput, EmpresaUncheckedCreateWithoutLancamentosInput>
+    connectOrCreate?: EmpresaCreateOrConnectWithoutLancamentosInput
+    connect?: EmpresaWhereUniqueInput
+  }
+
+  export type PeriodoCreateNestedOneWithoutLancamentosInput = {
+    create?: XOR<PeriodoCreateWithoutLancamentosInput, PeriodoUncheckedCreateWithoutLancamentosInput>
+    connectOrCreate?: PeriodoCreateOrConnectWithoutLancamentosInput
+    connect?: PeriodoWhereUniqueInput
+  }
+
+  export type NotaFiscalCreateNestedOneWithoutLancamentoInput = {
+    create?: XOR<NotaFiscalCreateWithoutLancamentoInput, NotaFiscalUncheckedCreateWithoutLancamentoInput>
+    connectOrCreate?: NotaFiscalCreateOrConnectWithoutLancamentoInput
+    connect?: NotaFiscalWhereUniqueInput
+  }
+
+  export type ImagemCreateNestedManyWithoutLancamentoInput = {
+    create?: XOR<ImagemCreateWithoutLancamentoInput, ImagemUncheckedCreateWithoutLancamentoInput> | ImagemCreateWithoutLancamentoInput[] | ImagemUncheckedCreateWithoutLancamentoInput[]
+    connectOrCreate?: ImagemCreateOrConnectWithoutLancamentoInput | ImagemCreateOrConnectWithoutLancamentoInput[]
+    createMany?: ImagemCreateManyLancamentoInputEnvelope
+    connect?: ImagemWhereUniqueInput | ImagemWhereUniqueInput[]
+  }
+
+  export type UsuarioCreateNestedOneWithoutLancamentoInput = {
+    create?: XOR<UsuarioCreateWithoutLancamentoInput, UsuarioUncheckedCreateWithoutLancamentoInput>
+    connectOrCreate?: UsuarioCreateOrConnectWithoutLancamentoInput
+    connect?: UsuarioWhereUniqueInput
+  }
+
+  export type ImagemUncheckedCreateNestedManyWithoutLancamentoInput = {
+    create?: XOR<ImagemCreateWithoutLancamentoInput, ImagemUncheckedCreateWithoutLancamentoInput> | ImagemCreateWithoutLancamentoInput[] | ImagemUncheckedCreateWithoutLancamentoInput[]
+    connectOrCreate?: ImagemCreateOrConnectWithoutLancamentoInput | ImagemCreateOrConnectWithoutLancamentoInput[]
+    createMany?: ImagemCreateManyLancamentoInputEnvelope
+    connect?: ImagemWhereUniqueInput | ImagemWhereUniqueInput[]
+  }
+
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type EmpresaUpdateOneRequiredWithoutLancamentosNestedInput = {
+    create?: XOR<EmpresaCreateWithoutLancamentosInput, EmpresaUncheckedCreateWithoutLancamentosInput>
+    connectOrCreate?: EmpresaCreateOrConnectWithoutLancamentosInput
+    upsert?: EmpresaUpsertWithoutLancamentosInput
+    connect?: EmpresaWhereUniqueInput
+    update?: XOR<XOR<EmpresaUpdateToOneWithWhereWithoutLancamentosInput, EmpresaUpdateWithoutLancamentosInput>, EmpresaUncheckedUpdateWithoutLancamentosInput>
+  }
+
+  export type PeriodoUpdateOneWithoutLancamentosNestedInput = {
+    create?: XOR<PeriodoCreateWithoutLancamentosInput, PeriodoUncheckedCreateWithoutLancamentosInput>
+    connectOrCreate?: PeriodoCreateOrConnectWithoutLancamentosInput
+    upsert?: PeriodoUpsertWithoutLancamentosInput
+    disconnect?: PeriodoWhereInput | boolean
+    delete?: PeriodoWhereInput | boolean
+    connect?: PeriodoWhereUniqueInput
+    update?: XOR<XOR<PeriodoUpdateToOneWithWhereWithoutLancamentosInput, PeriodoUpdateWithoutLancamentosInput>, PeriodoUncheckedUpdateWithoutLancamentosInput>
+  }
+
+  export type NotaFiscalUpdateOneRequiredWithoutLancamentoNestedInput = {
+    create?: XOR<NotaFiscalCreateWithoutLancamentoInput, NotaFiscalUncheckedCreateWithoutLancamentoInput>
+    connectOrCreate?: NotaFiscalCreateOrConnectWithoutLancamentoInput
+    upsert?: NotaFiscalUpsertWithoutLancamentoInput
+    connect?: NotaFiscalWhereUniqueInput
+    update?: XOR<XOR<NotaFiscalUpdateToOneWithWhereWithoutLancamentoInput, NotaFiscalUpdateWithoutLancamentoInput>, NotaFiscalUncheckedUpdateWithoutLancamentoInput>
+  }
+
+  export type ImagemUpdateManyWithoutLancamentoNestedInput = {
+    create?: XOR<ImagemCreateWithoutLancamentoInput, ImagemUncheckedCreateWithoutLancamentoInput> | ImagemCreateWithoutLancamentoInput[] | ImagemUncheckedCreateWithoutLancamentoInput[]
+    connectOrCreate?: ImagemCreateOrConnectWithoutLancamentoInput | ImagemCreateOrConnectWithoutLancamentoInput[]
+    upsert?: ImagemUpsertWithWhereUniqueWithoutLancamentoInput | ImagemUpsertWithWhereUniqueWithoutLancamentoInput[]
+    createMany?: ImagemCreateManyLancamentoInputEnvelope
+    set?: ImagemWhereUniqueInput | ImagemWhereUniqueInput[]
+    disconnect?: ImagemWhereUniqueInput | ImagemWhereUniqueInput[]
+    delete?: ImagemWhereUniqueInput | ImagemWhereUniqueInput[]
+    connect?: ImagemWhereUniqueInput | ImagemWhereUniqueInput[]
+    update?: ImagemUpdateWithWhereUniqueWithoutLancamentoInput | ImagemUpdateWithWhereUniqueWithoutLancamentoInput[]
+    updateMany?: ImagemUpdateManyWithWhereWithoutLancamentoInput | ImagemUpdateManyWithWhereWithoutLancamentoInput[]
+    deleteMany?: ImagemScalarWhereInput | ImagemScalarWhereInput[]
+  }
+
+  export type UsuarioUpdateOneRequiredWithoutLancamentoNestedInput = {
+    create?: XOR<UsuarioCreateWithoutLancamentoInput, UsuarioUncheckedCreateWithoutLancamentoInput>
+    connectOrCreate?: UsuarioCreateOrConnectWithoutLancamentoInput
+    upsert?: UsuarioUpsertWithoutLancamentoInput
+    connect?: UsuarioWhereUniqueInput
+    update?: XOR<XOR<UsuarioUpdateToOneWithWhereWithoutLancamentoInput, UsuarioUpdateWithoutLancamentoInput>, UsuarioUncheckedUpdateWithoutLancamentoInput>
+  }
+
+  export type ImagemUncheckedUpdateManyWithoutLancamentoNestedInput = {
+    create?: XOR<ImagemCreateWithoutLancamentoInput, ImagemUncheckedCreateWithoutLancamentoInput> | ImagemCreateWithoutLancamentoInput[] | ImagemUncheckedCreateWithoutLancamentoInput[]
+    connectOrCreate?: ImagemCreateOrConnectWithoutLancamentoInput | ImagemCreateOrConnectWithoutLancamentoInput[]
+    upsert?: ImagemUpsertWithWhereUniqueWithoutLancamentoInput | ImagemUpsertWithWhereUniqueWithoutLancamentoInput[]
+    createMany?: ImagemCreateManyLancamentoInputEnvelope
+    set?: ImagemWhereUniqueInput | ImagemWhereUniqueInput[]
+    disconnect?: ImagemWhereUniqueInput | ImagemWhereUniqueInput[]
+    delete?: ImagemWhereUniqueInput | ImagemWhereUniqueInput[]
+    connect?: ImagemWhereUniqueInput | ImagemWhereUniqueInput[]
+    update?: ImagemUpdateWithWhereUniqueWithoutLancamentoInput | ImagemUpdateWithWhereUniqueWithoutLancamentoInput[]
+    updateMany?: ImagemUpdateManyWithWhereWithoutLancamentoInput | ImagemUpdateManyWithWhereWithoutLancamentoInput[]
+    deleteMany?: ImagemScalarWhereInput | ImagemScalarWhereInput[]
+  }
+
+  export type LancamentoCreateNestedOneWithoutNotaFiscalInput = {
+    create?: XOR<LancamentoCreateWithoutNotaFiscalInput, LancamentoUncheckedCreateWithoutNotaFiscalInput>
+    connectOrCreate?: LancamentoCreateOrConnectWithoutNotaFiscalInput
+    connect?: LancamentoWhereUniqueInput
+  }
+
+  export type EmpresaCreateNestedOneWithoutNotaFiscalInput = {
+    create?: XOR<EmpresaCreateWithoutNotaFiscalInput, EmpresaUncheckedCreateWithoutNotaFiscalInput>
+    connectOrCreate?: EmpresaCreateOrConnectWithoutNotaFiscalInput
+    connect?: EmpresaWhereUniqueInput
+  }
+
+  export type LancamentoUncheckedCreateNestedOneWithoutNotaFiscalInput = {
+    create?: XOR<LancamentoCreateWithoutNotaFiscalInput, LancamentoUncheckedCreateWithoutNotaFiscalInput>
+    connectOrCreate?: LancamentoCreateOrConnectWithoutNotaFiscalInput
+    connect?: LancamentoWhereUniqueInput
+  }
+
+  export type NullableFloatFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type LancamentoUpdateOneWithoutNotaFiscalNestedInput = {
+    create?: XOR<LancamentoCreateWithoutNotaFiscalInput, LancamentoUncheckedCreateWithoutNotaFiscalInput>
+    connectOrCreate?: LancamentoCreateOrConnectWithoutNotaFiscalInput
+    upsert?: LancamentoUpsertWithoutNotaFiscalInput
+    disconnect?: LancamentoWhereInput | boolean
+    delete?: LancamentoWhereInput | boolean
+    connect?: LancamentoWhereUniqueInput
+    update?: XOR<XOR<LancamentoUpdateToOneWithWhereWithoutNotaFiscalInput, LancamentoUpdateWithoutNotaFiscalInput>, LancamentoUncheckedUpdateWithoutNotaFiscalInput>
+  }
+
+  export type EmpresaUpdateOneRequiredWithoutNotaFiscalNestedInput = {
+    create?: XOR<EmpresaCreateWithoutNotaFiscalInput, EmpresaUncheckedCreateWithoutNotaFiscalInput>
+    connectOrCreate?: EmpresaCreateOrConnectWithoutNotaFiscalInput
+    upsert?: EmpresaUpsertWithoutNotaFiscalInput
+    connect?: EmpresaWhereUniqueInput
+    update?: XOR<XOR<EmpresaUpdateToOneWithWhereWithoutNotaFiscalInput, EmpresaUpdateWithoutNotaFiscalInput>, EmpresaUncheckedUpdateWithoutNotaFiscalInput>
+  }
+
+  export type LancamentoUncheckedUpdateOneWithoutNotaFiscalNestedInput = {
+    create?: XOR<LancamentoCreateWithoutNotaFiscalInput, LancamentoUncheckedCreateWithoutNotaFiscalInput>
+    connectOrCreate?: LancamentoCreateOrConnectWithoutNotaFiscalInput
+    upsert?: LancamentoUpsertWithoutNotaFiscalInput
+    disconnect?: LancamentoWhereInput | boolean
+    delete?: LancamentoWhereInput | boolean
+    connect?: LancamentoWhereUniqueInput
+    update?: XOR<XOR<LancamentoUpdateToOneWithWhereWithoutNotaFiscalInput, LancamentoUpdateWithoutNotaFiscalInput>, LancamentoUncheckedUpdateWithoutNotaFiscalInput>
+  }
+
+  export type LancamentoCreateNestedOneWithoutImagensInput = {
+    create?: XOR<LancamentoCreateWithoutImagensInput, LancamentoUncheckedCreateWithoutImagensInput>
+    connectOrCreate?: LancamentoCreateOrConnectWithoutImagensInput
+    connect?: LancamentoWhereUniqueInput
+  }
+
+  export type LancamentoUpdateOneRequiredWithoutImagensNestedInput = {
+    create?: XOR<LancamentoCreateWithoutImagensInput, LancamentoUncheckedCreateWithoutImagensInput>
+    connectOrCreate?: LancamentoCreateOrConnectWithoutImagensInput
+    upsert?: LancamentoUpsertWithoutImagensInput
+    connect?: LancamentoWhereUniqueInput
+    update?: XOR<XOR<LancamentoUpdateToOneWithWhereWithoutImagensInput, LancamentoUpdateWithoutImagensInput>, LancamentoUncheckedUpdateWithoutImagensInput>
+  }
+
+  export type EmpresaCreateNestedOneWithoutPeriodosInput = {
+    create?: XOR<EmpresaCreateWithoutPeriodosInput, EmpresaUncheckedCreateWithoutPeriodosInput>
+    connectOrCreate?: EmpresaCreateOrConnectWithoutPeriodosInput
+    connect?: EmpresaWhereUniqueInput
+  }
+
+  export type LancamentoCreateNestedManyWithoutPeriodoInput = {
+    create?: XOR<LancamentoCreateWithoutPeriodoInput, LancamentoUncheckedCreateWithoutPeriodoInput> | LancamentoCreateWithoutPeriodoInput[] | LancamentoUncheckedCreateWithoutPeriodoInput[]
+    connectOrCreate?: LancamentoCreateOrConnectWithoutPeriodoInput | LancamentoCreateOrConnectWithoutPeriodoInput[]
+    createMany?: LancamentoCreateManyPeriodoInputEnvelope
+    connect?: LancamentoWhereUniqueInput | LancamentoWhereUniqueInput[]
+  }
+
+  export type LancamentoUncheckedCreateNestedManyWithoutPeriodoInput = {
+    create?: XOR<LancamentoCreateWithoutPeriodoInput, LancamentoUncheckedCreateWithoutPeriodoInput> | LancamentoCreateWithoutPeriodoInput[] | LancamentoUncheckedCreateWithoutPeriodoInput[]
+    connectOrCreate?: LancamentoCreateOrConnectWithoutPeriodoInput | LancamentoCreateOrConnectWithoutPeriodoInput[]
+    createMany?: LancamentoCreateManyPeriodoInputEnvelope
+    connect?: LancamentoWhereUniqueInput | LancamentoWhereUniqueInput[]
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
+  export type EmpresaUpdateOneRequiredWithoutPeriodosNestedInput = {
+    create?: XOR<EmpresaCreateWithoutPeriodosInput, EmpresaUncheckedCreateWithoutPeriodosInput>
+    connectOrCreate?: EmpresaCreateOrConnectWithoutPeriodosInput
+    upsert?: EmpresaUpsertWithoutPeriodosInput
+    connect?: EmpresaWhereUniqueInput
+    update?: XOR<XOR<EmpresaUpdateToOneWithWhereWithoutPeriodosInput, EmpresaUpdateWithoutPeriodosInput>, EmpresaUncheckedUpdateWithoutPeriodosInput>
+  }
+
+  export type LancamentoUpdateManyWithoutPeriodoNestedInput = {
+    create?: XOR<LancamentoCreateWithoutPeriodoInput, LancamentoUncheckedCreateWithoutPeriodoInput> | LancamentoCreateWithoutPeriodoInput[] | LancamentoUncheckedCreateWithoutPeriodoInput[]
+    connectOrCreate?: LancamentoCreateOrConnectWithoutPeriodoInput | LancamentoCreateOrConnectWithoutPeriodoInput[]
+    upsert?: LancamentoUpsertWithWhereUniqueWithoutPeriodoInput | LancamentoUpsertWithWhereUniqueWithoutPeriodoInput[]
+    createMany?: LancamentoCreateManyPeriodoInputEnvelope
+    set?: LancamentoWhereUniqueInput | LancamentoWhereUniqueInput[]
+    disconnect?: LancamentoWhereUniqueInput | LancamentoWhereUniqueInput[]
+    delete?: LancamentoWhereUniqueInput | LancamentoWhereUniqueInput[]
+    connect?: LancamentoWhereUniqueInput | LancamentoWhereUniqueInput[]
+    update?: LancamentoUpdateWithWhereUniqueWithoutPeriodoInput | LancamentoUpdateWithWhereUniqueWithoutPeriodoInput[]
+    updateMany?: LancamentoUpdateManyWithWhereWithoutPeriodoInput | LancamentoUpdateManyWithWhereWithoutPeriodoInput[]
+    deleteMany?: LancamentoScalarWhereInput | LancamentoScalarWhereInput[]
+  }
+
+  export type LancamentoUncheckedUpdateManyWithoutPeriodoNestedInput = {
+    create?: XOR<LancamentoCreateWithoutPeriodoInput, LancamentoUncheckedCreateWithoutPeriodoInput> | LancamentoCreateWithoutPeriodoInput[] | LancamentoUncheckedCreateWithoutPeriodoInput[]
+    connectOrCreate?: LancamentoCreateOrConnectWithoutPeriodoInput | LancamentoCreateOrConnectWithoutPeriodoInput[]
+    upsert?: LancamentoUpsertWithWhereUniqueWithoutPeriodoInput | LancamentoUpsertWithWhereUniqueWithoutPeriodoInput[]
+    createMany?: LancamentoCreateManyPeriodoInputEnvelope
+    set?: LancamentoWhereUniqueInput | LancamentoWhereUniqueInput[]
+    disconnect?: LancamentoWhereUniqueInput | LancamentoWhereUniqueInput[]
+    delete?: LancamentoWhereUniqueInput | LancamentoWhereUniqueInput[]
+    connect?: LancamentoWhereUniqueInput | LancamentoWhereUniqueInput[]
+    update?: LancamentoUpdateWithWhereUniqueWithoutPeriodoInput | LancamentoUpdateWithWhereUniqueWithoutPeriodoInput[]
+    updateMany?: LancamentoUpdateManyWithWhereWithoutPeriodoInput | LancamentoUpdateManyWithWhereWithoutPeriodoInput[]
+    deleteMany?: LancamentoScalarWhereInput | LancamentoScalarWhereInput[]
+  }
+
+  export type NestedIntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type NestedStringFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type EmpresaCreateWithoutUsuariosInput = {
+    cnpj: string
+    nomeFantasia?: string | null
+    senha: string
+    razaoSocial: string
+    endereco: string
+    situacaoCadastral: string
+    naturezaJuridica: string
+    CNAES: string
+    dataCriacao?: Date | string
+    grupo?: GrupoCreateNestedManyWithoutEmpresasInput
+    NotaFiscal?: NotaFiscalCreateNestedManyWithoutEmpresaInput
+    Lancamentos?: LancamentoCreateNestedManyWithoutEmpresaInput
+    Periodos?: PeriodoCreateNestedManyWithoutEmpresaInput
+  }
+
+  export type EmpresaUncheckedCreateWithoutUsuariosInput = {
+    id?: number
+    cnpj: string
+    nomeFantasia?: string | null
+    senha: string
+    razaoSocial: string
+    endereco: string
+    situacaoCadastral: string
+    naturezaJuridica: string
+    CNAES: string
+    dataCriacao?: Date | string
+    grupo?: GrupoUncheckedCreateNestedManyWithoutEmpresasInput
+    NotaFiscal?: NotaFiscalUncheckedCreateNestedManyWithoutEmpresaInput
+    Lancamentos?: LancamentoUncheckedCreateNestedManyWithoutEmpresaInput
+    Periodos?: PeriodoUncheckedCreateNestedManyWithoutEmpresaInput
+  }
+
+  export type EmpresaCreateOrConnectWithoutUsuariosInput = {
+    where: EmpresaWhereUniqueInput
+    create: XOR<EmpresaCreateWithoutUsuariosInput, EmpresaUncheckedCreateWithoutUsuariosInput>
+  }
+
+  export type GrupoCreateWithoutUsuariosInput = {
+    nome: string
+    permissoes?: GrupoCreatepermissoesInput | $Enums.Permissoes[]
+    empresas: EmpresaCreateNestedOneWithoutGrupoInput
+  }
+
+  export type GrupoUncheckedCreateWithoutUsuariosInput = {
+    id?: number
+    nome: string
+    permissoes?: GrupoCreatepermissoesInput | $Enums.Permissoes[]
+    empresaId: number
+  }
+
+  export type GrupoCreateOrConnectWithoutUsuariosInput = {
+    where: GrupoWhereUniqueInput
+    create: XOR<GrupoCreateWithoutUsuariosInput, GrupoUncheckedCreateWithoutUsuariosInput>
+  }
+
+  export type LancamentoCreateWithoutUsuariosInput = {
+    data_lancamento: Date | string
+    latitude: number
+    longitude: number
+    dataCriacao?: Date | string
+    dataAtualizacao?: Date | string
+    empresa: EmpresaCreateNestedOneWithoutLancamentosInput
+    periodo?: PeriodoCreateNestedOneWithoutLancamentosInput
+    notaFiscal: NotaFiscalCreateNestedOneWithoutLancamentoInput
+    imagens?: ImagemCreateNestedManyWithoutLancamentoInput
+  }
+
+  export type LancamentoUncheckedCreateWithoutUsuariosInput = {
+    id?: number
+    data_lancamento: Date | string
+    latitude: number
+    longitude: number
+    dataCriacao?: Date | string
+    dataAtualizacao?: Date | string
+    periodoId?: number | null
+    notaFiscalId: number
+    empresaId: number
+    imagens?: ImagemUncheckedCreateNestedManyWithoutLancamentoInput
+  }
+
+  export type LancamentoCreateOrConnectWithoutUsuariosInput = {
+    where: LancamentoWhereUniqueInput
+    create: XOR<LancamentoCreateWithoutUsuariosInput, LancamentoUncheckedCreateWithoutUsuariosInput>
+  }
+
+  export type LancamentoCreateManyUsuariosInputEnvelope = {
+    data: LancamentoCreateManyUsuariosInput | LancamentoCreateManyUsuariosInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type EmpresaUpsertWithoutUsuariosInput = {
+    update: XOR<EmpresaUpdateWithoutUsuariosInput, EmpresaUncheckedUpdateWithoutUsuariosInput>
+    create: XOR<EmpresaCreateWithoutUsuariosInput, EmpresaUncheckedCreateWithoutUsuariosInput>
+    where?: EmpresaWhereInput
+  }
+
+  export type EmpresaUpdateToOneWithWhereWithoutUsuariosInput = {
+    where?: EmpresaWhereInput
+    data: XOR<EmpresaUpdateWithoutUsuariosInput, EmpresaUncheckedUpdateWithoutUsuariosInput>
+  }
+
+  export type EmpresaUpdateWithoutUsuariosInput = {
+    cnpj?: StringFieldUpdateOperationsInput | string
+    nomeFantasia?: NullableStringFieldUpdateOperationsInput | string | null
+    senha?: StringFieldUpdateOperationsInput | string
+    razaoSocial?: StringFieldUpdateOperationsInput | string
+    endereco?: StringFieldUpdateOperationsInput | string
+    situacaoCadastral?: StringFieldUpdateOperationsInput | string
+    naturezaJuridica?: StringFieldUpdateOperationsInput | string
+    CNAES?: StringFieldUpdateOperationsInput | string
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    grupo?: GrupoUpdateManyWithoutEmpresasNestedInput
+    NotaFiscal?: NotaFiscalUpdateManyWithoutEmpresaNestedInput
+    Lancamentos?: LancamentoUpdateManyWithoutEmpresaNestedInput
+    Periodos?: PeriodoUpdateManyWithoutEmpresaNestedInput
+  }
+
+  export type EmpresaUncheckedUpdateWithoutUsuariosInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    cnpj?: StringFieldUpdateOperationsInput | string
+    nomeFantasia?: NullableStringFieldUpdateOperationsInput | string | null
+    senha?: StringFieldUpdateOperationsInput | string
+    razaoSocial?: StringFieldUpdateOperationsInput | string
+    endereco?: StringFieldUpdateOperationsInput | string
+    situacaoCadastral?: StringFieldUpdateOperationsInput | string
+    naturezaJuridica?: StringFieldUpdateOperationsInput | string
+    CNAES?: StringFieldUpdateOperationsInput | string
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    grupo?: GrupoUncheckedUpdateManyWithoutEmpresasNestedInput
+    NotaFiscal?: NotaFiscalUncheckedUpdateManyWithoutEmpresaNestedInput
+    Lancamentos?: LancamentoUncheckedUpdateManyWithoutEmpresaNestedInput
+    Periodos?: PeriodoUncheckedUpdateManyWithoutEmpresaNestedInput
+  }
+
+  export type GrupoUpsertWithoutUsuariosInput = {
+    update: XOR<GrupoUpdateWithoutUsuariosInput, GrupoUncheckedUpdateWithoutUsuariosInput>
+    create: XOR<GrupoCreateWithoutUsuariosInput, GrupoUncheckedCreateWithoutUsuariosInput>
+    where?: GrupoWhereInput
+  }
+
+  export type GrupoUpdateToOneWithWhereWithoutUsuariosInput = {
+    where?: GrupoWhereInput
+    data: XOR<GrupoUpdateWithoutUsuariosInput, GrupoUncheckedUpdateWithoutUsuariosInput>
+  }
+
+  export type GrupoUpdateWithoutUsuariosInput = {
+    nome?: StringFieldUpdateOperationsInput | string
+    permissoes?: GrupoUpdatepermissoesInput | $Enums.Permissoes[]
+    empresas?: EmpresaUpdateOneRequiredWithoutGrupoNestedInput
+  }
+
+  export type GrupoUncheckedUpdateWithoutUsuariosInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nome?: StringFieldUpdateOperationsInput | string
+    permissoes?: GrupoUpdatepermissoesInput | $Enums.Permissoes[]
+    empresaId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LancamentoUpsertWithWhereUniqueWithoutUsuariosInput = {
+    where: LancamentoWhereUniqueInput
+    update: XOR<LancamentoUpdateWithoutUsuariosInput, LancamentoUncheckedUpdateWithoutUsuariosInput>
+    create: XOR<LancamentoCreateWithoutUsuariosInput, LancamentoUncheckedCreateWithoutUsuariosInput>
+  }
+
+  export type LancamentoUpdateWithWhereUniqueWithoutUsuariosInput = {
+    where: LancamentoWhereUniqueInput
+    data: XOR<LancamentoUpdateWithoutUsuariosInput, LancamentoUncheckedUpdateWithoutUsuariosInput>
+  }
+
+  export type LancamentoUpdateManyWithWhereWithoutUsuariosInput = {
+    where: LancamentoScalarWhereInput
+    data: XOR<LancamentoUpdateManyMutationInput, LancamentoUncheckedUpdateManyWithoutUsuariosInput>
+  }
+
+  export type LancamentoScalarWhereInput = {
+    AND?: LancamentoScalarWhereInput | LancamentoScalarWhereInput[]
+    OR?: LancamentoScalarWhereInput[]
+    NOT?: LancamentoScalarWhereInput | LancamentoScalarWhereInput[]
+    id?: IntFilter<"Lancamento"> | number
+    data_lancamento?: DateTimeFilter<"Lancamento"> | Date | string
+    latitude?: FloatFilter<"Lancamento"> | number
+    longitude?: FloatFilter<"Lancamento"> | number
+    dataCriacao?: DateTimeFilter<"Lancamento"> | Date | string
+    dataAtualizacao?: DateTimeFilter<"Lancamento"> | Date | string
+    periodoId?: IntNullableFilter<"Lancamento"> | number | null
+    notaFiscalId?: IntFilter<"Lancamento"> | number
+    usuarioId?: IntFilter<"Lancamento"> | number
+    empresaId?: IntFilter<"Lancamento"> | number
+  }
+
+  export type UsuarioCreateWithoutEmpresaInput = {
+    email: string
+    senha: string
+    cpf: string
+    nome: string
+    admin?: boolean
+    dataCriacao?: Date | string
+    grupo?: GrupoCreateNestedOneWithoutUsuariosInput
+    lancamento?: LancamentoCreateNestedManyWithoutUsuariosInput
+  }
+
+  export type UsuarioUncheckedCreateWithoutEmpresaInput = {
+    id?: number
+    email: string
+    senha: string
+    cpf: string
+    nome: string
+    admin?: boolean
+    dataCriacao?: Date | string
+    grupoId?: number | null
+    lancamento?: LancamentoUncheckedCreateNestedManyWithoutUsuariosInput
+  }
+
+  export type UsuarioCreateOrConnectWithoutEmpresaInput = {
+    where: UsuarioWhereUniqueInput
+    create: XOR<UsuarioCreateWithoutEmpresaInput, UsuarioUncheckedCreateWithoutEmpresaInput>
+  }
+
+  export type UsuarioCreateManyEmpresaInputEnvelope = {
+    data: UsuarioCreateManyEmpresaInput | UsuarioCreateManyEmpresaInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type GrupoCreateWithoutEmpresasInput = {
+    nome: string
+    permissoes?: GrupoCreatepermissoesInput | $Enums.Permissoes[]
+    usuarios?: UsuarioCreateNestedManyWithoutGrupoInput
+  }
+
+  export type GrupoUncheckedCreateWithoutEmpresasInput = {
+    id?: number
+    nome: string
+    permissoes?: GrupoCreatepermissoesInput | $Enums.Permissoes[]
+    usuarios?: UsuarioUncheckedCreateNestedManyWithoutGrupoInput
+  }
+
+  export type GrupoCreateOrConnectWithoutEmpresasInput = {
+    where: GrupoWhereUniqueInput
+    create: XOR<GrupoCreateWithoutEmpresasInput, GrupoUncheckedCreateWithoutEmpresasInput>
+  }
+
+  export type GrupoCreateManyEmpresasInputEnvelope = {
+    data: GrupoCreateManyEmpresasInput | GrupoCreateManyEmpresasInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type NotaFiscalCreateWithoutEmpresaInput = {
+    numero: string
+    valor?: number | null
+    xmlPath?: string | null
+    dataEmissao: Date | string
+    dataCriacao?: Date | string
+    lancamento?: LancamentoCreateNestedOneWithoutNotaFiscalInput
+  }
+
+  export type NotaFiscalUncheckedCreateWithoutEmpresaInput = {
+    id?: number
+    numero: string
+    valor?: number | null
+    xmlPath?: string | null
+    dataEmissao: Date | string
+    dataCriacao?: Date | string
+    lancamento?: LancamentoUncheckedCreateNestedOneWithoutNotaFiscalInput
+  }
+
+  export type NotaFiscalCreateOrConnectWithoutEmpresaInput = {
+    where: NotaFiscalWhereUniqueInput
+    create: XOR<NotaFiscalCreateWithoutEmpresaInput, NotaFiscalUncheckedCreateWithoutEmpresaInput>
+  }
+
+  export type NotaFiscalCreateManyEmpresaInputEnvelope = {
+    data: NotaFiscalCreateManyEmpresaInput | NotaFiscalCreateManyEmpresaInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type LancamentoCreateWithoutEmpresaInput = {
+    data_lancamento: Date | string
+    latitude: number
+    longitude: number
+    dataCriacao?: Date | string
+    dataAtualizacao?: Date | string
+    periodo?: PeriodoCreateNestedOneWithoutLancamentosInput
+    notaFiscal: NotaFiscalCreateNestedOneWithoutLancamentoInput
+    imagens?: ImagemCreateNestedManyWithoutLancamentoInput
+    usuarios: UsuarioCreateNestedOneWithoutLancamentoInput
+  }
+
+  export type LancamentoUncheckedCreateWithoutEmpresaInput = {
+    id?: number
+    data_lancamento: Date | string
+    latitude: number
+    longitude: number
+    dataCriacao?: Date | string
+    dataAtualizacao?: Date | string
+    periodoId?: number | null
+    notaFiscalId: number
+    usuarioId: number
+    imagens?: ImagemUncheckedCreateNestedManyWithoutLancamentoInput
+  }
+
+  export type LancamentoCreateOrConnectWithoutEmpresaInput = {
+    where: LancamentoWhereUniqueInput
+    create: XOR<LancamentoCreateWithoutEmpresaInput, LancamentoUncheckedCreateWithoutEmpresaInput>
+  }
+
+  export type LancamentoCreateManyEmpresaInputEnvelope = {
+    data: LancamentoCreateManyEmpresaInput | LancamentoCreateManyEmpresaInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PeriodoCreateWithoutEmpresaInput = {
+    dataInicio?: Date | string
+    dataFim: Date | string
+    fechado?: boolean
+    valorTotal?: number | null
+    observacoes?: string | null
+    dataFechamento?: Date | string | null
+    dataCriacao?: Date | string
+    dataAtualizacao?: Date | string
+    lancamentos?: LancamentoCreateNestedManyWithoutPeriodoInput
+  }
+
+  export type PeriodoUncheckedCreateWithoutEmpresaInput = {
+    id?: number
+    dataInicio?: Date | string
+    dataFim: Date | string
+    fechado?: boolean
+    valorTotal?: number | null
+    observacoes?: string | null
+    dataFechamento?: Date | string | null
+    dataCriacao?: Date | string
+    dataAtualizacao?: Date | string
+    lancamentos?: LancamentoUncheckedCreateNestedManyWithoutPeriodoInput
+  }
+
+  export type PeriodoCreateOrConnectWithoutEmpresaInput = {
+    where: PeriodoWhereUniqueInput
+    create: XOR<PeriodoCreateWithoutEmpresaInput, PeriodoUncheckedCreateWithoutEmpresaInput>
+  }
+
+  export type PeriodoCreateManyEmpresaInputEnvelope = {
+    data: PeriodoCreateManyEmpresaInput | PeriodoCreateManyEmpresaInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UsuarioUpsertWithWhereUniqueWithoutEmpresaInput = {
+    where: UsuarioWhereUniqueInput
+    update: XOR<UsuarioUpdateWithoutEmpresaInput, UsuarioUncheckedUpdateWithoutEmpresaInput>
+    create: XOR<UsuarioCreateWithoutEmpresaInput, UsuarioUncheckedCreateWithoutEmpresaInput>
+  }
+
+  export type UsuarioUpdateWithWhereUniqueWithoutEmpresaInput = {
+    where: UsuarioWhereUniqueInput
+    data: XOR<UsuarioUpdateWithoutEmpresaInput, UsuarioUncheckedUpdateWithoutEmpresaInput>
+  }
+
+  export type UsuarioUpdateManyWithWhereWithoutEmpresaInput = {
+    where: UsuarioScalarWhereInput
+    data: XOR<UsuarioUpdateManyMutationInput, UsuarioUncheckedUpdateManyWithoutEmpresaInput>
+  }
+
+  export type UsuarioScalarWhereInput = {
+    AND?: UsuarioScalarWhereInput | UsuarioScalarWhereInput[]
+    OR?: UsuarioScalarWhereInput[]
+    NOT?: UsuarioScalarWhereInput | UsuarioScalarWhereInput[]
+    id?: IntFilter<"Usuario"> | number
+    email?: StringFilter<"Usuario"> | string
+    senha?: StringFilter<"Usuario"> | string
+    cpf?: StringFilter<"Usuario"> | string
+    nome?: StringFilter<"Usuario"> | string
+    admin?: BoolFilter<"Usuario"> | boolean
+    dataCriacao?: DateTimeFilter<"Usuario"> | Date | string
+    empresaId?: IntFilter<"Usuario"> | number
+    grupoId?: IntNullableFilter<"Usuario"> | number | null
+  }
+
+  export type GrupoUpsertWithWhereUniqueWithoutEmpresasInput = {
+    where: GrupoWhereUniqueInput
+    update: XOR<GrupoUpdateWithoutEmpresasInput, GrupoUncheckedUpdateWithoutEmpresasInput>
+    create: XOR<GrupoCreateWithoutEmpresasInput, GrupoUncheckedCreateWithoutEmpresasInput>
+  }
+
+  export type GrupoUpdateWithWhereUniqueWithoutEmpresasInput = {
+    where: GrupoWhereUniqueInput
+    data: XOR<GrupoUpdateWithoutEmpresasInput, GrupoUncheckedUpdateWithoutEmpresasInput>
+  }
+
+  export type GrupoUpdateManyWithWhereWithoutEmpresasInput = {
+    where: GrupoScalarWhereInput
+    data: XOR<GrupoUpdateManyMutationInput, GrupoUncheckedUpdateManyWithoutEmpresasInput>
+  }
+
+  export type GrupoScalarWhereInput = {
+    AND?: GrupoScalarWhereInput | GrupoScalarWhereInput[]
+    OR?: GrupoScalarWhereInput[]
+    NOT?: GrupoScalarWhereInput | GrupoScalarWhereInput[]
+    id?: IntFilter<"Grupo"> | number
+    nome?: StringFilter<"Grupo"> | string
+    permissoes?: EnumPermissoesNullableListFilter<"Grupo">
+    empresaId?: IntFilter<"Grupo"> | number
+  }
+
+  export type NotaFiscalUpsertWithWhereUniqueWithoutEmpresaInput = {
+    where: NotaFiscalWhereUniqueInput
+    update: XOR<NotaFiscalUpdateWithoutEmpresaInput, NotaFiscalUncheckedUpdateWithoutEmpresaInput>
+    create: XOR<NotaFiscalCreateWithoutEmpresaInput, NotaFiscalUncheckedCreateWithoutEmpresaInput>
+  }
+
+  export type NotaFiscalUpdateWithWhereUniqueWithoutEmpresaInput = {
+    where: NotaFiscalWhereUniqueInput
+    data: XOR<NotaFiscalUpdateWithoutEmpresaInput, NotaFiscalUncheckedUpdateWithoutEmpresaInput>
+  }
+
+  export type NotaFiscalUpdateManyWithWhereWithoutEmpresaInput = {
+    where: NotaFiscalScalarWhereInput
+    data: XOR<NotaFiscalUpdateManyMutationInput, NotaFiscalUncheckedUpdateManyWithoutEmpresaInput>
+  }
+
+  export type NotaFiscalScalarWhereInput = {
+    AND?: NotaFiscalScalarWhereInput | NotaFiscalScalarWhereInput[]
+    OR?: NotaFiscalScalarWhereInput[]
+    NOT?: NotaFiscalScalarWhereInput | NotaFiscalScalarWhereInput[]
+    id?: IntFilter<"NotaFiscal"> | number
+    numero?: StringFilter<"NotaFiscal"> | string
+    valor?: FloatNullableFilter<"NotaFiscal"> | number | null
+    xmlPath?: StringNullableFilter<"NotaFiscal"> | string | null
+    dataEmissao?: DateTimeFilter<"NotaFiscal"> | Date | string
+    dataCriacao?: DateTimeFilter<"NotaFiscal"> | Date | string
+    empresaId?: IntFilter<"NotaFiscal"> | number
+  }
+
+  export type LancamentoUpsertWithWhereUniqueWithoutEmpresaInput = {
+    where: LancamentoWhereUniqueInput
+    update: XOR<LancamentoUpdateWithoutEmpresaInput, LancamentoUncheckedUpdateWithoutEmpresaInput>
+    create: XOR<LancamentoCreateWithoutEmpresaInput, LancamentoUncheckedCreateWithoutEmpresaInput>
+  }
+
+  export type LancamentoUpdateWithWhereUniqueWithoutEmpresaInput = {
+    where: LancamentoWhereUniqueInput
+    data: XOR<LancamentoUpdateWithoutEmpresaInput, LancamentoUncheckedUpdateWithoutEmpresaInput>
+  }
+
+  export type LancamentoUpdateManyWithWhereWithoutEmpresaInput = {
+    where: LancamentoScalarWhereInput
+    data: XOR<LancamentoUpdateManyMutationInput, LancamentoUncheckedUpdateManyWithoutEmpresaInput>
+  }
+
+  export type PeriodoUpsertWithWhereUniqueWithoutEmpresaInput = {
+    where: PeriodoWhereUniqueInput
+    update: XOR<PeriodoUpdateWithoutEmpresaInput, PeriodoUncheckedUpdateWithoutEmpresaInput>
+    create: XOR<PeriodoCreateWithoutEmpresaInput, PeriodoUncheckedCreateWithoutEmpresaInput>
+  }
+
+  export type PeriodoUpdateWithWhereUniqueWithoutEmpresaInput = {
+    where: PeriodoWhereUniqueInput
+    data: XOR<PeriodoUpdateWithoutEmpresaInput, PeriodoUncheckedUpdateWithoutEmpresaInput>
+  }
+
+  export type PeriodoUpdateManyWithWhereWithoutEmpresaInput = {
+    where: PeriodoScalarWhereInput
+    data: XOR<PeriodoUpdateManyMutationInput, PeriodoUncheckedUpdateManyWithoutEmpresaInput>
+  }
+
+  export type PeriodoScalarWhereInput = {
+    AND?: PeriodoScalarWhereInput | PeriodoScalarWhereInput[]
+    OR?: PeriodoScalarWhereInput[]
+    NOT?: PeriodoScalarWhereInput | PeriodoScalarWhereInput[]
+    id?: IntFilter<"Periodo"> | number
+    dataInicio?: DateTimeFilter<"Periodo"> | Date | string
+    dataFim?: DateTimeFilter<"Periodo"> | Date | string
+    fechado?: BoolFilter<"Periodo"> | boolean
+    valorTotal?: FloatNullableFilter<"Periodo"> | number | null
+    observacoes?: StringNullableFilter<"Periodo"> | string | null
+    dataFechamento?: DateTimeNullableFilter<"Periodo"> | Date | string | null
+    dataCriacao?: DateTimeFilter<"Periodo"> | Date | string
+    dataAtualizacao?: DateTimeFilter<"Periodo"> | Date | string
+    empresaId?: IntFilter<"Periodo"> | number
+  }
+
+  export type UsuarioCreateWithoutGrupoInput = {
+    email: string
+    senha: string
+    cpf: string
+    nome: string
+    admin?: boolean
+    dataCriacao?: Date | string
+    empresa: EmpresaCreateNestedOneWithoutUsuariosInput
+    lancamento?: LancamentoCreateNestedManyWithoutUsuariosInput
+  }
+
+  export type UsuarioUncheckedCreateWithoutGrupoInput = {
+    id?: number
+    email: string
+    senha: string
+    cpf: string
+    nome: string
+    admin?: boolean
+    dataCriacao?: Date | string
+    empresaId: number
+    lancamento?: LancamentoUncheckedCreateNestedManyWithoutUsuariosInput
+  }
+
+  export type UsuarioCreateOrConnectWithoutGrupoInput = {
+    where: UsuarioWhereUniqueInput
+    create: XOR<UsuarioCreateWithoutGrupoInput, UsuarioUncheckedCreateWithoutGrupoInput>
+  }
+
+  export type UsuarioCreateManyGrupoInputEnvelope = {
+    data: UsuarioCreateManyGrupoInput | UsuarioCreateManyGrupoInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type EmpresaCreateWithoutGrupoInput = {
+    cnpj: string
+    nomeFantasia?: string | null
+    senha: string
+    razaoSocial: string
+    endereco: string
+    situacaoCadastral: string
+    naturezaJuridica: string
+    CNAES: string
+    dataCriacao?: Date | string
+    usuarios?: UsuarioCreateNestedManyWithoutEmpresaInput
+    NotaFiscal?: NotaFiscalCreateNestedManyWithoutEmpresaInput
+    Lancamentos?: LancamentoCreateNestedManyWithoutEmpresaInput
+    Periodos?: PeriodoCreateNestedManyWithoutEmpresaInput
+  }
+
+  export type EmpresaUncheckedCreateWithoutGrupoInput = {
+    id?: number
+    cnpj: string
+    nomeFantasia?: string | null
+    senha: string
+    razaoSocial: string
+    endereco: string
+    situacaoCadastral: string
+    naturezaJuridica: string
+    CNAES: string
+    dataCriacao?: Date | string
+    usuarios?: UsuarioUncheckedCreateNestedManyWithoutEmpresaInput
+    NotaFiscal?: NotaFiscalUncheckedCreateNestedManyWithoutEmpresaInput
+    Lancamentos?: LancamentoUncheckedCreateNestedManyWithoutEmpresaInput
+    Periodos?: PeriodoUncheckedCreateNestedManyWithoutEmpresaInput
+  }
+
+  export type EmpresaCreateOrConnectWithoutGrupoInput = {
+    where: EmpresaWhereUniqueInput
+    create: XOR<EmpresaCreateWithoutGrupoInput, EmpresaUncheckedCreateWithoutGrupoInput>
+  }
+
+  export type UsuarioUpsertWithWhereUniqueWithoutGrupoInput = {
+    where: UsuarioWhereUniqueInput
+    update: XOR<UsuarioUpdateWithoutGrupoInput, UsuarioUncheckedUpdateWithoutGrupoInput>
+    create: XOR<UsuarioCreateWithoutGrupoInput, UsuarioUncheckedCreateWithoutGrupoInput>
+  }
+
+  export type UsuarioUpdateWithWhereUniqueWithoutGrupoInput = {
+    where: UsuarioWhereUniqueInput
+    data: XOR<UsuarioUpdateWithoutGrupoInput, UsuarioUncheckedUpdateWithoutGrupoInput>
+  }
+
+  export type UsuarioUpdateManyWithWhereWithoutGrupoInput = {
+    where: UsuarioScalarWhereInput
+    data: XOR<UsuarioUpdateManyMutationInput, UsuarioUncheckedUpdateManyWithoutGrupoInput>
+  }
+
+  export type EmpresaUpsertWithoutGrupoInput = {
+    update: XOR<EmpresaUpdateWithoutGrupoInput, EmpresaUncheckedUpdateWithoutGrupoInput>
+    create: XOR<EmpresaCreateWithoutGrupoInput, EmpresaUncheckedCreateWithoutGrupoInput>
+    where?: EmpresaWhereInput
+  }
+
+  export type EmpresaUpdateToOneWithWhereWithoutGrupoInput = {
+    where?: EmpresaWhereInput
+    data: XOR<EmpresaUpdateWithoutGrupoInput, EmpresaUncheckedUpdateWithoutGrupoInput>
+  }
+
+  export type EmpresaUpdateWithoutGrupoInput = {
+    cnpj?: StringFieldUpdateOperationsInput | string
+    nomeFantasia?: NullableStringFieldUpdateOperationsInput | string | null
+    senha?: StringFieldUpdateOperationsInput | string
+    razaoSocial?: StringFieldUpdateOperationsInput | string
+    endereco?: StringFieldUpdateOperationsInput | string
+    situacaoCadastral?: StringFieldUpdateOperationsInput | string
+    naturezaJuridica?: StringFieldUpdateOperationsInput | string
+    CNAES?: StringFieldUpdateOperationsInput | string
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    usuarios?: UsuarioUpdateManyWithoutEmpresaNestedInput
+    NotaFiscal?: NotaFiscalUpdateManyWithoutEmpresaNestedInput
+    Lancamentos?: LancamentoUpdateManyWithoutEmpresaNestedInput
+    Periodos?: PeriodoUpdateManyWithoutEmpresaNestedInput
+  }
+
+  export type EmpresaUncheckedUpdateWithoutGrupoInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    cnpj?: StringFieldUpdateOperationsInput | string
+    nomeFantasia?: NullableStringFieldUpdateOperationsInput | string | null
+    senha?: StringFieldUpdateOperationsInput | string
+    razaoSocial?: StringFieldUpdateOperationsInput | string
+    endereco?: StringFieldUpdateOperationsInput | string
+    situacaoCadastral?: StringFieldUpdateOperationsInput | string
+    naturezaJuridica?: StringFieldUpdateOperationsInput | string
+    CNAES?: StringFieldUpdateOperationsInput | string
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    usuarios?: UsuarioUncheckedUpdateManyWithoutEmpresaNestedInput
+    NotaFiscal?: NotaFiscalUncheckedUpdateManyWithoutEmpresaNestedInput
+    Lancamentos?: LancamentoUncheckedUpdateManyWithoutEmpresaNestedInput
+    Periodos?: PeriodoUncheckedUpdateManyWithoutEmpresaNestedInput
+  }
+
+  export type EmpresaCreateWithoutLancamentosInput = {
+    cnpj: string
+    nomeFantasia?: string | null
+    senha: string
+    razaoSocial: string
+    endereco: string
+    situacaoCadastral: string
+    naturezaJuridica: string
+    CNAES: string
+    dataCriacao?: Date | string
+    usuarios?: UsuarioCreateNestedManyWithoutEmpresaInput
+    grupo?: GrupoCreateNestedManyWithoutEmpresasInput
+    NotaFiscal?: NotaFiscalCreateNestedManyWithoutEmpresaInput
+    Periodos?: PeriodoCreateNestedManyWithoutEmpresaInput
+  }
+
+  export type EmpresaUncheckedCreateWithoutLancamentosInput = {
+    id?: number
+    cnpj: string
+    nomeFantasia?: string | null
+    senha: string
+    razaoSocial: string
+    endereco: string
+    situacaoCadastral: string
+    naturezaJuridica: string
+    CNAES: string
+    dataCriacao?: Date | string
+    usuarios?: UsuarioUncheckedCreateNestedManyWithoutEmpresaInput
+    grupo?: GrupoUncheckedCreateNestedManyWithoutEmpresasInput
+    NotaFiscal?: NotaFiscalUncheckedCreateNestedManyWithoutEmpresaInput
+    Periodos?: PeriodoUncheckedCreateNestedManyWithoutEmpresaInput
+  }
+
+  export type EmpresaCreateOrConnectWithoutLancamentosInput = {
+    where: EmpresaWhereUniqueInput
+    create: XOR<EmpresaCreateWithoutLancamentosInput, EmpresaUncheckedCreateWithoutLancamentosInput>
+  }
+
+  export type PeriodoCreateWithoutLancamentosInput = {
+    dataInicio?: Date | string
+    dataFim: Date | string
+    fechado?: boolean
+    valorTotal?: number | null
+    observacoes?: string | null
+    dataFechamento?: Date | string | null
+    dataCriacao?: Date | string
+    dataAtualizacao?: Date | string
+    empresa: EmpresaCreateNestedOneWithoutPeriodosInput
+  }
+
+  export type PeriodoUncheckedCreateWithoutLancamentosInput = {
+    id?: number
+    dataInicio?: Date | string
+    dataFim: Date | string
+    fechado?: boolean
+    valorTotal?: number | null
+    observacoes?: string | null
+    dataFechamento?: Date | string | null
+    dataCriacao?: Date | string
+    dataAtualizacao?: Date | string
+    empresaId: number
+  }
+
+  export type PeriodoCreateOrConnectWithoutLancamentosInput = {
+    where: PeriodoWhereUniqueInput
+    create: XOR<PeriodoCreateWithoutLancamentosInput, PeriodoUncheckedCreateWithoutLancamentosInput>
+  }
+
+  export type NotaFiscalCreateWithoutLancamentoInput = {
+    numero: string
+    valor?: number | null
+    xmlPath?: string | null
+    dataEmissao: Date | string
+    dataCriacao?: Date | string
+    empresa: EmpresaCreateNestedOneWithoutNotaFiscalInput
+  }
+
+  export type NotaFiscalUncheckedCreateWithoutLancamentoInput = {
+    id?: number
+    numero: string
+    valor?: number | null
+    xmlPath?: string | null
+    dataEmissao: Date | string
+    dataCriacao?: Date | string
+    empresaId: number
+  }
+
+  export type NotaFiscalCreateOrConnectWithoutLancamentoInput = {
+    where: NotaFiscalWhereUniqueInput
+    create: XOR<NotaFiscalCreateWithoutLancamentoInput, NotaFiscalUncheckedCreateWithoutLancamentoInput>
+  }
+
+  export type ImagemCreateWithoutLancamentoInput = {
+    url: string
+    dataCriacao?: Date | string
+    dataAtualizacao?: Date | string
+  }
+
+  export type ImagemUncheckedCreateWithoutLancamentoInput = {
+    id?: number
+    url: string
+    dataCriacao?: Date | string
+    dataAtualizacao?: Date | string
+  }
+
+  export type ImagemCreateOrConnectWithoutLancamentoInput = {
+    where: ImagemWhereUniqueInput
+    create: XOR<ImagemCreateWithoutLancamentoInput, ImagemUncheckedCreateWithoutLancamentoInput>
+  }
+
+  export type ImagemCreateManyLancamentoInputEnvelope = {
+    data: ImagemCreateManyLancamentoInput | ImagemCreateManyLancamentoInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UsuarioCreateWithoutLancamentoInput = {
+    email: string
+    senha: string
+    cpf: string
+    nome: string
+    admin?: boolean
+    dataCriacao?: Date | string
+    empresa: EmpresaCreateNestedOneWithoutUsuariosInput
+    grupo?: GrupoCreateNestedOneWithoutUsuariosInput
+  }
+
+  export type UsuarioUncheckedCreateWithoutLancamentoInput = {
+    id?: number
+    email: string
+    senha: string
+    cpf: string
+    nome: string
+    admin?: boolean
+    dataCriacao?: Date | string
+    empresaId: number
+    grupoId?: number | null
+  }
+
+  export type UsuarioCreateOrConnectWithoutLancamentoInput = {
+    where: UsuarioWhereUniqueInput
+    create: XOR<UsuarioCreateWithoutLancamentoInput, UsuarioUncheckedCreateWithoutLancamentoInput>
+  }
+
+  export type EmpresaUpsertWithoutLancamentosInput = {
+    update: XOR<EmpresaUpdateWithoutLancamentosInput, EmpresaUncheckedUpdateWithoutLancamentosInput>
+    create: XOR<EmpresaCreateWithoutLancamentosInput, EmpresaUncheckedCreateWithoutLancamentosInput>
+    where?: EmpresaWhereInput
+  }
+
+  export type EmpresaUpdateToOneWithWhereWithoutLancamentosInput = {
+    where?: EmpresaWhereInput
+    data: XOR<EmpresaUpdateWithoutLancamentosInput, EmpresaUncheckedUpdateWithoutLancamentosInput>
+  }
+
+  export type EmpresaUpdateWithoutLancamentosInput = {
+    cnpj?: StringFieldUpdateOperationsInput | string
+    nomeFantasia?: NullableStringFieldUpdateOperationsInput | string | null
+    senha?: StringFieldUpdateOperationsInput | string
+    razaoSocial?: StringFieldUpdateOperationsInput | string
+    endereco?: StringFieldUpdateOperationsInput | string
+    situacaoCadastral?: StringFieldUpdateOperationsInput | string
+    naturezaJuridica?: StringFieldUpdateOperationsInput | string
+    CNAES?: StringFieldUpdateOperationsInput | string
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    usuarios?: UsuarioUpdateManyWithoutEmpresaNestedInput
+    grupo?: GrupoUpdateManyWithoutEmpresasNestedInput
+    NotaFiscal?: NotaFiscalUpdateManyWithoutEmpresaNestedInput
+    Periodos?: PeriodoUpdateManyWithoutEmpresaNestedInput
+  }
+
+  export type EmpresaUncheckedUpdateWithoutLancamentosInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    cnpj?: StringFieldUpdateOperationsInput | string
+    nomeFantasia?: NullableStringFieldUpdateOperationsInput | string | null
+    senha?: StringFieldUpdateOperationsInput | string
+    razaoSocial?: StringFieldUpdateOperationsInput | string
+    endereco?: StringFieldUpdateOperationsInput | string
+    situacaoCadastral?: StringFieldUpdateOperationsInput | string
+    naturezaJuridica?: StringFieldUpdateOperationsInput | string
+    CNAES?: StringFieldUpdateOperationsInput | string
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    usuarios?: UsuarioUncheckedUpdateManyWithoutEmpresaNestedInput
+    grupo?: GrupoUncheckedUpdateManyWithoutEmpresasNestedInput
+    NotaFiscal?: NotaFiscalUncheckedUpdateManyWithoutEmpresaNestedInput
+    Periodos?: PeriodoUncheckedUpdateManyWithoutEmpresaNestedInput
+  }
+
+  export type PeriodoUpsertWithoutLancamentosInput = {
+    update: XOR<PeriodoUpdateWithoutLancamentosInput, PeriodoUncheckedUpdateWithoutLancamentosInput>
+    create: XOR<PeriodoCreateWithoutLancamentosInput, PeriodoUncheckedCreateWithoutLancamentosInput>
+    where?: PeriodoWhereInput
+  }
+
+  export type PeriodoUpdateToOneWithWhereWithoutLancamentosInput = {
+    where?: PeriodoWhereInput
+    data: XOR<PeriodoUpdateWithoutLancamentosInput, PeriodoUncheckedUpdateWithoutLancamentosInput>
+  }
+
+  export type PeriodoUpdateWithoutLancamentosInput = {
+    dataInicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataFim?: DateTimeFieldUpdateOperationsInput | Date | string
+    fechado?: BoolFieldUpdateOperationsInput | boolean
+    valorTotal?: NullableFloatFieldUpdateOperationsInput | number | null
+    observacoes?: NullableStringFieldUpdateOperationsInput | string | null
+    dataFechamento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataAtualizacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    empresa?: EmpresaUpdateOneRequiredWithoutPeriodosNestedInput
+  }
+
+  export type PeriodoUncheckedUpdateWithoutLancamentosInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    dataInicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataFim?: DateTimeFieldUpdateOperationsInput | Date | string
+    fechado?: BoolFieldUpdateOperationsInput | boolean
+    valorTotal?: NullableFloatFieldUpdateOperationsInput | number | null
+    observacoes?: NullableStringFieldUpdateOperationsInput | string | null
+    dataFechamento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataAtualizacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    empresaId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type NotaFiscalUpsertWithoutLancamentoInput = {
+    update: XOR<NotaFiscalUpdateWithoutLancamentoInput, NotaFiscalUncheckedUpdateWithoutLancamentoInput>
+    create: XOR<NotaFiscalCreateWithoutLancamentoInput, NotaFiscalUncheckedCreateWithoutLancamentoInput>
+    where?: NotaFiscalWhereInput
+  }
+
+  export type NotaFiscalUpdateToOneWithWhereWithoutLancamentoInput = {
+    where?: NotaFiscalWhereInput
+    data: XOR<NotaFiscalUpdateWithoutLancamentoInput, NotaFiscalUncheckedUpdateWithoutLancamentoInput>
+  }
+
+  export type NotaFiscalUpdateWithoutLancamentoInput = {
+    numero?: StringFieldUpdateOperationsInput | string
+    valor?: NullableFloatFieldUpdateOperationsInput | number | null
+    xmlPath?: NullableStringFieldUpdateOperationsInput | string | null
+    dataEmissao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    empresa?: EmpresaUpdateOneRequiredWithoutNotaFiscalNestedInput
+  }
+
+  export type NotaFiscalUncheckedUpdateWithoutLancamentoInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    numero?: StringFieldUpdateOperationsInput | string
+    valor?: NullableFloatFieldUpdateOperationsInput | number | null
+    xmlPath?: NullableStringFieldUpdateOperationsInput | string | null
+    dataEmissao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    empresaId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type ImagemUpsertWithWhereUniqueWithoutLancamentoInput = {
+    where: ImagemWhereUniqueInput
+    update: XOR<ImagemUpdateWithoutLancamentoInput, ImagemUncheckedUpdateWithoutLancamentoInput>
+    create: XOR<ImagemCreateWithoutLancamentoInput, ImagemUncheckedCreateWithoutLancamentoInput>
+  }
+
+  export type ImagemUpdateWithWhereUniqueWithoutLancamentoInput = {
+    where: ImagemWhereUniqueInput
+    data: XOR<ImagemUpdateWithoutLancamentoInput, ImagemUncheckedUpdateWithoutLancamentoInput>
+  }
+
+  export type ImagemUpdateManyWithWhereWithoutLancamentoInput = {
+    where: ImagemScalarWhereInput
+    data: XOR<ImagemUpdateManyMutationInput, ImagemUncheckedUpdateManyWithoutLancamentoInput>
+  }
+
+  export type ImagemScalarWhereInput = {
+    AND?: ImagemScalarWhereInput | ImagemScalarWhereInput[]
+    OR?: ImagemScalarWhereInput[]
+    NOT?: ImagemScalarWhereInput | ImagemScalarWhereInput[]
+    id?: IntFilter<"Imagem"> | number
+    url?: StringFilter<"Imagem"> | string
+    dataCriacao?: DateTimeFilter<"Imagem"> | Date | string
+    dataAtualizacao?: DateTimeFilter<"Imagem"> | Date | string
+    lancamentoId?: IntFilter<"Imagem"> | number
+  }
+
+  export type UsuarioUpsertWithoutLancamentoInput = {
+    update: XOR<UsuarioUpdateWithoutLancamentoInput, UsuarioUncheckedUpdateWithoutLancamentoInput>
+    create: XOR<UsuarioCreateWithoutLancamentoInput, UsuarioUncheckedCreateWithoutLancamentoInput>
+    where?: UsuarioWhereInput
+  }
+
+  export type UsuarioUpdateToOneWithWhereWithoutLancamentoInput = {
+    where?: UsuarioWhereInput
+    data: XOR<UsuarioUpdateWithoutLancamentoInput, UsuarioUncheckedUpdateWithoutLancamentoInput>
+  }
+
+  export type UsuarioUpdateWithoutLancamentoInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    senha?: StringFieldUpdateOperationsInput | string
+    cpf?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    empresa?: EmpresaUpdateOneRequiredWithoutUsuariosNestedInput
+    grupo?: GrupoUpdateOneWithoutUsuariosNestedInput
+  }
+
+  export type UsuarioUncheckedUpdateWithoutLancamentoInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    email?: StringFieldUpdateOperationsInput | string
+    senha?: StringFieldUpdateOperationsInput | string
+    cpf?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    empresaId?: IntFieldUpdateOperationsInput | number
+    grupoId?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type LancamentoCreateWithoutNotaFiscalInput = {
+    data_lancamento: Date | string
+    latitude: number
+    longitude: number
+    dataCriacao?: Date | string
+    dataAtualizacao?: Date | string
+    empresa: EmpresaCreateNestedOneWithoutLancamentosInput
+    periodo?: PeriodoCreateNestedOneWithoutLancamentosInput
+    imagens?: ImagemCreateNestedManyWithoutLancamentoInput
+    usuarios: UsuarioCreateNestedOneWithoutLancamentoInput
+  }
+
+  export type LancamentoUncheckedCreateWithoutNotaFiscalInput = {
+    id?: number
+    data_lancamento: Date | string
+    latitude: number
+    longitude: number
+    dataCriacao?: Date | string
+    dataAtualizacao?: Date | string
+    periodoId?: number | null
+    usuarioId: number
+    empresaId: number
+    imagens?: ImagemUncheckedCreateNestedManyWithoutLancamentoInput
+  }
+
+  export type LancamentoCreateOrConnectWithoutNotaFiscalInput = {
+    where: LancamentoWhereUniqueInput
+    create: XOR<LancamentoCreateWithoutNotaFiscalInput, LancamentoUncheckedCreateWithoutNotaFiscalInput>
+  }
+
+  export type EmpresaCreateWithoutNotaFiscalInput = {
+    cnpj: string
+    nomeFantasia?: string | null
+    senha: string
+    razaoSocial: string
+    endereco: string
+    situacaoCadastral: string
+    naturezaJuridica: string
+    CNAES: string
+    dataCriacao?: Date | string
+    usuarios?: UsuarioCreateNestedManyWithoutEmpresaInput
+    grupo?: GrupoCreateNestedManyWithoutEmpresasInput
+    Lancamentos?: LancamentoCreateNestedManyWithoutEmpresaInput
+    Periodos?: PeriodoCreateNestedManyWithoutEmpresaInput
+  }
+
+  export type EmpresaUncheckedCreateWithoutNotaFiscalInput = {
+    id?: number
+    cnpj: string
+    nomeFantasia?: string | null
+    senha: string
+    razaoSocial: string
+    endereco: string
+    situacaoCadastral: string
+    naturezaJuridica: string
+    CNAES: string
+    dataCriacao?: Date | string
+    usuarios?: UsuarioUncheckedCreateNestedManyWithoutEmpresaInput
+    grupo?: GrupoUncheckedCreateNestedManyWithoutEmpresasInput
+    Lancamentos?: LancamentoUncheckedCreateNestedManyWithoutEmpresaInput
+    Periodos?: PeriodoUncheckedCreateNestedManyWithoutEmpresaInput
+  }
+
+  export type EmpresaCreateOrConnectWithoutNotaFiscalInput = {
+    where: EmpresaWhereUniqueInput
+    create: XOR<EmpresaCreateWithoutNotaFiscalInput, EmpresaUncheckedCreateWithoutNotaFiscalInput>
+  }
+
+  export type LancamentoUpsertWithoutNotaFiscalInput = {
+    update: XOR<LancamentoUpdateWithoutNotaFiscalInput, LancamentoUncheckedUpdateWithoutNotaFiscalInput>
+    create: XOR<LancamentoCreateWithoutNotaFiscalInput, LancamentoUncheckedCreateWithoutNotaFiscalInput>
+    where?: LancamentoWhereInput
+  }
+
+  export type LancamentoUpdateToOneWithWhereWithoutNotaFiscalInput = {
+    where?: LancamentoWhereInput
+    data: XOR<LancamentoUpdateWithoutNotaFiscalInput, LancamentoUncheckedUpdateWithoutNotaFiscalInput>
+  }
+
+  export type LancamentoUpdateWithoutNotaFiscalInput = {
+    data_lancamento?: DateTimeFieldUpdateOperationsInput | Date | string
+    latitude?: FloatFieldUpdateOperationsInput | number
+    longitude?: FloatFieldUpdateOperationsInput | number
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataAtualizacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    empresa?: EmpresaUpdateOneRequiredWithoutLancamentosNestedInput
+    periodo?: PeriodoUpdateOneWithoutLancamentosNestedInput
+    imagens?: ImagemUpdateManyWithoutLancamentoNestedInput
+    usuarios?: UsuarioUpdateOneRequiredWithoutLancamentoNestedInput
+  }
+
+  export type LancamentoUncheckedUpdateWithoutNotaFiscalInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    data_lancamento?: DateTimeFieldUpdateOperationsInput | Date | string
+    latitude?: FloatFieldUpdateOperationsInput | number
+    longitude?: FloatFieldUpdateOperationsInput | number
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataAtualizacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    periodoId?: NullableIntFieldUpdateOperationsInput | number | null
+    usuarioId?: IntFieldUpdateOperationsInput | number
+    empresaId?: IntFieldUpdateOperationsInput | number
+    imagens?: ImagemUncheckedUpdateManyWithoutLancamentoNestedInput
+  }
+
+  export type EmpresaUpsertWithoutNotaFiscalInput = {
+    update: XOR<EmpresaUpdateWithoutNotaFiscalInput, EmpresaUncheckedUpdateWithoutNotaFiscalInput>
+    create: XOR<EmpresaCreateWithoutNotaFiscalInput, EmpresaUncheckedCreateWithoutNotaFiscalInput>
+    where?: EmpresaWhereInput
+  }
+
+  export type EmpresaUpdateToOneWithWhereWithoutNotaFiscalInput = {
+    where?: EmpresaWhereInput
+    data: XOR<EmpresaUpdateWithoutNotaFiscalInput, EmpresaUncheckedUpdateWithoutNotaFiscalInput>
+  }
+
+  export type EmpresaUpdateWithoutNotaFiscalInput = {
+    cnpj?: StringFieldUpdateOperationsInput | string
+    nomeFantasia?: NullableStringFieldUpdateOperationsInput | string | null
+    senha?: StringFieldUpdateOperationsInput | string
+    razaoSocial?: StringFieldUpdateOperationsInput | string
+    endereco?: StringFieldUpdateOperationsInput | string
+    situacaoCadastral?: StringFieldUpdateOperationsInput | string
+    naturezaJuridica?: StringFieldUpdateOperationsInput | string
+    CNAES?: StringFieldUpdateOperationsInput | string
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    usuarios?: UsuarioUpdateManyWithoutEmpresaNestedInput
+    grupo?: GrupoUpdateManyWithoutEmpresasNestedInput
+    Lancamentos?: LancamentoUpdateManyWithoutEmpresaNestedInput
+    Periodos?: PeriodoUpdateManyWithoutEmpresaNestedInput
+  }
+
+  export type EmpresaUncheckedUpdateWithoutNotaFiscalInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    cnpj?: StringFieldUpdateOperationsInput | string
+    nomeFantasia?: NullableStringFieldUpdateOperationsInput | string | null
+    senha?: StringFieldUpdateOperationsInput | string
+    razaoSocial?: StringFieldUpdateOperationsInput | string
+    endereco?: StringFieldUpdateOperationsInput | string
+    situacaoCadastral?: StringFieldUpdateOperationsInput | string
+    naturezaJuridica?: StringFieldUpdateOperationsInput | string
+    CNAES?: StringFieldUpdateOperationsInput | string
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    usuarios?: UsuarioUncheckedUpdateManyWithoutEmpresaNestedInput
+    grupo?: GrupoUncheckedUpdateManyWithoutEmpresasNestedInput
+    Lancamentos?: LancamentoUncheckedUpdateManyWithoutEmpresaNestedInput
+    Periodos?: PeriodoUncheckedUpdateManyWithoutEmpresaNestedInput
+  }
+
+  export type LancamentoCreateWithoutImagensInput = {
+    data_lancamento: Date | string
+    latitude: number
+    longitude: number
+    dataCriacao?: Date | string
+    dataAtualizacao?: Date | string
+    empresa: EmpresaCreateNestedOneWithoutLancamentosInput
+    periodo?: PeriodoCreateNestedOneWithoutLancamentosInput
+    notaFiscal: NotaFiscalCreateNestedOneWithoutLancamentoInput
+    usuarios: UsuarioCreateNestedOneWithoutLancamentoInput
+  }
+
+  export type LancamentoUncheckedCreateWithoutImagensInput = {
+    id?: number
+    data_lancamento: Date | string
+    latitude: number
+    longitude: number
+    dataCriacao?: Date | string
+    dataAtualizacao?: Date | string
+    periodoId?: number | null
+    notaFiscalId: number
+    usuarioId: number
+    empresaId: number
+  }
+
+  export type LancamentoCreateOrConnectWithoutImagensInput = {
+    where: LancamentoWhereUniqueInput
+    create: XOR<LancamentoCreateWithoutImagensInput, LancamentoUncheckedCreateWithoutImagensInput>
+  }
+
+  export type LancamentoUpsertWithoutImagensInput = {
+    update: XOR<LancamentoUpdateWithoutImagensInput, LancamentoUncheckedUpdateWithoutImagensInput>
+    create: XOR<LancamentoCreateWithoutImagensInput, LancamentoUncheckedCreateWithoutImagensInput>
+    where?: LancamentoWhereInput
+  }
+
+  export type LancamentoUpdateToOneWithWhereWithoutImagensInput = {
+    where?: LancamentoWhereInput
+    data: XOR<LancamentoUpdateWithoutImagensInput, LancamentoUncheckedUpdateWithoutImagensInput>
+  }
+
+  export type LancamentoUpdateWithoutImagensInput = {
+    data_lancamento?: DateTimeFieldUpdateOperationsInput | Date | string
+    latitude?: FloatFieldUpdateOperationsInput | number
+    longitude?: FloatFieldUpdateOperationsInput | number
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataAtualizacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    empresa?: EmpresaUpdateOneRequiredWithoutLancamentosNestedInput
+    periodo?: PeriodoUpdateOneWithoutLancamentosNestedInput
+    notaFiscal?: NotaFiscalUpdateOneRequiredWithoutLancamentoNestedInput
+    usuarios?: UsuarioUpdateOneRequiredWithoutLancamentoNestedInput
+  }
+
+  export type LancamentoUncheckedUpdateWithoutImagensInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    data_lancamento?: DateTimeFieldUpdateOperationsInput | Date | string
+    latitude?: FloatFieldUpdateOperationsInput | number
+    longitude?: FloatFieldUpdateOperationsInput | number
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataAtualizacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    periodoId?: NullableIntFieldUpdateOperationsInput | number | null
+    notaFiscalId?: IntFieldUpdateOperationsInput | number
+    usuarioId?: IntFieldUpdateOperationsInput | number
+    empresaId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type EmpresaCreateWithoutPeriodosInput = {
+    cnpj: string
+    nomeFantasia?: string | null
+    senha: string
+    razaoSocial: string
+    endereco: string
+    situacaoCadastral: string
+    naturezaJuridica: string
+    CNAES: string
+    dataCriacao?: Date | string
+    usuarios?: UsuarioCreateNestedManyWithoutEmpresaInput
+    grupo?: GrupoCreateNestedManyWithoutEmpresasInput
+    NotaFiscal?: NotaFiscalCreateNestedManyWithoutEmpresaInput
+    Lancamentos?: LancamentoCreateNestedManyWithoutEmpresaInput
+  }
+
+  export type EmpresaUncheckedCreateWithoutPeriodosInput = {
+    id?: number
+    cnpj: string
+    nomeFantasia?: string | null
+    senha: string
+    razaoSocial: string
+    endereco: string
+    situacaoCadastral: string
+    naturezaJuridica: string
+    CNAES: string
+    dataCriacao?: Date | string
+    usuarios?: UsuarioUncheckedCreateNestedManyWithoutEmpresaInput
+    grupo?: GrupoUncheckedCreateNestedManyWithoutEmpresasInput
+    NotaFiscal?: NotaFiscalUncheckedCreateNestedManyWithoutEmpresaInput
+    Lancamentos?: LancamentoUncheckedCreateNestedManyWithoutEmpresaInput
+  }
+
+  export type EmpresaCreateOrConnectWithoutPeriodosInput = {
+    where: EmpresaWhereUniqueInput
+    create: XOR<EmpresaCreateWithoutPeriodosInput, EmpresaUncheckedCreateWithoutPeriodosInput>
+  }
+
+  export type LancamentoCreateWithoutPeriodoInput = {
+    data_lancamento: Date | string
+    latitude: number
+    longitude: number
+    dataCriacao?: Date | string
+    dataAtualizacao?: Date | string
+    empresa: EmpresaCreateNestedOneWithoutLancamentosInput
+    notaFiscal: NotaFiscalCreateNestedOneWithoutLancamentoInput
+    imagens?: ImagemCreateNestedManyWithoutLancamentoInput
+    usuarios: UsuarioCreateNestedOneWithoutLancamentoInput
+  }
+
+  export type LancamentoUncheckedCreateWithoutPeriodoInput = {
+    id?: number
+    data_lancamento: Date | string
+    latitude: number
+    longitude: number
+    dataCriacao?: Date | string
+    dataAtualizacao?: Date | string
+    notaFiscalId: number
+    usuarioId: number
+    empresaId: number
+    imagens?: ImagemUncheckedCreateNestedManyWithoutLancamentoInput
+  }
+
+  export type LancamentoCreateOrConnectWithoutPeriodoInput = {
+    where: LancamentoWhereUniqueInput
+    create: XOR<LancamentoCreateWithoutPeriodoInput, LancamentoUncheckedCreateWithoutPeriodoInput>
+  }
+
+  export type LancamentoCreateManyPeriodoInputEnvelope = {
+    data: LancamentoCreateManyPeriodoInput | LancamentoCreateManyPeriodoInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type EmpresaUpsertWithoutPeriodosInput = {
+    update: XOR<EmpresaUpdateWithoutPeriodosInput, EmpresaUncheckedUpdateWithoutPeriodosInput>
+    create: XOR<EmpresaCreateWithoutPeriodosInput, EmpresaUncheckedCreateWithoutPeriodosInput>
+    where?: EmpresaWhereInput
+  }
+
+  export type EmpresaUpdateToOneWithWhereWithoutPeriodosInput = {
+    where?: EmpresaWhereInput
+    data: XOR<EmpresaUpdateWithoutPeriodosInput, EmpresaUncheckedUpdateWithoutPeriodosInput>
+  }
+
+  export type EmpresaUpdateWithoutPeriodosInput = {
+    cnpj?: StringFieldUpdateOperationsInput | string
+    nomeFantasia?: NullableStringFieldUpdateOperationsInput | string | null
+    senha?: StringFieldUpdateOperationsInput | string
+    razaoSocial?: StringFieldUpdateOperationsInput | string
+    endereco?: StringFieldUpdateOperationsInput | string
+    situacaoCadastral?: StringFieldUpdateOperationsInput | string
+    naturezaJuridica?: StringFieldUpdateOperationsInput | string
+    CNAES?: StringFieldUpdateOperationsInput | string
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    usuarios?: UsuarioUpdateManyWithoutEmpresaNestedInput
+    grupo?: GrupoUpdateManyWithoutEmpresasNestedInput
+    NotaFiscal?: NotaFiscalUpdateManyWithoutEmpresaNestedInput
+    Lancamentos?: LancamentoUpdateManyWithoutEmpresaNestedInput
+  }
+
+  export type EmpresaUncheckedUpdateWithoutPeriodosInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    cnpj?: StringFieldUpdateOperationsInput | string
+    nomeFantasia?: NullableStringFieldUpdateOperationsInput | string | null
+    senha?: StringFieldUpdateOperationsInput | string
+    razaoSocial?: StringFieldUpdateOperationsInput | string
+    endereco?: StringFieldUpdateOperationsInput | string
+    situacaoCadastral?: StringFieldUpdateOperationsInput | string
+    naturezaJuridica?: StringFieldUpdateOperationsInput | string
+    CNAES?: StringFieldUpdateOperationsInput | string
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    usuarios?: UsuarioUncheckedUpdateManyWithoutEmpresaNestedInput
+    grupo?: GrupoUncheckedUpdateManyWithoutEmpresasNestedInput
+    NotaFiscal?: NotaFiscalUncheckedUpdateManyWithoutEmpresaNestedInput
+    Lancamentos?: LancamentoUncheckedUpdateManyWithoutEmpresaNestedInput
+  }
+
+  export type LancamentoUpsertWithWhereUniqueWithoutPeriodoInput = {
+    where: LancamentoWhereUniqueInput
+    update: XOR<LancamentoUpdateWithoutPeriodoInput, LancamentoUncheckedUpdateWithoutPeriodoInput>
+    create: XOR<LancamentoCreateWithoutPeriodoInput, LancamentoUncheckedCreateWithoutPeriodoInput>
+  }
+
+  export type LancamentoUpdateWithWhereUniqueWithoutPeriodoInput = {
+    where: LancamentoWhereUniqueInput
+    data: XOR<LancamentoUpdateWithoutPeriodoInput, LancamentoUncheckedUpdateWithoutPeriodoInput>
+  }
+
+  export type LancamentoUpdateManyWithWhereWithoutPeriodoInput = {
+    where: LancamentoScalarWhereInput
+    data: XOR<LancamentoUpdateManyMutationInput, LancamentoUncheckedUpdateManyWithoutPeriodoInput>
+  }
+
+  export type LancamentoCreateManyUsuariosInput = {
+    id?: number
+    data_lancamento: Date | string
+    latitude: number
+    longitude: number
+    dataCriacao?: Date | string
+    dataAtualizacao?: Date | string
+    periodoId?: number | null
+    notaFiscalId: number
+    empresaId: number
+  }
+
+  export type LancamentoUpdateWithoutUsuariosInput = {
+    data_lancamento?: DateTimeFieldUpdateOperationsInput | Date | string
+    latitude?: FloatFieldUpdateOperationsInput | number
+    longitude?: FloatFieldUpdateOperationsInput | number
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataAtualizacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    empresa?: EmpresaUpdateOneRequiredWithoutLancamentosNestedInput
+    periodo?: PeriodoUpdateOneWithoutLancamentosNestedInput
+    notaFiscal?: NotaFiscalUpdateOneRequiredWithoutLancamentoNestedInput
+    imagens?: ImagemUpdateManyWithoutLancamentoNestedInput
+  }
+
+  export type LancamentoUncheckedUpdateWithoutUsuariosInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    data_lancamento?: DateTimeFieldUpdateOperationsInput | Date | string
+    latitude?: FloatFieldUpdateOperationsInput | number
+    longitude?: FloatFieldUpdateOperationsInput | number
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataAtualizacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    periodoId?: NullableIntFieldUpdateOperationsInput | number | null
+    notaFiscalId?: IntFieldUpdateOperationsInput | number
+    empresaId?: IntFieldUpdateOperationsInput | number
+    imagens?: ImagemUncheckedUpdateManyWithoutLancamentoNestedInput
+  }
+
+  export type LancamentoUncheckedUpdateManyWithoutUsuariosInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    data_lancamento?: DateTimeFieldUpdateOperationsInput | Date | string
+    latitude?: FloatFieldUpdateOperationsInput | number
+    longitude?: FloatFieldUpdateOperationsInput | number
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataAtualizacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    periodoId?: NullableIntFieldUpdateOperationsInput | number | null
+    notaFiscalId?: IntFieldUpdateOperationsInput | number
+    empresaId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type UsuarioCreateManyEmpresaInput = {
+    id?: number
+    email: string
+    senha: string
+    cpf: string
+    nome: string
+    admin?: boolean
+    dataCriacao?: Date | string
+    grupoId?: number | null
+  }
+
+  export type GrupoCreateManyEmpresasInput = {
+    id?: number
+    nome: string
+    permissoes?: GrupoCreatepermissoesInput | $Enums.Permissoes[]
+  }
+
+  export type NotaFiscalCreateManyEmpresaInput = {
+    id?: number
+    numero: string
+    valor?: number | null
+    xmlPath?: string | null
+    dataEmissao: Date | string
+    dataCriacao?: Date | string
+  }
+
+  export type LancamentoCreateManyEmpresaInput = {
+    id?: number
+    data_lancamento: Date | string
+    latitude: number
+    longitude: number
+    dataCriacao?: Date | string
+    dataAtualizacao?: Date | string
+    periodoId?: number | null
+    notaFiscalId: number
+    usuarioId: number
+  }
+
+  export type PeriodoCreateManyEmpresaInput = {
+    id?: number
+    dataInicio?: Date | string
+    dataFim: Date | string
+    fechado?: boolean
+    valorTotal?: number | null
+    observacoes?: string | null
+    dataFechamento?: Date | string | null
+    dataCriacao?: Date | string
+    dataAtualizacao?: Date | string
+  }
+
+  export type UsuarioUpdateWithoutEmpresaInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    senha?: StringFieldUpdateOperationsInput | string
+    cpf?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    grupo?: GrupoUpdateOneWithoutUsuariosNestedInput
+    lancamento?: LancamentoUpdateManyWithoutUsuariosNestedInput
+  }
+
+  export type UsuarioUncheckedUpdateWithoutEmpresaInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    email?: StringFieldUpdateOperationsInput | string
+    senha?: StringFieldUpdateOperationsInput | string
+    cpf?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    grupoId?: NullableIntFieldUpdateOperationsInput | number | null
+    lancamento?: LancamentoUncheckedUpdateManyWithoutUsuariosNestedInput
+  }
+
+  export type UsuarioUncheckedUpdateManyWithoutEmpresaInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    email?: StringFieldUpdateOperationsInput | string
+    senha?: StringFieldUpdateOperationsInput | string
+    cpf?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    grupoId?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type GrupoUpdateWithoutEmpresasInput = {
+    nome?: StringFieldUpdateOperationsInput | string
+    permissoes?: GrupoUpdatepermissoesInput | $Enums.Permissoes[]
+    usuarios?: UsuarioUpdateManyWithoutGrupoNestedInput
+  }
+
+  export type GrupoUncheckedUpdateWithoutEmpresasInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nome?: StringFieldUpdateOperationsInput | string
+    permissoes?: GrupoUpdatepermissoesInput | $Enums.Permissoes[]
+    usuarios?: UsuarioUncheckedUpdateManyWithoutGrupoNestedInput
+  }
+
+  export type GrupoUncheckedUpdateManyWithoutEmpresasInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nome?: StringFieldUpdateOperationsInput | string
+    permissoes?: GrupoUpdatepermissoesInput | $Enums.Permissoes[]
+  }
+
+  export type NotaFiscalUpdateWithoutEmpresaInput = {
+    numero?: StringFieldUpdateOperationsInput | string
+    valor?: NullableFloatFieldUpdateOperationsInput | number | null
+    xmlPath?: NullableStringFieldUpdateOperationsInput | string | null
+    dataEmissao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    lancamento?: LancamentoUpdateOneWithoutNotaFiscalNestedInput
+  }
+
+  export type NotaFiscalUncheckedUpdateWithoutEmpresaInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    numero?: StringFieldUpdateOperationsInput | string
+    valor?: NullableFloatFieldUpdateOperationsInput | number | null
+    xmlPath?: NullableStringFieldUpdateOperationsInput | string | null
+    dataEmissao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    lancamento?: LancamentoUncheckedUpdateOneWithoutNotaFiscalNestedInput
+  }
+
+  export type NotaFiscalUncheckedUpdateManyWithoutEmpresaInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    numero?: StringFieldUpdateOperationsInput | string
+    valor?: NullableFloatFieldUpdateOperationsInput | number | null
+    xmlPath?: NullableStringFieldUpdateOperationsInput | string | null
+    dataEmissao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LancamentoUpdateWithoutEmpresaInput = {
+    data_lancamento?: DateTimeFieldUpdateOperationsInput | Date | string
+    latitude?: FloatFieldUpdateOperationsInput | number
+    longitude?: FloatFieldUpdateOperationsInput | number
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataAtualizacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    periodo?: PeriodoUpdateOneWithoutLancamentosNestedInput
+    notaFiscal?: NotaFiscalUpdateOneRequiredWithoutLancamentoNestedInput
+    imagens?: ImagemUpdateManyWithoutLancamentoNestedInput
+    usuarios?: UsuarioUpdateOneRequiredWithoutLancamentoNestedInput
+  }
+
+  export type LancamentoUncheckedUpdateWithoutEmpresaInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    data_lancamento?: DateTimeFieldUpdateOperationsInput | Date | string
+    latitude?: FloatFieldUpdateOperationsInput | number
+    longitude?: FloatFieldUpdateOperationsInput | number
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataAtualizacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    periodoId?: NullableIntFieldUpdateOperationsInput | number | null
+    notaFiscalId?: IntFieldUpdateOperationsInput | number
+    usuarioId?: IntFieldUpdateOperationsInput | number
+    imagens?: ImagemUncheckedUpdateManyWithoutLancamentoNestedInput
+  }
+
+  export type LancamentoUncheckedUpdateManyWithoutEmpresaInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    data_lancamento?: DateTimeFieldUpdateOperationsInput | Date | string
+    latitude?: FloatFieldUpdateOperationsInput | number
+    longitude?: FloatFieldUpdateOperationsInput | number
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataAtualizacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    periodoId?: NullableIntFieldUpdateOperationsInput | number | null
+    notaFiscalId?: IntFieldUpdateOperationsInput | number
+    usuarioId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type PeriodoUpdateWithoutEmpresaInput = {
+    dataInicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataFim?: DateTimeFieldUpdateOperationsInput | Date | string
+    fechado?: BoolFieldUpdateOperationsInput | boolean
+    valorTotal?: NullableFloatFieldUpdateOperationsInput | number | null
+    observacoes?: NullableStringFieldUpdateOperationsInput | string | null
+    dataFechamento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataAtualizacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    lancamentos?: LancamentoUpdateManyWithoutPeriodoNestedInput
+  }
+
+  export type PeriodoUncheckedUpdateWithoutEmpresaInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    dataInicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataFim?: DateTimeFieldUpdateOperationsInput | Date | string
+    fechado?: BoolFieldUpdateOperationsInput | boolean
+    valorTotal?: NullableFloatFieldUpdateOperationsInput | number | null
+    observacoes?: NullableStringFieldUpdateOperationsInput | string | null
+    dataFechamento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataAtualizacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    lancamentos?: LancamentoUncheckedUpdateManyWithoutPeriodoNestedInput
+  }
+
+  export type PeriodoUncheckedUpdateManyWithoutEmpresaInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    dataInicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataFim?: DateTimeFieldUpdateOperationsInput | Date | string
+    fechado?: BoolFieldUpdateOperationsInput | boolean
+    valorTotal?: NullableFloatFieldUpdateOperationsInput | number | null
+    observacoes?: NullableStringFieldUpdateOperationsInput | string | null
+    dataFechamento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataAtualizacao?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UsuarioCreateManyGrupoInput = {
+    id?: number
+    email: string
+    senha: string
+    cpf: string
+    nome: string
+    admin?: boolean
+    dataCriacao?: Date | string
+    empresaId: number
+  }
+
+  export type UsuarioUpdateWithoutGrupoInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    senha?: StringFieldUpdateOperationsInput | string
+    cpf?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    empresa?: EmpresaUpdateOneRequiredWithoutUsuariosNestedInput
+    lancamento?: LancamentoUpdateManyWithoutUsuariosNestedInput
+  }
+
+  export type UsuarioUncheckedUpdateWithoutGrupoInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    email?: StringFieldUpdateOperationsInput | string
+    senha?: StringFieldUpdateOperationsInput | string
+    cpf?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    empresaId?: IntFieldUpdateOperationsInput | number
+    lancamento?: LancamentoUncheckedUpdateManyWithoutUsuariosNestedInput
+  }
+
+  export type UsuarioUncheckedUpdateManyWithoutGrupoInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    email?: StringFieldUpdateOperationsInput | string
+    senha?: StringFieldUpdateOperationsInput | string
+    cpf?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    empresaId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type ImagemCreateManyLancamentoInput = {
+    id?: number
+    url: string
+    dataCriacao?: Date | string
+    dataAtualizacao?: Date | string
+  }
+
+  export type ImagemUpdateWithoutLancamentoInput = {
+    url?: StringFieldUpdateOperationsInput | string
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataAtualizacao?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ImagemUncheckedUpdateWithoutLancamentoInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataAtualizacao?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ImagemUncheckedUpdateManyWithoutLancamentoInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataAtualizacao?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LancamentoCreateManyPeriodoInput = {
+    id?: number
+    data_lancamento: Date | string
+    latitude: number
+    longitude: number
+    dataCriacao?: Date | string
+    dataAtualizacao?: Date | string
+    notaFiscalId: number
+    usuarioId: number
+    empresaId: number
+  }
+
+  export type LancamentoUpdateWithoutPeriodoInput = {
+    data_lancamento?: DateTimeFieldUpdateOperationsInput | Date | string
+    latitude?: FloatFieldUpdateOperationsInput | number
+    longitude?: FloatFieldUpdateOperationsInput | number
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataAtualizacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    empresa?: EmpresaUpdateOneRequiredWithoutLancamentosNestedInput
+    notaFiscal?: NotaFiscalUpdateOneRequiredWithoutLancamentoNestedInput
+    imagens?: ImagemUpdateManyWithoutLancamentoNestedInput
+    usuarios?: UsuarioUpdateOneRequiredWithoutLancamentoNestedInput
+  }
+
+  export type LancamentoUncheckedUpdateWithoutPeriodoInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    data_lancamento?: DateTimeFieldUpdateOperationsInput | Date | string
+    latitude?: FloatFieldUpdateOperationsInput | number
+    longitude?: FloatFieldUpdateOperationsInput | number
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataAtualizacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    notaFiscalId?: IntFieldUpdateOperationsInput | number
+    usuarioId?: IntFieldUpdateOperationsInput | number
+    empresaId?: IntFieldUpdateOperationsInput | number
+    imagens?: ImagemUncheckedUpdateManyWithoutLancamentoNestedInput
+  }
+
+  export type LancamentoUncheckedUpdateManyWithoutPeriodoInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    data_lancamento?: DateTimeFieldUpdateOperationsInput | Date | string
+    latitude?: FloatFieldUpdateOperationsInput | number
+    longitude?: FloatFieldUpdateOperationsInput | number
+    dataCriacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataAtualizacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    notaFiscalId?: IntFieldUpdateOperationsInput | number
+    usuarioId?: IntFieldUpdateOperationsInput | number
+    empresaId?: IntFieldUpdateOperationsInput | number
+  }
+
+
+
+  /**
+   * Batch Payload for updateMany & deleteMany & createMany
+   */
+
+  export type BatchPayload = {
+    count: number
+  }
+
+  /**
+   * DMMF
+   */
+  export const dmmf: runtime.BaseDMMF
+}
