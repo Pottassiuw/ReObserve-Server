@@ -17,7 +17,6 @@ export const retornarEstatisticasDashboard = async (
     const empresa = await prisma.empresa.findUnique({
       where: { id: empresaId },
     });
-
     if (!empresa) {
       return res.status(404).json({
         error: "Empresa não encontrada",

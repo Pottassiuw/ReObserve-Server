@@ -1,65 +1,79 @@
 import { Request, Response } from "express";
 import prisma from "../Database/prisma/prisma";
 
-// Listar todos os períodos
 export const listarPeriodos = async (req: Request, res: Response) => {
   try {
-    const empresaId = req.auth?.enterprise?.id || req.auth?.user?.empresaId;
+    const empresaId = req.auth?.user?.empresaId || req.auth?.enterprise?.id;
 
     if (!empresaId) {
       return res.status(400).json({
         success: false,
-        error: "EMPRESA_ID_NOT_FOUND",
-        message: "ID da empresa não fornecido",
+        error: "Empresa ou usuários não encontrados",
+        message: "Não foi possível encontrar a empresa ou usuário",
       });
     }
+
     const periodos = await prisma.periodo.findMany({
-      where: { empresaId },
+      where: { empresaId: empresaId },
       include: {
         lancamentos: {
           include: {
             notaFiscal: true,
-            imagens: true,
           },
         },
       },
-      orderBy: {
-        dataCriacao: "desc",
-      },
+      orderBy: { dataCriacao: "desc" },
     });
 
-    return res.status(200).json({
+    const periodosFormatados = periodos.map((p) => ({
+      id: p.id,
+      dataInicio: p.dataInicio,
+      dataFim: p.dataFim,
+      fechado: p.fechado,
+      valorTotal: p.valorTotal || 0,
+      observacoes: p.observacoes,
+      dataFechamento: p.dataFechamento,
+      lancamentos: p.lancamentos,
+    }));
+
+    return res.json({
       success: true,
-      data: periodos,
+      data: periodosFormatados,
     });
   } catch (error: any) {
     console.error("Erro ao listar períodos:", error);
     return res.status(500).json({
       success: false,
-      error: "INTERNAL_ERROR",
+      error: "Erro ao listar períodos",
       message: error.message,
     });
   }
 };
-// Buscar período específico com detalhes
+
 export const verPeriodo = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
-    const empresaId = req.auth?.enterprise?.id || req.auth?.user?.empresaId;
+    const periodoId = parseInt(req.params.id);
+    const empresaId = req.auth?.user?.empresaId || req.auth?.enterprise?.id;
+
+    if (!empresaId) {
+      return res.status(400).json({
+        success: false,
+        error: "Empresa ou usuários não encontrados",
+        message: "Não foi possível encontrar a empresa ou usuário",
+      });
+    }
 
     const periodo = await prisma.periodo.findFirst({
       where: {
-        id: parseInt(id),
+        id: periodoId,
         empresaId,
       },
       include: {
         lancamentos: {
           include: {
             notaFiscal: true,
-            imagens: true,
             usuarios: {
               select: {
-                id: true,
                 nome: true,
                 email: true,
               },
@@ -72,12 +86,11 @@ export const verPeriodo = async (req: Request, res: Response) => {
     if (!periodo) {
       return res.status(404).json({
         success: false,
-        error: "NOT_FOUND",
-        message: "Período não encontrado",
+        error: "Período não encontrado",
       });
     }
 
-    return res.status(200).json({
+    return res.json({
       success: true,
       data: periodo,
     });
@@ -85,99 +98,66 @@ export const verPeriodo = async (req: Request, res: Response) => {
     console.error("Erro ao buscar período:", error);
     return res.status(500).json({
       success: false,
-      error: "INTERNAL_ERROR",
+      error: "Erro ao buscar período",
       message: error.message,
     });
   }
 };
 
-// Criar período (aberto)
 export const criarPeriodo = async (req: Request, res: Response) => {
   try {
-    const empresaId = req.auth?.enterprise?.id || req.auth?.user?.empresaId;
+    const empresaId = req.auth?.user?.empresaId || req.auth?.enterprise?.id;
 
     if (!empresaId) {
       return res.status(400).json({
         success: false,
-        error: "EMPRESA_ID_NOT_FOUND",
-        message: "ID da empresa não fornecido",
+        error: "Empresa ou usuários não encontrados",
+        message: "Não foi possível encontrar a empresa ou usuário",
       });
     }
-
     const { dataInicio, dataFim, observacoes } = req.body;
-
-    if (!dataInicio || !dataFim) {
-      return res.status(400).json({
-        success: false,
-        error: "MISSING_FIELDS",
-        message: "Data de início e fim são obrigatórias",
-      });
-    }
-
-    // Verificar se já existe período aberto
-    const periodoAberto = await prisma.periodo.findFirst({
-      where: {
-        empresaId,
-        fechado: false,
-      },
-    });
-
-    if (periodoAberto) {
-      return res.status(400).json({
-        success: false,
-        error: "OPEN_PERIOD_EXISTS",
-        message: "Já existe um período aberto. Feche-o antes de criar um novo.",
-      });
-    }
 
     const periodo = await prisma.periodo.create({
       data: {
         dataInicio: new Date(dataInicio),
         dataFim: new Date(dataFim),
-        fechado: false,
         observacoes,
         empresaId,
+        fechado: false,
       },
     });
 
-    return res.status(201).json({
+    return res.json({
       success: true,
-      message: "Período criado com sucesso",
       data: periodo,
+      message: "Período criado com sucesso",
     });
   } catch (error: any) {
     console.error("Erro ao criar período:", error);
     return res.status(500).json({
       success: false,
-      error: "INTERNAL_ERROR",
+      error: "Erro ao criar período",
       message: error.message,
     });
   }
 };
 
-// Fechar período - associa lançamentos e calcula total
 export const fecharPeriodo = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
-    const empresaId = req.auth?.enterprise?.id || req.auth?.user?.empresaId;
+    const periodoId = parseInt(req.params.id);
     const { lancamentosIds, observacoes } = req.body;
+    const empresaId = req.auth?.user?.empresaId || req.auth?.enterprise?.id;
 
-    if (
-      !lancamentosIds ||
-      !Array.isArray(lancamentosIds) ||
-      lancamentosIds.length === 0
-    ) {
+    if (!empresaId) {
       return res.status(400).json({
         success: false,
-        error: "NO_RELEASES_SELECTED",
-        message: "Selecione pelo menos um lançamento para fechar o período",
+        error: "Empresa ou usuários não encontrados",
+        message: "Não foi possível encontrar a empresa ou usuário",
       });
     }
-
-    // Buscar período
     const periodo = await prisma.periodo.findFirst({
       where: {
-        id: parseInt(id),
+        id: periodoId,
         empresaId,
       },
     });
@@ -185,92 +165,88 @@ export const fecharPeriodo = async (req: Request, res: Response) => {
     if (!periodo) {
       return res.status(404).json({
         success: false,
-        error: "NOT_FOUND",
-        message: "Período não encontrado",
+        error: "Período não encontrado",
       });
     }
 
     if (periodo.fechado) {
       return res.status(400).json({
         success: false,
-        error: "ALREADY_CLOSED",
-        message: "Este período já está fechado",
+        error: "Período já está fechado",
       });
     }
 
-    // Buscar lançamentos e calcular valor total
+    if (lancamentosIds && lancamentosIds.length > 0) {
+      await prisma.lancamento.updateMany({
+        where: {
+          id: { in: lancamentosIds },
+          empresaId,
+        },
+        data: {
+          periodoId: periodoId,
+        },
+      });
+    }
+
     const lancamentos = await prisma.lancamento.findMany({
-      where: {
-        id: { in: lancamentosIds.map((id: any) => parseInt(id)) },
-        empresaId,
-      },
-      include: {
-        notaFiscal: true,
-      },
+      where: { periodoId },
+      include: { notaFiscal: true },
     });
 
-    if (lancamentos.length === 0) {
-      return res.status(404).json({
-        success: false,
-        error: "NO_RELEASES_FOUND",
-        message: "Nenhum lançamento encontrado",
-      });
-    }
-    // Calcular valor total
-    const valorTotal = lancamentos.reduce(
-      (total: number, lanc: (typeof lancamentos)[0]) => {
-        return total + (lanc.notaFiscal?.valor || 0);
-      },
-      0,
-    );
+    const valorTotal = lancamentos.reduce((total, lanc) => {
+      return total + (lanc.notaFiscal.valor || 0);
+    }, 0);
 
-    // Atualizar período e associar lançamentos
-    const periodoAtualizado = await prisma.periodo.update({
-      where: { id: parseInt(id) },
+    // Fecha o período
+    const periodoFechado = await prisma.periodo.update({
+      where: { id: periodoId },
       data: {
         fechado: true,
-        valorTotal,
-        observacoes,
         dataFechamento: new Date(),
-        lancamentos: {
-          connect: lancamentosIds.map((lancId: number) => ({ id: lancId })),
-        },
+        valorTotal: valorTotal,
+        observacoes: observacoes || periodo.observacoes,
       },
       include: {
         lancamentos: {
           include: {
             notaFiscal: true,
-            imagens: true,
           },
         },
       },
     });
 
-    return res.status(200).json({
+    return res.json({
       success: true,
+      data: periodoFechado,
       message: "Período fechado com sucesso",
-      data: periodoAtualizado,
     });
   } catch (error: any) {
     console.error("Erro ao fechar período:", error);
     return res.status(500).json({
       success: false,
-      error: "INTERNAL_ERROR",
+      error: "Erro ao fechar período",
       message: error.message,
     });
   }
 };
 
-// Reabrir período
 export const reabrirPeriodo = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
-    const empresaId = req.auth?.enterprise?.id || req.auth?.user?.empresaId;
+    const periodoId = parseInt(req.params.id);
+    const empresaId = req.auth?.user?.empresaId || req.auth?.enterprise?.id;
+
+    if (!empresaId) {
+      return res.status(400).json({
+        success: false,
+        error: "Empresa ou usuários não encontrados",
+        message: "Não foi possível encontrar a empresa ou usuário",
+      });
+    }
     const { motivo } = req.body;
 
     const periodo = await prisma.periodo.findFirst({
       where: {
-        id: parseInt(id),
+        id: periodoId,
         empresaId,
       },
     });
@@ -278,21 +254,19 @@ export const reabrirPeriodo = async (req: Request, res: Response) => {
     if (!periodo) {
       return res.status(404).json({
         success: false,
-        error: "NOT_FOUND",
-        message: "Período não encontrado",
+        error: "Período não encontrado",
       });
     }
 
     if (!periodo.fechado) {
       return res.status(400).json({
         success: false,
-        error: "NOT_CLOSED",
-        message: "Este período já está aberto",
+        error: "Período já está aberto",
       });
     }
 
-    const periodoAtualizado = await prisma.periodo.update({
-      where: { id: parseInt(id) },
+    const periodoReaberto = await prisma.periodo.update({
+      where: { id: periodoId },
       data: {
         fechado: false,
         dataFechamento: null,
@@ -300,53 +274,67 @@ export const reabrirPeriodo = async (req: Request, res: Response) => {
           ? `${periodo.observacoes || ""}\n\nReaberto: ${motivo}`
           : periodo.observacoes,
       },
+      include: {
+        lancamentos: {
+          include: {
+            notaFiscal: true,
+          },
+        },
+      },
     });
 
-    return res.status(200).json({
+    return res.json({
       success: true,
+      data: periodoReaberto,
       message: "Período reaberto com sucesso",
-      data: periodoAtualizado,
     });
   } catch (error: any) {
     console.error("Erro ao reabrir período:", error);
     return res.status(500).json({
       success: false,
-      error: "INTERNAL_ERROR",
+      error: "Erro ao reabrir período",
       message: error.message,
     });
   }
 };
 
-// Deletar período
 export const deletarPeriodo = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
-    const empresaId = req.auth?.enterprise?.id || req.auth?.user?.empresaId;
+    const periodoId = parseInt(req.params.id);
+    const empresaId = req.auth?.user?.empresaId || req.auth?.enterprise?.id;
+
+    if (!empresaId) {
+      return res.status(400).json({
+        success: false,
+        error: "Empresa ou usuários não encontrados",
+        message: "Não foi possível encontrar a empresa ou usuário",
+      });
+    }
 
     const periodo = await prisma.periodo.findFirst({
       where: {
-        id: parseInt(id),
+        id: periodoId,
         empresaId,
       },
     });
+
     if (!periodo) {
       return res.status(404).json({
         success: false,
-        error: "NOT_FOUND",
-        message: "Período não encontrado",
+        error: "Período não encontrado",
       });
     }
-    // Desassociar lançamentos antes de deletar
+
     await prisma.lancamento.updateMany({
-      where: { periodoId: parseInt(id) },
+      where: { periodoId },
       data: { periodoId: null },
     });
 
     await prisma.periodo.delete({
-      where: { id: parseInt(id) },
+      where: { id: periodoId },
     });
 
-    return res.status(200).json({
+    return res.json({
       success: true,
       message: "Período deletado com sucesso",
     });
@@ -354,70 +342,51 @@ export const deletarPeriodo = async (req: Request, res: Response) => {
     console.error("Erro ao deletar período:", error);
     return res.status(500).json({
       success: false,
-      error: "INTERNAL_ERROR",
+      error: "Erro ao deletar período",
       message: error.message,
     });
   }
 };
 
-// Buscar lançamentos disponíveis para fechar período
 export const buscarLancamentosDisponiveis = async (
   req: Request,
   res: Response,
 ) => {
   try {
-    const { periodoId } = req.params;
-    const empresaId = req.auth?.enterprise?.id || req.auth?.user?.empresaId;
+    const empresaId = req.auth?.user?.empresaId || req.auth?.enterprise?.id;
 
-    const periodo = await prisma.periodo.findFirst({
-      where: {
-        id: parseInt(periodoId),
-        empresaId,
-      },
-    });
-
-    if (!periodo) {
-      return res.status(404).json({
+    if (!empresaId) {
+      return res.status(400).json({
         success: false,
-        error: "NOT_FOUND",
-        message: "Período não encontrado",
+        error: "Empresa ou usuários não encontrados",
+        message: "Não foi possível encontrar a empresa ou usuário",
       });
     }
-
-    // Buscar lançamentos dentro do período que ainda não estão associados
     const lancamentos = await prisma.lancamento.findMany({
       where: {
         empresaId,
         periodoId: null, // Apenas lançamentos sem período
-        data_lancamento: {
-          gte: periodo.dataInicio,
-          lte: periodo.dataFim,
-        },
       },
       include: {
         notaFiscal: true,
-        imagens: true,
         usuarios: {
           select: {
-            id: true,
             nome: true,
           },
         },
       },
-      orderBy: {
-        data_lancamento: "asc",
-      },
+      orderBy: { data_lancamento: "desc" },
     });
 
-    return res.status(200).json({
+    return res.json({
       success: true,
       data: lancamentos,
     });
   } catch (error: any) {
-    console.error("Erro ao buscar lançamentos disponíveis:", error);
+    console.error("Erro ao buscar lançamentos:", error);
     return res.status(500).json({
       success: false,
-      error: "INTERNAL_ERROR",
+      error: "Erro ao buscar lançamentos disponíveis",
       message: error.message,
     });
   }

@@ -8,7 +8,8 @@ import adminRoutes from "./Routes/adminRoutes";
 import periodRoutes from "./Routes/periodRoutes";
 const app = express();
 const corsOptions = {
-  origin: process.env.FRONTEND_URL,
+  //process.env.FRONTEND_URL ||
+  origin: "http://localhost:4173",
   credentials: true,
   optionsSuccessStatus: 200,
 };

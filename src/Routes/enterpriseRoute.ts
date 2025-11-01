@@ -19,10 +19,12 @@ router.post("/auth/register", criarEmpresa);
 router.post("/auth/login", loginEmpresa);
 router.post("/auth/logout", authSession, logoutEmpresa);
 router.get("/", authSession, retornarEmpresas);
-router.get("/:id", authSession, retornarEmpresasId);
-router.get("/:empresaId/users", authSession, retornarUsuariosEmpresa);
 // Retorna todas as estatisticas da empresa
 router.get("/dashboard", authSession, retornarEstatisticasDashboard);
+
+//ROTAS DINAMICAS
+router.get("/:id", authSession, retornarEmpresasId);
+router.get("/:empresaId/users", authSession, retornarUsuariosEmpresa);
 //Deletar todos os usuários da empresa
 router.delete("/:id/users/delete/", authSession, deletarTodosUsuariosEmpresa);
 //Deltar usuário específico da empresa
