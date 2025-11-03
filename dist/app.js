@@ -13,8 +13,7 @@ const adminRoutes_1 = __importDefault(require("./Routes/adminRoutes"));
 const periodRoutes_1 = __importDefault(require("./Routes/periodRoutes"));
 const app = (0, express_1.default)();
 const corsOptions = {
-    //process.env.FRONTEND_URL ||
-    origin: "http://localhost:4173",
+    origin: /*process.env.FRONTEND_URL */ "http://localhost:4173",
     credentials: true,
     optionsSuccessStatus: 200,
 };

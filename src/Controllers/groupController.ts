@@ -15,7 +15,6 @@ export const CriarGrupo = async (req: Request, res: Response) => {
         message: "Nome do grupo é obrigatório",
       });
     }
-
     if (!permissoes || !Array.isArray(permissoes)) {
       return res.status(400).json({
         success: false,
@@ -223,7 +222,6 @@ export const colocarUsuarioGrupo = async (req: Request, res: Response) => {
       });
     }
 
-    // Validate user exists and belongs to company
     const usuario = await prisma.usuario.findFirst({
       where: {
         id: parseInt(userId),
@@ -239,7 +237,6 @@ export const colocarUsuarioGrupo = async (req: Request, res: Response) => {
       });
     }
 
-    // Validate group exists and belongs to company
     const grupo = await prisma.grupo.findFirst({
       where: {
         id: parseInt(groupId),
@@ -255,7 +252,6 @@ export const colocarUsuarioGrupo = async (req: Request, res: Response) => {
       });
     }
 
-    // Add user to group
     await prisma.usuario.update({
       where: { id: parseInt(userId) },
       data: { grupoId: parseInt(groupId) },
@@ -288,7 +284,6 @@ export const removerUsuarioGrupo = async (req: Request, res: Response) => {
       });
     }
 
-    // Validate user exists, belongs to company and is in the group
     const usuario = await prisma.usuario.findFirst({
       where: {
         id: parseInt(usuarioId),
@@ -306,7 +301,6 @@ export const removerUsuarioGrupo = async (req: Request, res: Response) => {
       });
     }
 
-    // Remove user from group
     await prisma.usuario.update({
       where: { id: parseInt(usuarioId) },
       data: { grupoId: null },

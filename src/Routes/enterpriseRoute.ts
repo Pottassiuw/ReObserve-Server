@@ -21,7 +21,6 @@ router.post("/auth/logout", authSession, logoutEmpresa);
 router.get("/", authSession, retornarEmpresas);
 // Retorna todas as estatisticas da empresa
 router.get("/dashboard", authSession, retornarEstatisticasDashboard);
-
 //ROTAS DINAMICAS
 router.get("/:id", authSession, retornarEmpresasId);
 router.get("/:empresaId/users", authSession, retornarUsuariosEmpresa);

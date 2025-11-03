@@ -204,7 +204,6 @@ const colocarUsuarioGrupo = async (req, res) => {
                 message: "IDs de grupo e usuário são obrigatórios",
             });
         }
-        // Validate user exists and belongs to company
         const usuario = await prisma_1.default.usuario.findFirst({
             where: {
                 id: parseInt(userId),
@@ -218,7 +217,6 @@ const colocarUsuarioGrupo = async (req, res) => {
                 message: "Usuário não encontrado ou não pertence à sua empresa",
             });
         }
-        // Validate group exists and belongs to company
         const grupo = await prisma_1.default.grupo.findFirst({
             where: {
                 id: parseInt(groupId),
@@ -232,7 +230,6 @@ const colocarUsuarioGrupo = async (req, res) => {
                 message: "Grupo não encontrado ou não pertence à sua empresa",
             });
         }
-        // Add user to group
         await prisma_1.default.usuario.update({
             where: { id: parseInt(userId) },
             data: { grupoId: parseInt(groupId) },
@@ -263,7 +260,6 @@ const removerUsuarioGrupo = async (req, res) => {
                 message: "IDs de grupo e usuário são obrigatórios",
             });
         }
-        // Validate user exists, belongs to company and is in the group
         const usuario = await prisma_1.default.usuario.findFirst({
             where: {
                 id: parseInt(usuarioId),
@@ -278,7 +274,6 @@ const removerUsuarioGrupo = async (req, res) => {
                 message: "Usuário não encontrado no grupo ou não pertence à sua empresa",
             });
         }
-        // Remove user from group
         await prisma_1.default.usuario.update({
             where: { id: parseInt(usuarioId) },
             data: { grupoId: null },
