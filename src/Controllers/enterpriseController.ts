@@ -1,5 +1,8 @@
 import { Request, Response } from "express";
 import prisma from "../Database/prisma/prisma";
+import { AtualizarEmpresaInput, atualizarEmpresaSchema } from "../libs/enterpriseSchemas";
+import bcrypt from "bcrypt";
+import { z } from "zod";
 
 export const retornarEmpresas = async (
   req: Request,
@@ -163,16 +166,94 @@ export const deletarTodosUsuariosEmpresa = async (
     const usuarios = await prisma.usuario.findMany({
       where: { empresaId: id },
     });
-    if (!usuarios) {
+    if (!usuarios || usuarios.length === 0) {
       return res.status(404).json({
         error: "Não há usuários em sua empresa para deletar",
         success: false,
       });
     }
-    await prisma.usuario.deleteMany({ where: { empresaId: id } });
+
+    // Se for um usuário (não empresa) tentando deletar todos, excluir o próprio usuário
+    let userIdToExclude: number | null = null;
+    if (req.auth?.type === "user" && req.auth.user) {
+      userIdToExclude = req.auth.user.id;
+    }
+
+    // Construir filtro de usuários para deletar
+    const userFilter: any = { empresaId: id };
+    if (userIdToExclude) {
+      userFilter.id = { not: userIdToExclude };
+    }
+
+    // Buscar IDs dos usuários que serão deletados
+    const usuariosParaDeletar = await prisma.usuario.findMany({
+      where: userFilter,
+      select: { id: true },
+    });
+
+    const userIdsParaDeletar = usuariosParaDeletar.map((u) => u.id);
+
+    if (userIdsParaDeletar.length === 0) {
+      return res.status(404).json({
+        error: "Não há usuários para deletar",
+        success: false,
+      });
+    }
+
+    // Deletar em transação: primeiro os lançamentos, depois os usuários
+    await prisma.$transaction(async (tx: any) => {
+      // 1. Buscar todos os lançamentos dos usuários que serão deletados
+      const lancamentos = await tx.lancamento.findMany({
+        where: {
+          usuarioId: { in: userIdsParaDeletar },
+          empresaId: id,
+        },
+        include: {
+          imagens: true,
+          notaFiscal: true,
+        },
+      });
+
+      // 2. Deletar imagens dos lançamentos
+      if (lancamentos.length > 0) {
+        const lancamentoIds = lancamentos.map((l: any) => l.id);
+        await tx.imagem.deleteMany({
+          where: {
+            lancamentoId: { in: lancamentoIds },
+          },
+        });
+
+        // 3. Deletar notas fiscais dos lançamentos
+        const notaFiscalIds = lancamentos
+          .map((l: any) => l.notaFiscalId)
+          .filter((id: number) => id !== null);
+        if (notaFiscalIds.length > 0) {
+          await tx.notaFiscal.deleteMany({
+            where: {
+              id: { in: notaFiscalIds },
+            },
+          });
+        }
+
+        // 4. Deletar lançamentos
+        await tx.lancamento.deleteMany({
+          where: {
+            id: { in: lancamentoIds },
+          },
+        });
+      }
+
+      // 5. Deletar usuários
+      await tx.usuario.deleteMany({
+        where: userFilter,
+      });
+    });
+
     return res.status(200).json({
       success: true,
-      message: "TODOS Usuários deletados!",
+      message: userIdToExclude
+        ? "Usuários deletados! (Você não foi deletado por motivos de segurança)"
+        : "TODOS Usuários deletados!",
       code: "USERS_DELETED",
     });
   } catch (error: any) {
@@ -219,6 +300,16 @@ export const deletarUsuario = async (
         receivedId: idParam,
       });
     }
+
+    // Verificar se o usuário está tentando se deletar
+    if (req.auth?.type === "user" && req.auth.user && req.auth.user.id === idUser) {
+      return res.status(403).json({
+        error: "Você não pode deletar a si mesmo",
+        success: false,
+        code: "CANNOT_DELETE_SELF",
+      });
+    }
+
     const usuarios = await prisma.usuario.findUnique({
       where: { id: idUser, empresaId: id },
     });
@@ -229,7 +320,56 @@ export const deletarUsuario = async (
         searchedId: id,
       });
     }
-    await prisma.usuario.delete({ where: { id: idUser, empresaId: id } });
+
+    // Deletar em transação: primeiro os lançamentos relacionados, depois o usuário
+    await prisma.$transaction(async (tx: any) => {
+      // 1. Buscar todos os lançamentos do usuário
+      const lancamentos = await tx.lancamento.findMany({
+        where: {
+          usuarioId: idUser,
+          empresaId: id,
+        },
+        include: {
+          imagens: true,
+          notaFiscal: true,
+        },
+      });
+
+      // 2. Deletar imagens dos lançamentos
+      if (lancamentos.length > 0) {
+        const lancamentoIds = lancamentos.map((l: any) => l.id);
+        await tx.imagem.deleteMany({
+          where: {
+            lancamentoId: { in: lancamentoIds },
+          },
+        });
+
+        // 3. Deletar notas fiscais dos lançamentos
+        const notaFiscalIds = lancamentos
+          .map((l: any) => l.notaFiscalId)
+          .filter((id: number) => id !== null);
+        if (notaFiscalIds.length > 0) {
+          await tx.notaFiscal.deleteMany({
+            where: {
+              id: { in: notaFiscalIds },
+            },
+          });
+        }
+
+        // 4. Deletar lançamentos
+        await tx.lancamento.deleteMany({
+          where: {
+            id: { in: lancamentoIds },
+          },
+        });
+      }
+
+      // 5. Deletar usuário
+      await tx.usuario.delete({
+        where: { id: idUser, empresaId: id },
+      });
+    });
+
     return res.status(200).json({
       success: true,
       code: "USER_DELETED",
@@ -330,6 +470,149 @@ export const deletarTodasEmpresas = async (
       error: "Erro interno do servidor",
       success: false,
       errorType: error.constructor.name,
+    });
+  }
+};
+
+export const atualizarEmpresa = async (
+  req: Request,
+  res: Response,
+): Promise<Response | void> => {
+  try {
+    const idParam = req.params.id;
+
+    if (!idParam) {
+      return res.status(400).json({
+        error: "ID não fornecido",
+        success: false,
+      });
+    }
+
+    const id = parseInt(idParam);
+    if (isNaN(id)) {
+      return res.status(400).json({
+        error: "ID deve ser um número",
+        success: false,
+        receivedId: idParam,
+      });
+    }
+
+    // Verificar se a empresa existe
+    const empresaExistente = await prisma.empresa.findUnique({
+      where: { id: id },
+    });
+
+    if (!empresaExistente) {
+      return res.status(404).json({
+        error: "Empresa não encontrada",
+        success: false,
+        searchedId: id,
+      });
+    }
+
+    // Validar dados com Zod
+    const validatedData: AtualizarEmpresaInput = atualizarEmpresaSchema.parse(
+      req.body,
+    );
+
+    // Preparar dados para atualização
+    const updateData: any = {};
+
+    if (validatedData.razaoSocial) {
+      updateData.razaoSocial = validatedData.razaoSocial;
+    }
+
+    if (validatedData.nomeFantasia !== undefined) {
+      updateData.nomeFantasia = validatedData.nomeFantasia;
+    }
+
+    if (validatedData.endereco) {
+      updateData.endereco = validatedData.endereco;
+    }
+
+    if (validatedData.situacaoCadastral) {
+      updateData.situacaoCadastral = validatedData.situacaoCadastral;
+    }
+
+    if (validatedData.naturezaJuridica) {
+      updateData.naturezaJuridica = validatedData.naturezaJuridica;
+    }
+
+    if (validatedData.CNAES) {
+      updateData.CNAES = validatedData.CNAES;
+    }
+
+    if (validatedData.senha) {
+      // Hash da senha se fornecida
+      updateData.senha = await bcrypt.hash(validatedData.senha, 12);
+    }
+
+    // Verificar se há dados para atualizar
+    if (Object.keys(updateData).length === 0) {
+      return res.status(400).json({
+        error: "Nenhum dado fornecido para atualização",
+        success: false,
+      });
+    }
+
+    // Atualizar empresa
+    const empresaAtualizada = await prisma.empresa.update({
+      where: { id: id },
+      data: updateData,
+      select: {
+        id: true,
+        cnpj: true,
+        razaoSocial: true,
+        nomeFantasia: true,
+        endereco: true,
+        situacaoCadastral: true,
+        naturezaJuridica: true,
+        CNAES: true,
+      },
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "Empresa atualizada com sucesso!",
+      enterprise: empresaAtualizada,
+    });
+  } catch (error: any) {
+    // Erro de validação do Zod
+    if (error instanceof z.ZodError) {
+      return res.status(400).json({
+        success: false,
+        error: "Dados inválidos",
+        message: "Dados fornecidos não são válidos",
+        errors: error.issues.map((err: z.ZodIssue) => ({
+          field: err.path.join("."),
+          message: err.message,
+        })),
+      });
+    }
+
+    // Erro de constraint unique do Prisma
+    if (
+      error &&
+      typeof error === "object" &&
+      "code" in error &&
+      error.code === "P2002"
+    ) {
+      return res.status(409).json({
+        success: false,
+        error: "Dados duplicados",
+        message: "Alguns dados já estão em uso por outra empresa",
+      });
+    }
+
+    console.error("Tipo do erro:", error.constructor.name);
+    console.error("Mensagem:", error.message);
+    console.error("Stack:", error.stack);
+
+    return res.status(500).json({
+      error: "Erro interno do servidor",
+      success: false,
+      errorType: error.constructor.name,
+      message: error.message,
     });
   }
 };

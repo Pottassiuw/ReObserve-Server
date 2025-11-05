@@ -16,6 +16,8 @@ router.get("/", authMiddleware_1.authSession, enterpriseController_1.retornarEmp
 router.get("/dashboard", authMiddleware_1.authSession, dashboardController_1.retornarEstatisticasDashboard);
 //ROTAS DINAMICAS
 router.get("/:id", authMiddleware_1.authSession, enterpriseController_1.retornarEmpresasId);
+router.put("/:id", authMiddleware_1.authSession, enterpriseController_1.atualizarEmpresa);
+router.patch("/:id", authMiddleware_1.authSession, enterpriseController_1.atualizarEmpresa);
 router.get("/:empresaId/users", authMiddleware_1.authSession, enterpriseController_1.retornarUsuariosEmpresa);
 //Deletar todos os usuários da empresa
 router.delete("/:id/users/delete/", authMiddleware_1.authSession, enterpriseController_1.deletarTodosUsuariosEmpresa);

@@ -4,6 +4,7 @@ import {
   deletarLancamento,
   verLancamento,
   verTodosLancamentos,
+  atualizarLancamento,
 } from "../Controllers/releaseController";
 import { authSession, requirePermissions } from "../Middlewares/authMiddleware";
 import { Permissoes } from "@prisma/client";
@@ -26,6 +27,18 @@ router.get(
   "/enterprise/:empresaId/releases",
   requirePermissions(Permissoes.verLancamentos),
   verTodosLancamentos,
+);
+
+router.put(
+  "/enterprise/:empresaId/release/:id",
+  requirePermissions(Permissoes.editarLancamentos),
+  atualizarLancamento,
+);
+
+router.patch(
+  "/enterprise/:empresaId/release/:id",
+  requirePermissions(Permissoes.editarLancamentos),
+  atualizarLancamento,
 );
 
 router.delete(

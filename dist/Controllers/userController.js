@@ -5,6 +5,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.atualizarDados = exports.retornarUsuarioId = exports.retornarUsuarios = void 0;
 const prisma_1 = __importDefault(require("../Database/prisma/prisma"));
+const userSchemas_1 = require("../libs/userSchemas");
+const bcrypt_1 = __importDefault(require("bcrypt"));
+const zod_1 = require("zod");
 const retornarUsuarios = async (req, res) => {
     try {
         const user = await prisma_1.default.usuario.findMany({
@@ -54,8 +57,6 @@ const retornarUsuarioId = async (req, res) => {
                 receivedId: idParam,
             });
         }
-        console.log("Buscando Usuário com ID:", id);
-        // Versão mais simples da query
         const usuario = await prisma_1.default.usuario.findFirst({
             where: { id: id },
             include: {
@@ -90,7 +91,6 @@ const retornarUsuarioId = async (req, res) => {
 exports.retornarUsuarioId = retornarUsuarioId;
 const atualizarDados = async (req, res) => {
     try {
-        const { email, senha, nome } = req.body;
         const idParam = req.params.id;
         if (!idParam) {
             return res.status(400).json({
@@ -106,17 +106,63 @@ const atualizarDados = async (req, res) => {
                 receivedId: idParam,
             });
         }
-        const novosDados = prisma_1.default.usuario.update({
+        const usuarioExistente = await prisma_1.default.usuario.findUnique({
             where: { id: id },
-            data: { nome, email, senha },
+        });
+        if (!usuarioExistente) {
+            return res.status(404).json({
+                error: "Usuário não encontrado",
+                success: false,
+                searchedId: id,
+            });
+        }
+        const validatedData = userSchemas_1.atualizarUsuarioSchema.parse(req.body);
+        const updateData = {};
+        if (validatedData.nome) {
+            updateData.nome = validatedData.nome;
+        }
+        if (validatedData.email) {
+            updateData.email = validatedData.email;
+        }
+        if (validatedData.senha) {
+            updateData.senha = await bcrypt_1.default.hash(validatedData.senha, 12);
+        }
+        if (Object.keys(updateData).length === 0) {
+            return res.status(400).json({
+                error: "Nenhum dado fornecido para atualização",
+                success: false,
+            });
+        }
+        const usuarioAtualizado = await prisma_1.default.usuario.update({
+            where: { id: id },
+            data: updateData,
             select: {
                 id: true,
                 nome: true,
                 email: true,
+                cpf: true,
+                empresaId: true,
+                grupoId: true,
             },
+        });
+        return res.status(200).json({
+            success: true,
+            message: "Usuário atualizado com sucesso!",
+            usuario: usuarioAtualizado,
         });
     }
     catch (error) {
+        if (error instanceof zod_1.z.ZodError) {
+            return res.status(400).json({
+                success: false,
+                error: "Dados inválidos",
+                message: "Dados fornecidos não são válidos",
+                errors: error.issues.map((err) => ({
+                    field: err.path.join("."),
+                    message: err.message,
+                })),
+            });
+        }
         console.error("Tipo do erro:", error.constructor.name);
         console.error("Mensagem:", error.message);
         console.error("Stack:", error.stack);
@@ -124,6 +170,7 @@ const atualizarDados = async (req, res) => {
             error: "Erro interno do servidor",
             success: false,
             errorType: error.constructor.name,
+            message: error.message,
         });
     }
 };

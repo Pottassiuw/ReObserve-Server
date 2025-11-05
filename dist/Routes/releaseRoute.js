@@ -9,5 +9,7 @@ router.use(authMiddleware_1.authSession);
 router.post("/enterprise/", (0, authMiddleware_1.requirePermissions)(client_1.Permissoes.lancamento), releaseController_1.criarLancamento);
 router.get("/enterprise/:empresaId/releases/:id", (0, authMiddleware_1.requirePermissions)(client_1.Permissoes.verLancamentos), releaseController_1.verLancamento);
 router.get("/enterprise/:empresaId/releases", (0, authMiddleware_1.requirePermissions)(client_1.Permissoes.verLancamentos), releaseController_1.verTodosLancamentos);
+router.put("/enterprise/:empresaId/release/:id", (0, authMiddleware_1.requirePermissions)(client_1.Permissoes.editarLancamentos), releaseController_1.atualizarLancamento);
+router.patch("/enterprise/:empresaId/release/:id", (0, authMiddleware_1.requirePermissions)(client_1.Permissoes.editarLancamentos), releaseController_1.atualizarLancamento);
 router.delete("/enterprise/:empresaId/release/:id", (0, authMiddleware_1.requirePermissions)(client_1.Permissoes.deletarLancamentos), releaseController_1.deletarLancamento);
 exports.default = router;

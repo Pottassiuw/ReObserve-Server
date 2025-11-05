@@ -6,6 +6,7 @@ import {
   retornarEmpresas,
   retornarEmpresasId,
   deletarUsuario,
+  atualizarEmpresa,
 } from "../Controllers/enterpriseController";
 
 import { retornarEstatisticasDashboard } from "../Controllers/dashboardController";
@@ -23,6 +24,8 @@ router.get("/", authSession, retornarEmpresas);
 router.get("/dashboard", authSession, retornarEstatisticasDashboard);
 //ROTAS DINAMICAS
 router.get("/:id", authSession, retornarEmpresasId);
+router.put("/:id", authSession, atualizarEmpresa);
+router.patch("/:id", authSession, atualizarEmpresa);
 router.get("/:empresaId/users", authSession, retornarUsuariosEmpresa);
 //Deletar todos os usuários da empresa
 router.delete("/:id/users/delete/", authSession, deletarTodosUsuariosEmpresa);

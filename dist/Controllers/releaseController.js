@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deletarLancamento = exports.verLancamento = exports.verTodosLancamentos = exports.criarLancamento = void 0;
+exports.atualizarLancamento = exports.deletarLancamento = exports.verLancamento = exports.verTodosLancamentos = exports.criarLancamento = void 0;
 const prisma_1 = __importDefault(require("../Database/prisma/prisma"));
 const releaseHelpers_1 = require("../Helpers/releaseHelpers");
 const criarLancamento = async (req, res) => {
@@ -246,3 +246,145 @@ const deletarLancamento = async (req, res) => {
     }
 };
 exports.deletarLancamento = deletarLancamento;
+const atualizarLancamento = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { data_lancamento, latitude, longitude, periodoId, notaFiscal, imagensUrls, } = req.body;
+        let empresaId;
+        if (req.auth?.enterprise?.id) {
+            empresaId = req.auth.enterprise.id;
+        }
+        else if (req.auth?.user?.empresaId) {
+            empresaId = req.auth.user.empresaId;
+        }
+        else {
+            return res.status(401).json({
+                success: false,
+                error: "UNAUTHORIZED",
+                message: "Usuário não autenticado",
+            });
+        }
+        // Buscar lançamento existente
+        const lancamentoExistente = await prisma_1.default.lancamento.findFirst({
+            where: {
+                id: parseInt(id),
+                empresaId: empresaId,
+            },
+            include: {
+                notaFiscal: true,
+                imagens: true,
+            },
+        });
+        if (!lancamentoExistente) {
+            return res.status(404).json({
+                success: false,
+                error: "NOT_FOUND",
+                message: "Lançamento não encontrado",
+            });
+        }
+        // Preparar dados de atualização do lançamento
+        const updateLancamentoData = {};
+        if (data_lancamento) {
+            updateLancamentoData.data_lancamento = new Date(data_lancamento);
+        }
+        if (latitude !== undefined) {
+            updateLancamentoData.latitude = parseFloat(latitude);
+        }
+        if (longitude !== undefined) {
+            updateLancamentoData.longitude = parseFloat(longitude);
+        }
+        if (periodoId !== undefined) {
+            updateLancamentoData.periodoId = periodoId ? parseInt(periodoId) : null;
+        }
+        // Preparar dados de atualização da nota fiscal
+        const updateNotaFiscalData = {};
+        if (notaFiscal) {
+            if (notaFiscal.valor !== undefined) {
+                updateNotaFiscalData.valor = parseFloat(notaFiscal.valor);
+            }
+            if (notaFiscal.dataEmissao) {
+                updateNotaFiscalData.dataEmissao = new Date(notaFiscal.dataEmissao);
+            }
+            if (notaFiscal.xmlPath !== undefined) {
+                updateNotaFiscalData.xmlPath = notaFiscal.xmlPath;
+            }
+        }
+        // Atualizar usando transação
+        const resultado = await prisma_1.default.$transaction(async (tx) => {
+            // Atualizar nota fiscal se houver dados
+            if (Object.keys(updateNotaFiscalData).length > 0) {
+                await tx.notaFiscal.update({
+                    where: { id: lancamentoExistente.notaFiscalId },
+                    data: updateNotaFiscalData,
+                });
+            }
+            // Atualizar imagens se fornecidas
+            if (imagensUrls && Array.isArray(imagensUrls)) {
+                // Deletar imagens antigas
+                await tx.imagem.deleteMany({
+                    where: { lancamentoId: lancamentoExistente.id },
+                });
+                // Criar novas imagens
+                if (imagensUrls.length > 0) {
+                    await tx.imagem.createMany({
+                        data: imagensUrls.map((url) => ({
+                            url,
+                            lancamentoId: lancamentoExistente.id,
+                        })),
+                    });
+                }
+            }
+            // Atualizar lançamento se houver dados
+            let lancamentoAtualizado = lancamentoExistente;
+            if (Object.keys(updateLancamentoData).length > 0) {
+                lancamentoAtualizado = await tx.lancamento.update({
+                    where: { id: lancamentoExistente.id },
+                    data: updateLancamentoData,
+                    include: {
+                        imagens: true,
+                        notaFiscal: true,
+                        usuarios: {
+                            select: {
+                                id: true,
+                                nome: true,
+                                email: true,
+                            },
+                        },
+                    },
+                });
+            }
+            else {
+                // Se não atualizou o lançamento, buscar novamente com includes
+                lancamentoAtualizado = await tx.lancamento.findUnique({
+                    where: { id: lancamentoExistente.id },
+                    include: {
+                        imagens: true,
+                        notaFiscal: true,
+                        usuarios: {
+                            select: {
+                                id: true,
+                                nome: true,
+                                email: true,
+                            },
+                        },
+                    },
+                });
+            }
+            return lancamentoAtualizado;
+        });
+        return res.status(200).json({
+            success: true,
+            message: "Lançamento atualizado com sucesso",
+            data: resultado,
+        });
+    }
+    catch (error) {
+        console.error("Erro ao atualizar lançamento:", error);
+        return res.status(500).json({
+            success: false,
+            error: "INTERNAL_ERROR",
+            message: error.message,
+        });
+    }
+};
+exports.atualizarLancamento = atualizarLancamento;
