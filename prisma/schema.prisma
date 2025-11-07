@@ -73,14 +73,14 @@ model Lancamento {
   dataAtualizacao DateTime @updatedAt
   periodoId       Int?
   notaFiscalId    Int      @unique
-  usuarioId       Int
+  usuarioId       Int?
   empresaId       Int
 
   empresa    Empresa    @relation(fields: [empresaId], references: [id])
   periodo    Periodo?   @relation(fields: [periodoId], references: [id], onDelete: SetNull)
   notaFiscal NotaFiscal @relation(fields: [notaFiscalId], references: [id], onDelete: Cascade)
   imagens    Imagem[]
-  usuarios   Usuario    @relation(fields: [usuarioId], references: [id])
+  usuarios   Usuario?   @relation(fields: [usuarioId], references: [id])
 }
 
 model NotaFiscal {

@@ -28,10 +28,36 @@ const criarLancamento = async (req, res) => {
             });
         }
         let empresaId;
-        let finalUsuarioId;
+        let finalUsuarioId = null;
         if (req.auth?.enterprise?.id) {
             empresaId = req.auth.enterprise.id;
-            finalUsuarioId = usuarioId || req.auth.enterprise.id;
+            // Se um usuarioId foi fornecido no body, validar se pertence à empresa
+            if (usuarioId) {
+                const usuario = await prisma_1.default.usuario.findFirst({
+                    where: {
+                        id: usuarioId,
+                        empresaId: empresaId
+                    }
+                });
+                if (!usuario) {
+                    return res.status(400).json({
+                        success: false,
+                        error: "INVALID_USER",
+                        message: "Usuário não pertence a esta empresa",
+                    });
+                }
+                finalUsuarioId = usuarioId;
+            }
+            else {
+                // Se não foi fornecido usuarioId, buscar o primeiro usuário da empresa ou deixar null
+                const primeiroUsuario = await prisma_1.default.usuario.findFirst({
+                    where: { empresaId: empresaId }
+                });
+                if (primeiroUsuario) {
+                    finalUsuarioId = primeiroUsuario.id;
+                }
+                // Se não há usuários na empresa, finalUsuarioId permanece null
+            }
         }
         else if (req.auth?.user) {
             empresaId = req.auth.user.empresaId;
@@ -62,22 +88,27 @@ const criarLancamento = async (req, res) => {
                 message: "Erro ao criar nota fiscal",
             });
         }
-        const lancamento = await prisma_1.default.lancamento.create({
-            data: {
-                data_lancamento: new Date(data_lancamento),
-                latitude: parseFloat(latitude),
-                longitude: parseFloat(longitude),
-                notaFiscalId: notaFiscalCriada.id,
-                usuarioId: finalUsuarioId,
-                empresaId,
-                periodoId: periodoId ? parseInt(periodoId) : null,
-                imagens: {
-                    create: imagensUrls.map((url) => ({ url })),
-                },
+        const lancamentoData = {
+            data_lancamento: new Date(data_lancamento),
+            latitude: parseFloat(latitude),
+            longitude: parseFloat(longitude),
+            notaFiscalId: notaFiscalCriada.id,
+            empresaId,
+            periodoId: periodoId ? parseInt(periodoId) : null,
+            imagens: {
+                create: imagensUrls.map((url) => ({ url })),
             },
+        };
+        // Só adiciona usuarioId se for válido
+        if (finalUsuarioId) {
+            lancamentoData.usuarioId = finalUsuarioId;
+        }
+        const lancamento = await prisma_1.default.lancamento.create({
+            data: lancamentoData,
             include: {
                 imagens: true,
                 notaFiscal: true,
+                usuarios: true,
             },
         });
         return res.status(201).json({
@@ -151,7 +182,20 @@ exports.verTodosLancamentos = verTodosLancamentos;
 const verLancamento = async (req, res) => {
     try {
         const { id } = req.params;
-        const empresaId = req.auth.user.empresaId;
+        let empresaId;
+        if (req.auth?.enterprise?.id) {
+            empresaId = req.auth.enterprise.id;
+        }
+        else if (req.auth?.user?.empresaId) {
+            empresaId = req.auth.user.empresaId;
+        }
+        else {
+            return res.status(401).json({
+                success: false,
+                error: "UNAUTHORIZED",
+                message: "Usuário não autenticado",
+            });
+        }
         const lancamento = await prisma_1.default.lancamento.findFirst({
             where: {
                 id: parseInt(id),
@@ -194,7 +238,20 @@ exports.verLancamento = verLancamento;
 const deletarLancamento = async (req, res) => {
     try {
         const { id } = req.params;
-        const empresaId = req.auth.user.empresaId;
+        let empresaId;
+        if (req.auth?.enterprise?.id) {
+            empresaId = req.auth.enterprise.id;
+        }
+        else if (req.auth?.user?.empresaId) {
+            empresaId = req.auth.user.empresaId;
+        }
+        else {
+            return res.status(401).json({
+                success: false,
+                error: "UNAUTHORIZED",
+                message: "Usuário não autenticado",
+            });
+        }
         const lancamento = await prisma_1.default.lancamento.findFirst({
             where: {
                 id: parseInt(id),

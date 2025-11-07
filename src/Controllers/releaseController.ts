@@ -38,11 +38,40 @@ export const criarLancamento = async (req: Request, res: Response) => {
     }
 
     let empresaId: number;
-    let finalUsuarioId: number;
+    let finalUsuarioId: number | null = null;
 
     if (req.auth?.enterprise?.id) {
       empresaId = req.auth.enterprise.id;
-      finalUsuarioId = usuarioId || req.auth.enterprise.id;
+      
+      // Se um usuarioId foi fornecido no body, validar se pertence à empresa
+      if (usuarioId) {
+        const usuario = await prisma.usuario.findFirst({
+          where: {
+            id: usuarioId,
+            empresaId: empresaId
+          }
+        });
+        
+        if (!usuario) {
+          return res.status(400).json({
+            success: false,
+            error: "INVALID_USER",
+            message: "Usuário não pertence a esta empresa",
+          });
+        }
+        
+        finalUsuarioId = usuarioId;
+      } else {
+        // Se não foi fornecido usuarioId, buscar o primeiro usuário da empresa ou deixar null
+        const primeiroUsuario = await prisma.usuario.findFirst({
+          where: { empresaId: empresaId }
+        });
+        
+        if (primeiroUsuario) {
+          finalUsuarioId = primeiroUsuario.id;
+        }
+        // Se não há usuários na empresa, finalUsuarioId permanece null
+      }
     } else if (req.auth?.user) {
       empresaId = req.auth.user.empresaId;
       finalUsuarioId = req.auth.user.id;
@@ -75,22 +104,29 @@ export const criarLancamento = async (req: Request, res: Response) => {
       });
     }
 
-    const lancamento = await prisma.lancamento.create({
-      data: {
-        data_lancamento: new Date(data_lancamento),
-        latitude: parseFloat(latitude),
-        longitude: parseFloat(longitude),
-        notaFiscalId: notaFiscalCriada.id,
-        usuarioId: finalUsuarioId,
-        empresaId,
-        periodoId: periodoId ? parseInt(periodoId) : null,
-        imagens: {
-          create: imagensUrls.map((url: string) => ({ url })),
-        },
+    const lancamentoData: any = {
+      data_lancamento: new Date(data_lancamento),
+      latitude: parseFloat(latitude),
+      longitude: parseFloat(longitude),
+      notaFiscalId: notaFiscalCriada.id,
+      empresaId,
+      periodoId: periodoId ? parseInt(periodoId) : null,
+      imagens: {
+        create: imagensUrls.map((url: string) => ({ url })),
       },
+    };
+
+    // Só adiciona usuarioId se for válido
+    if (finalUsuarioId) {
+      lancamentoData.usuarioId = finalUsuarioId;
+    }
+
+    const lancamento = await prisma.lancamento.create({
+      data: lancamentoData,
       include: {
         imagens: true,
         notaFiscal: true,
+        usuarios: true,
       },
     });
 
@@ -163,7 +199,19 @@ export const verTodosLancamentos = async (req: Request, res: Response) => {
 export const verLancamento = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const empresaId = req.auth!.user!.empresaId;
+    
+    let empresaId: number;
+    if (req.auth?.enterprise?.id) {
+      empresaId = req.auth.enterprise.id;
+    } else if (req.auth?.user?.empresaId) {
+      empresaId = req.auth.user.empresaId;
+    } else {
+      return res.status(401).json({
+        success: false,
+        error: "UNAUTHORIZED",
+        message: "Usuário não autenticado",
+      });
+    }
 
     const lancamento = await prisma.lancamento.findFirst({
       where: {
@@ -207,7 +255,19 @@ export const verLancamento = async (req: Request, res: Response) => {
 export const deletarLancamento = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const empresaId = req.auth!.user!.empresaId;
+    
+    let empresaId: number;
+    if (req.auth?.enterprise?.id) {
+      empresaId = req.auth.enterprise.id;
+    } else if (req.auth?.user?.empresaId) {
+      empresaId = req.auth.user.empresaId;
+    } else {
+      return res.status(401).json({
+        success: false,
+        error: "UNAUTHORIZED",
+        message: "Usuário não autenticado",
+      });
+    }
 
     const lancamento = await prisma.lancamento.findFirst({
       where: {
