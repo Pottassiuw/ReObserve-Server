@@ -1,0 +1,38 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: dockerfile
+    container_name: reobserve-server
+    ports:
+      - "4000:4000"
+    environment:
+      - DATABASE_URL=postgresql://postgres.cnmsdtfzqsyceevqgmak:affix-causing-unjustly-unglue-sandal-earful@aws-0-us-west-2.pooler.supabase.com:6543/postgres?pgbouncer=true
+      - DIRECT_URL=postgresql://postgres.cnmsdtfzqsyceevqgmak:affix-causing-unjustly-unglue-sandal-earful@aws-0-us-west-2.pooler.supabase.com:5432/postgres
+      - PORT=4000
+      - JWT_SECRET=XIZEbnBjneTq/RSggJxb193V8T/Qij1HxzAgSB/GITaL0AVMM9eQdL5VVZuashSw/3JAlqA6MDG6iBu2epYoxw==
+      - PRODUCTION=false
+      - FRONTEND_URL=https://re-observe.vercel.app
+      - FRONTEND_DEV_URL=http://localhost:5173
+    restart: unless-stopped
+    networks:
+      - reobserve-network
+
+  frontend:
+    build:
+      context: ../ReObserve
+      dockerfile: Dockerfile
+    container_name: reobserve-client
+    ports:
+      - "80:80"
+    environment:
+      - VITE_API_URL=/api
+    restart: unless-stopped
+    networks:
+      - reobserve-network
+    depends_on:
+      - app
+
+networks:
+  reobserve-network:
+    driver: bridge
