@@ -8,10 +8,7 @@ import adminRoutes from "./Routes/adminRoutes";
 import periodRoutes from "./Routes/periodRoutes";
 
 const app = express();
-<<<<<<< HEAD
-
 const normalizeOrigin = (origin?: string) => origin?.trim().replace(/\/$/, "");
-
 const configuredOrigins = [
   process.env.FRONTEND_URL,
   process.env.FRONTEND_DEV_URL,
@@ -50,11 +47,8 @@ const corsOptions: CorsOptions = {
 
     callback(new Error(`CORS blocked for origin: ${origin}`));
   },
-=======
 const corsOptions = {
-  // origin: process.env.FRONTEND_URL,
-  origin: "http://localhost:4173",
->>>>>>> 1e7c986d (Fixede some bugs, still missing changin for deploy api keys)
+  origin: process.env.FRONTEND_URL,
   credentials: true,
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
