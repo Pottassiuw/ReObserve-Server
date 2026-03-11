@@ -130,12 +130,14 @@ export const CriarLancamentoSchema = z.object({
   data_lancamento: z.string().datetime('Data de lançamento deve ser válida'),
   latitude: z.union([
     z.number(),
-    z.string().transform(val => parseFloat(val))
-  ]).refine(val => !isNaN(val) && val >= -90 && val <= 90, 'Latitude deve estar entre -90 e 90'),
+    z.string().transform(val => parseFloat(val)),
+    z.null(),
+  ]).refine(val => val === null || (!isNaN(val) && val >= -90 && val <= 90), 'Latitude deve estar entre -90 e 90').optional().nullable(),
   longitude: z.union([
     z.number(),
-    z.string().transform(val => parseFloat(val))
-  ]).refine(val => !isNaN(val) && val >= -180 && val <= 180, 'Longitude deve estar entre -180 e 180'),
+    z.string().transform(val => parseFloat(val)),
+    z.null(),
+  ]).refine(val => val === null || (!isNaN(val) && val >= -180 && val <= 180), 'Longitude deve estar entre -180 e 180').optional().nullable(),
   notaFiscal: NotaFiscalBodySchema.optional(),
   imagensUrls: z.array(z.string().url('URL de imagem deve ser válida')).min(1, 'Pelo menos uma imagem é necessária'),
   periodoId: z.union([z.number(), z.string().transform(val => parseInt(val))]).optional().nullable(),

@@ -1,8 +1,7 @@
 services:
   app:
-    build:
-      context: .
-      dockerfile: dockerfile
+    build: ./
+    image: reobserve.azurecr.io/reobserve-server:latest
     container_name: reobserve-server
     ports:
       - "4000:4000"
@@ -19,9 +18,8 @@ services:
       - reobserve-network
 
   frontend:
-    build:
-      context: ../ReObserve
-      dockerfile: Dockerfile
+    build: ../ReObserve
+    image: reobserve.azurecr.io/reobserve-client:latest
     container_name: reobserve-client
     ports:
       - "80:80"

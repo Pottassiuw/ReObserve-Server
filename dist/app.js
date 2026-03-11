@@ -35,7 +35,6 @@ const isAllowedOrigin = (origin) => {
         vercelPreviewRegex.test(normalizedOrigin));
 };
 const corsOptions = {
-<<<<<<< HEAD
     origin: (origin, callback) => {
         if (isAllowedOrigin(origin)) {
             callback(null, true);
@@ -43,10 +42,6 @@ const corsOptions = {
         }
         callback(new Error(`CORS blocked for origin: ${origin}`));
     },
-=======
-    // origin: process.env.FRONTEND_URL,
-    origin: "http://localhost:4173",
->>>>>>> 1e7c986d (Fixede some bugs, still missing changin for deploy api keys)
     credentials: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],

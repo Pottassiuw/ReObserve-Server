@@ -2,17 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.atualizarEmpresaSchema = exports.criarEmpresaSchema = void 0;
 const zod_1 = require("zod");
-// Função auxiliar para validar CNPJ
 function isValidCNPJ(cnpj) {
-    // Remove formatação (pontos, barras, hífens)
     cnpj = cnpj.replace(/[^\d]+/g, "");
-    // Verifica se tem 14 dígitos
     if (cnpj.length !== 14)
         return false;
-    // Verifica se não são todos iguais (11111111111111, etc)
     if (/^(\d)\1+$/.test(cnpj))
         return false;
-    // Validação dos dígitos verificadores
     let tamanho = cnpj.length - 2;
     let numeros = cnpj.substring(0, tamanho);
     let digitos = cnpj.substring(tamanho);
@@ -40,7 +35,6 @@ function isValidCNPJ(cnpj) {
         return false;
     return true;
 }
-// Schema de validação Zod para criação de empresa
 exports.criarEmpresaSchema = zod_1.z.object({
     cnpj: zod_1.z
         .string()
@@ -77,7 +71,6 @@ exports.criarEmpresaSchema = zod_1.z.object({
         .min(1, "CNAE é obrigatório")
         .max(500, "CNAE deve ter no máximo 500 caracteres"),
 });
-// Schema para atualização (campos opcionais)
 exports.atualizarEmpresaSchema = exports.criarEmpresaSchema.partial().omit({
     cnpj: true, // CNPJ não pode ser alterado
 });

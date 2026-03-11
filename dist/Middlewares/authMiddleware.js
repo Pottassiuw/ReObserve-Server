@@ -4,7 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.requireSuperAdmin = exports.requirePermissions = exports.authSession = void 0;
-// authMiddleware.ts
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const prisma_1 = __importDefault(require("../Database/prisma/prisma"));
 const client_1 = require("@prisma/client");

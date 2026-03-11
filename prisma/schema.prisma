@@ -66,8 +66,8 @@ model Grupo {
 model Lancamento {
   id              Int      @id @default(autoincrement())
   data_lancamento DateTime
-  latitude        Float
-  longitude       Float
+  latitude        Float?
+  longitude       Float?
   dataCriacao     DateTime @default(now())
   dataAtualizacao DateTime @updatedAt
   periodoId       Int?

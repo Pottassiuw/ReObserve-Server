@@ -8,10 +8,8 @@ exports.isValidCNPJ = isValidCNPJ;
 exports.formatCNPJ = formatCNPJ;
 exports.normalizeEnterpriseData = normalizeEnterpriseData;
 exports.lookupCNPJ = lookupCNPJ;
-exports.lookupCNPJWithTimeout = lookupCNPJWithTimeout;
 const axios_1 = __importDefault(require("axios"));
 const zod_1 = require("zod");
-// Validation schema for CNPJ lookup responses
 const cnpjLookupResponseSchema = zod_1.z.object({
     cnpj: zod_1.z.string(),
     nomeFantasia: zod_1.z.string().nullable(),
@@ -113,13 +111,10 @@ async function lookupCNPJws(cnpj) {
                 "User-Agent": "ReObserve/1.0",
             },
         });
-        // cnpj.ws returns all data in the root response
         const data = response.data;
-        // Validate response structure
         if (!data.cnpj || !data.razaoSocial) {
             return null;
         }
-        // Parse the response
         const parsed = cnpjLookupResponseSchema.parse({
             cnpj: data.cnpj,
             nomeFantasia: data.nomeFantasia || null,
@@ -146,59 +141,12 @@ async function lookupCNPJws(cnpj) {
         return null;
     }
 }
-/**
- * Lookup CNPJ using ReceitaWS API (fallback)
- * Returns null if not found or on error
- */
-async function lookupReceitaWS(cnpj) {
-    try {
-        const clean = cleanCNPJ(cnpj);
-        const response = await axios_1.default.get(`https://www.receitaws.com.br/v1/cnpj/${clean}`, {
-            timeout: 5000,
-            headers: {
-                "User-Agent": "ReObserve/1.0",
-            },
-        });
-        const data = response.data;
-        if (data.status === "ERROR" || !data.cnpj) {
-            return null;
-        }
-        const parsed = cnpjLookupResponseSchema.parse({
-            cnpj: data.cnpj,
-            nomeFantasia: data.nome || null,
-            razaoSocial: data.nome || "",
-            naturezaJuridica: "",
-            endereco: data.logradouro || "",
-            numero: data.numero || "",
-            complemento: data.complemento || null,
-            bairro: data.bairro || "",
-            municipio: data.municipio || "",
-            uf: data.uf || "",
-            cep: data.cep || "",
-            CNAES: "",
-            situacaoCadastral: "",
-            dataAbertura: data.abertura || "",
-            email: null,
-            telefone: null,
-            responsavel: null,
-        });
-        return parsed;
-    }
-    catch (error) {
-        console.error("ReceitaWS lookup error:", error);
-        return null;
-    }
-}
 async function lookupCNPJ(cnpj) {
-    // Validate CNPJ format
     if (!isValidCNPJ(cnpj)) {
         throw new Error("CNPJ format inválido");
     }
     try {
         let response = await lookupCNPJws(cnpj);
-        if (!response) {
-            response = await lookupReceitaWS(cnpj);
-        }
         if (!response) {
             return null;
         }
@@ -210,11 +158,4 @@ async function lookupCNPJ(cnpj) {
         }
         throw new Error("CNPJ lookup falhou: erro desconhecido");
     }
-}
-async function lookupCNPJWithTimeout(cnpj, timeoutMs = 10000) {
-    const timeoutPromise = new Promise((resolve) => {
-        setTimeout(() => resolve(null), timeoutMs);
-    });
-    const lookupPromise = lookupCNPJ(cnpj);
-    return Promise.race([lookupPromise, timeoutPromise]);
 }
