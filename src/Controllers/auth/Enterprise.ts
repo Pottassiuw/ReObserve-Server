@@ -26,7 +26,6 @@ const criarEmpresa = async (req: Request, res: Response) => {
       },
     });
 
-    // Resposta sem retornar a senha
     const { senha: _, ...empresaResponse } = empresa;
 
     return res.status(201).json({
@@ -35,7 +34,6 @@ const criarEmpresa = async (req: Request, res: Response) => {
       message: "Empresa criada com sucesso!",
     });
   } catch (error: unknown) {
-    // Erro de validação do Zod
     if (error instanceof z.ZodError) {
       return res.status(400).json({
         success: false,
@@ -43,7 +41,6 @@ const criarEmpresa = async (req: Request, res: Response) => {
       });
     }
 
-    // Erro de constraint unique do Prisma (CNPJ duplicado)
     if (
       error &&
       typeof error === "object" &&
@@ -56,7 +53,6 @@ const criarEmpresa = async (req: Request, res: Response) => {
       });
     }
 
-    // Erro genérico
     console.error("Erro ao criar empresa:", error);
     return res.status(500).json({
       success: false,
@@ -101,7 +97,7 @@ const loginEmpresa = async (req: Request, res: Response): Promise<Response> => {
     return res.json({
       success: true,
       message: "Login realizado com sucesso!",
-      token: token, // Útil para debug e flexibilidade
+      token: token,
       empresa: {
         id: empresa.id,
         nome: empresa.nomeFantasia,

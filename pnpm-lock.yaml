@@ -35,6 +35,9 @@ importers:
       bcrypt:
         specifier: ^6.0.0
         version: 6.0.0
+      consultar-cnpj:
+        specifier: ^1.0.21
+        version: 1.0.21
       cookie-parser:
         specifier: ^1.4.7
         version: 1.4.7
@@ -557,6 +560,9 @@ packages:
   consola@3.4.2:
     resolution: {integrity: sha512-5IKcdX0nnYavi6G7TtOhwkYzyjfJlatbjMjuLSfE2kYT5pMDOilZ4OvMhi637CcDICTmz3wARPoyhqyX1Y+XvA==}
     engines: {node: ^14.18.0 || >=16.10.0}
+
+  consultar-cnpj@1.0.21:
+    resolution: {integrity: sha512-dSPsdU9Ov7ijmWxpEcYykMrDlVFjoOEKRaFTF49ZAesPk/mjkePvenwVqAxd3yxjUAKySDFwd9eqKKJiSadTnQ==}
 
   content-disposition@1.0.0:
     resolution: {integrity: sha512-Au9nRL8VNUut/XSzbQA38+M78dzP4D+eqg3gfJHMIHHYa3bg067xj1KxMUWj+VULbiZMowKngFFbKczUrNJ1mg==}
@@ -1857,6 +1863,12 @@ snapshots:
   confbox@0.2.2: {}
 
   consola@3.4.2: {}
+
+  consultar-cnpj@1.0.21:
+    dependencies:
+      axios: 1.13.6
+    transitivePeerDependencies:
+      - debug
 
   content-disposition@1.0.0:
     dependencies:

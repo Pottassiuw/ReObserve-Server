@@ -1,40 +1,36 @@
-/**
- * Comprehensive error handling for XML processing and release creation
- */
-
 export enum ErrorCode {
   // XML Parsing Errors
-  INVALID_XML_FORMAT = 'INVALID_XML_FORMAT',
-  XML_PARSE_ERROR = 'XML_PARSE_ERROR',
-  INVALID_NFE_STRUCTURE = 'INVALID_NFE_STRUCTURE',
-  NFE_NUMBER_NOT_FOUND = 'NFE_NUMBER_NOT_FOUND',
-  XML_PROCESSING_ERROR = 'XML_PROCESSING_ERROR',
-  
+  INVALID_XML_FORMAT = "INVALID_XML_FORMAT",
+  XML_PARSE_ERROR = "XML_PARSE_ERROR",
+  INVALID_NFE_STRUCTURE = "INVALID_NFE_STRUCTURE",
+  NFE_NUMBER_NOT_FOUND = "NFE_NUMBER_NOT_FOUND",
+  XML_PROCESSING_ERROR = "XML_PROCESSING_ERROR",
+
   // File Upload Errors
-  FILE_TOO_LARGE = 'FILE_TOO_LARGE',
-  FILE_VALIDATION_ERROR = 'FILE_VALIDATION_ERROR',
-  UPLOAD_ERROR = 'UPLOAD_ERROR',
-  
+  FILE_TOO_LARGE = "FILE_TOO_LARGE",
+  FILE_VALIDATION_ERROR = "FILE_VALIDATION_ERROR",
+  UPLOAD_ERROR = "UPLOAD_ERROR",
+
   // Validation Errors
-  MISSING_FIELDS = 'MISSING_FIELDS',
-  INVALID_NFE_DATA = 'INVALID_NFE_DATA',
-  INVALID_INPUT = 'INVALID_INPUT',
-  
+  MISSING_FIELDS = "MISSING_FIELDS",
+  INVALID_NFE_DATA = "INVALID_NFE_DATA",
+  INVALID_INPUT = "INVALID_INPUT",
+
   // Database Errors
-  DUPLICATE_NFE = 'DUPLICATE_NFE',
-  TAX_NOTE_NOT_CREATED = 'TAX_NOTE_NOT_CREATED',
-  
+  DUPLICATE_NFE = "DUPLICATE_NFE",
+  TAX_NOTE_NOT_CREATED = "TAX_NOTE_NOT_CREATED",
+
   // Authorization Errors
-  UNAUTHORIZED = 'UNAUTHORIZED',
-  FORBIDDEN = 'FORBIDDEN',
-  INVALID_USER = 'INVALID_USER',
-  INVALID_EMPRESA_ID = 'INVALID_EMPRESA_ID',
-  
+  UNAUTHORIZED = "UNAUTHORIZED",
+  FORBIDDEN = "FORBIDDEN",
+  INVALID_USER = "INVALID_USER",
+  INVALID_EMPRESA_ID = "INVALID_EMPRESA_ID",
+
   // Not Found Errors
-  NOT_FOUND = 'NOT_FOUND',
-  
+  NOT_FOUND = "NOT_FOUND",
+
   // General Errors
-  INTERNAL_ERROR = 'INTERNAL_ERROR',
+  INTERNAL_ERROR = "INTERNAL_ERROR",
 }
 
 export interface APIErrorResponse {
@@ -74,7 +70,7 @@ export function createErrorResponse(
  */
 export function createSuccessResponse<T = any>(
   data: T,
-  message: string = 'Operação realizada com sucesso',
+  message: string = "Operação realizada com sucesso",
 ): APISuccessResponse<T> {
   return {
     success: true,
@@ -101,7 +97,7 @@ export class APIError extends Error {
     this.errorCode = errorCode;
     this.statusCode = statusCode;
     this.details = details;
-    this.name = 'APIError';
+    this.name = "APIError";
     Object.setPrototypeOf(this, APIError.prototype);
   }
 
@@ -120,9 +116,12 @@ export class APIError extends Error {
  * Specific error for XML parsing failures
  */
 export class XMLParsingError extends APIError {
-  constructor(message: string, errorCode: ErrorCode = ErrorCode.XML_PROCESSING_ERROR) {
+  constructor(
+    message: string,
+    errorCode: ErrorCode = ErrorCode.XML_PROCESSING_ERROR,
+  ) {
     super(errorCode, message, 400);
-    this.name = 'XMLParsingError';
+    this.name = "XMLParsingError";
     Object.setPrototypeOf(this, XMLParsingError.prototype);
   }
 }
@@ -133,7 +132,7 @@ export class XMLParsingError extends APIError {
 export class ValidationError extends APIError {
   constructor(message: string, details?: Record<string, any>) {
     super(ErrorCode.INVALID_INPUT, message, 400, details);
-    this.name = 'ValidationError';
+    this.name = "ValidationError";
     Object.setPrototypeOf(this, ValidationError.prototype);
   }
 }
@@ -142,9 +141,9 @@ export class ValidationError extends APIError {
  * Specific error for authorization failures
  */
 export class AuthenticationError extends APIError {
-  constructor(message: string = 'Usuário não autenticado') {
+  constructor(message: string = "Usuário não autenticado") {
     super(ErrorCode.UNAUTHORIZED, message, 401);
-    this.name = 'AuthenticationError';
+    this.name = "AuthenticationError";
     Object.setPrototypeOf(this, AuthenticationError.prototype);
   }
 }
@@ -153,9 +152,9 @@ export class AuthenticationError extends APIError {
  * Specific error for permission failures
  */
 export class PermissionError extends APIError {
-  constructor(message: string = 'Permissão negada') {
+  constructor(message: string = "Permissão negada") {
     super(ErrorCode.FORBIDDEN, message, 403);
-    this.name = 'PermissionError';
+    this.name = "PermissionError";
     Object.setPrototypeOf(this, PermissionError.prototype);
   }
 }
@@ -164,9 +163,9 @@ export class PermissionError extends APIError {
  * Specific error for not found resources
  */
 export class NotFoundError extends APIError {
-  constructor(message: string = 'Recurso não encontrado') {
+  constructor(message: string = "Recurso não encontrado") {
     super(ErrorCode.NOT_FOUND, message, 404);
-    this.name = 'NotFoundError';
+    this.name = "NotFoundError";
     Object.setPrototypeOf(this, NotFoundError.prototype);
   }
 }
@@ -175,9 +174,9 @@ export class NotFoundError extends APIError {
  * Specific error for database constraint violations
  */
 export class DuplicateError extends APIError {
-  constructor(message: string = 'Dados duplicados') {
+  constructor(message: string = "Dados duplicados") {
     super(ErrorCode.DUPLICATE_NFE, message, 409);
-    this.name = 'DuplicateError';
+    this.name = "DuplicateError";
     Object.setPrototypeOf(this, DuplicateError.prototype);
   }
 }
@@ -186,7 +185,10 @@ export class DuplicateError extends APIError {
  * Generic error handler for controllers
  * Logs the error and returns appropriate response
  */
-export function handleError(error: any, defaultMessage: string = 'Erro ao processar requisição') {
+export function handleError(
+  error: any,
+  defaultMessage: string = "Erro ao processar requisição",
+) {
   if (error instanceof APIError) {
     console.error(`[${error.errorCode}] ${error.message}`);
     return {
@@ -196,32 +198,32 @@ export function handleError(error: any, defaultMessage: string = 'Erro ao proces
   }
 
   if (error instanceof SyntaxError) {
-    console.error('Erro de sintaxe:', error);
+    console.error("Erro de sintaxe:", error);
     return {
       statusCode: 400,
       response: createErrorResponse(
         ErrorCode.INVALID_INPUT,
-        'Dados inválidos fornecidos',
+        "Dados inválidos fornecidos",
         400,
       ),
     };
   }
 
   // Prisma constraint violation
-  if ((error as any)?.code === 'P2002') {
-    console.error('Erro de violação de constraint:', error);
+  if ((error as any)?.code === "P2002") {
+    console.error("Erro de violação de constraint:", error);
     return {
       statusCode: 409,
       response: createErrorResponse(
         ErrorCode.DUPLICATE_NFE,
-        'Este número de NFe já existe',
+        "Este número de NFe já existe",
         409,
       ),
     };
   }
 
   // Generic error
-  console.error('Erro interno:', error);
+  console.error("Erro interno:", error);
   return {
     statusCode: 500,
     response: createErrorResponse(
@@ -245,7 +247,7 @@ export function logError(
   const errorInfo = {
     timestamp,
     context,
-    errorType: error?.constructor?.name || 'Unknown',
+    errorType: error?.constructor?.name || "Unknown",
     message: error?.message,
     ...(additionalInfo && { additionalInfo }),
   };
